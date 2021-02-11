@@ -23,14 +23,23 @@
 
 namespace garana {
 
+ namespace{
+     template<class T>
+     struct item_return{ typedef T type; };
+     
+     template<class T>
+     typename item_return<T>::type item();
+ }
+
  class TreeManager {
 
   public :
-	TreeManager();
+
+    TreeManager();
     TreeManager(std::string infilename);
 
-    template<class gentype>
-    gentype* GetGenTree();
+    GenTree* GetGenTree() const;
+
 
   private:
 
@@ -39,6 +48,8 @@ namespace garana {
 
     std::string   fInFileName = "";
     TFile*        fInFile = nullptr;
+
+    bool fIsStructured = false;
 
     HeaderTree*        fHeaderTree = nullptr;
     StructuredGenTree* fStructGenTree = nullptr;

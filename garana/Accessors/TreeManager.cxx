@@ -31,7 +31,7 @@ void TreeManager::Init() {
     			  << fInFileName << '\n';
     }
 
-	TTree* header = (TTree*)fInFile->FindObjectAny("HeaderTree");
+	TTree* header = (TTree*)fInFile->FindObjectAny("headerTree");
     try {
 	    if(!header)
 		    throw header;
@@ -46,7 +46,7 @@ void TreeManager::Init() {
 
 	TTree* gen = nullptr;
 	try{
-		gen = (TTree*)fInFile->FindObjectAny("GenTree");
+		gen = (TTree*)fInFile->FindObjectAny("genTree");
 		if(!gen)
 			throw gen;
 	}
@@ -65,19 +65,24 @@ void TreeManager::Init() {
 	}
 }
 
-template<class gentype>
-gentype* TreeManager::GetGenTree() {
+GenTree* TreeManager::GetGenTree() const{
+
     try{
     	if(!fStructGenTree && !fFlatGenTree)
     		throw fStructGenTree;
-    	if(!fStructGenTree)
-    		return fFlatGenTree;
-    	else
-    		return fStructGenTree;
+    	if(!fStructGenTree){
+                return fFlatGenTree;
+        }
+    	else{
+                return fStructGenTree;
+        }
     }
     catch(StructuredGenTree* e){
     	std::cerr << "TreeManager::GenTree: no StructGenTree or FlatGenTree found!" << std::endl;
     }
+
+    return nullptr;
+
 }
 
 
