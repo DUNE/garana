@@ -28,7 +28,7 @@ namespace garana {
     float E()                    const;    ///< return total energy [GeV]
     float KE()                   const;
 
-  private:
+  protected:
 
     //member data
     int            fPdg;  ///< particle PDG code
