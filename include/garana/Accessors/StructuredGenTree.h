@@ -2,9 +2,9 @@
 #define GARANA_STRUCTURED_GENTREE_H
 
 //garana includes
-#include "GenTree.h"
-#include "FSParticle.h"
-#include "GTruth.h"
+#include "include/garana/Base/GenTree.h"
+#include "include/garana/DataProducts/FSParticle.h"
+#include "include/garana/DataProducts/GTruth.h"
 
 //c++ includes
 #include <vector>

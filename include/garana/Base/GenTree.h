@@ -21,6 +21,9 @@ namespace garana{
    virtual TLorentzVector NuVertex( UInt_t igen) const = 0;
    virtual Float_t        FSEnergy(UInt_t igen) const = 0;
 
+
+   bool SetBranchAddresses() override;
+
   protected:
 
    std::vector<Int_t>* fGIndex = nullptr;

@@ -7,7 +7,7 @@
 /// This class stores/retrieves the additional information needed (and not in MCTruth) to recreate a genie::EventRecord
 /// for genie based event reweighting.
 
-#include "GTruth.h"
+#include "include/garana/DataProducts/GTruth.h"
 #include <vector>
 #include <iostream>
 #include <string>
@@ -17,8 +17,8 @@
 namespace garana {
 
   //---------------------------------------------------------------
-  GTruth::GTruth()
-    : fVertex(0, 0, 0, 0)
+  GTruth::GTruth() {}
+ /*   : fVertex(0, 0, 0, 0)
     , fweight(0)
     , fprobability(0)
     , fXsec(0)
@@ -64,7 +64,7 @@ namespace garana {
   {
 
   }
-
+*/
   namespace gtruthaux {
     std::string stringifyTLorentzVector(const TLorentzVector& tv4) {
       std::ostringstream s;

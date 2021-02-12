@@ -5,7 +5,7 @@
  *      Author: chilgenb
  */
 
-#include "FlatGenTree.h"
+#include "include/garana/Accessors/FlatGenTree.h"
 
 using namespace garana;
 

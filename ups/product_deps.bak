@@ -1,0 +1,41 @@
+# The parent line must be the first non-comment line in the file
+# This line defines the product name and version
+parent	garana	v01_00_00
+defaultqual	e19
+
+# These optional lines define the installed directories where
+# headers, libraries, and executables will be found
+# Use them only if your product does not conform to the defaults
+# Format: directory_type directory_path directory_name
+# The only recognized values of the first field are fcldir, incdir, libdir, and bindir
+# The only recognized values of the second field are product_dir, fq_dir, and -
+# The third field is not constrained.
+# Defaults:
+# incdir  product_dir  include
+# fcldir  product_dir  fcl
+# libdir  fq_dir       lib
+# bindir  fq_dir       bin
+
+bindir  fq_dir       bin
+
+product         version
+root          v6_22_06a
+end_product_list
+
+# define allowed qualifiers and the corresponding qualifiers for the depdencies.
+# e15  - with gcc 6.4.0 and -std=c++14
+
+qualifier root
+e19:prof e19:debug  G1810a0211a:e1000:k250    dkcharmtau        e19:debug  -nq-          e19:debug      e19:debug  e19:debug  e19:debug  e19:debug  e19:debug e19:debug
+end_qualifier_list
+
+# table fragment to set FW_SEARCH_PATH needed
+# to find gdml files:
+table_fragment_begin
+table_fragment_end
+
+# Preserve tabs and formatting in emacs and vi / vim:
+
+### Local Variables:
+### tab-width: 8
+### End:

@@ -1,26 +1,27 @@
-#include "StructuredGenTree.h"
+
+#include "include/garana/Accessors/StructuredGenTree.h"
 #include <climits>
 
 using namespace garana;
 
 StructuredGenTree::StructuredGenTree() {}
 StructuredGenTree::StructuredGenTree(TTree* tree){
+    std::cout << "call StructuredGen constructor" << std::endl;
     SetupRead(tree); //initialize tree pointer in TreeReader instance and set branch address
 }
 
 bool StructuredGenTree::SetBranchAddresses()
 {
-    //if(DEBUG_GEN) std::cout << " ....inside setbranchaddresses.... " << std::endl;
-
-    // Set object pointer
-    fGTruth = 0;
-    fFSParticles = 0;
+    //if(DEBUG_GEN) 
+    std::cout << " ....inside setbranchaddresses.... " << std::endl;
 
     // Set branch addresses and branch pointers
-    fTreeIn->SetBranchAddress("GTruth",      &fGTruth,     &b_GTruth);
+    fTreeIn->SetBranchAddress("GIndex",      &fGIndex,      &b_GIndex);
+    fTreeIn->SetBranchAddress("GTruth",      &fGTruth,      &b_GTruth);
     fTreeIn->SetBranchAddress("FSParticles", &fFSParticles, &b_FSParticles);
 
-    //if(DEBUG_GEN) std::cout << " fTreeIn::" << fTreeIn->GetEntries() << std::endl;
+    //if(DEBUG_GEN) 
+    std::cout << " fTreeIn::" << fTreeIn->GetEntries() << std::endl;
     return true;
 }
 
@@ -49,8 +50,13 @@ const std::vector<FSParticle>* StructuredGenTree::GetParticles(UInt_t igen) cons
 // returns true if MCTruth (FSParticles) came from GENIE
 Bool_t  StructuredGenTree::IsGenie(UInt_t igen) const {
 
+    std::cout << "GenTree::IsGenie(): check GIndex vs. FSParticles sizes..." << '\n';
+    std::cout << "    GIndex:      " << fGIndex->size() << " vs. " << '\n';
+    std::cout << "    FSParticles: " << fFSParticles->size() << std::endl;
     if(fGIndex->size()==fFSParticles->size()){
+        std::cout << "call CheckFSRange" << std::endl;
         UInt_t index = CheckFSRange(igen) ? igen : 0;
+        std::cout << "index: " << index << std::endl;
         return fGIndex->at(index) != -1;
     }
     else{

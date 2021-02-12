@@ -8,7 +8,7 @@
 #ifndef GARANA_HEADERTREE_H_
 #define GARANA_HEADERTREE_H_
 
-#include "TreeReader.h"
+#include "include/garana/Base/TreeReader.h"
 #include <string>
 
 namespace garana{

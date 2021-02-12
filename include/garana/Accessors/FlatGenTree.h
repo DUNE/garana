@@ -8,7 +8,7 @@
 #ifndef GARANA_FLATGENTREE_H_
 #define GARANA_FLATGENTREE_H_
 
-#include "GenTree.h"
+#include "include/garana/Base/GenTree.h"
 #include <vector>
 
 namespace garana {

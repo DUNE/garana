@@ -5,7 +5,7 @@
  *      Author: chilgenb
  */
 
-#include "TreeManager.h"
+#include "include/garana/Accessors/TreeManager.h"
 #include <iostream>
 
 using namespace garana;

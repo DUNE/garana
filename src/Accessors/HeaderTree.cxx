@@ -5,7 +5,7 @@
  *      Author: chilgenb
  */
 
-#include "HeaderTree.h"
+#include "include/garana/Accessors/HeaderTree.h"
 
 using namespace garana;
 

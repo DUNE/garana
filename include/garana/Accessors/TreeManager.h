@@ -9,9 +9,9 @@
 #define GARANA TREEMANAGER_H_
 
 //garana includes
-#include "HeaderTree.h"
-#include "StructuredGenTree.h"
-#include "FlatGenTree.h"
+#include "include/garana/Accessors/HeaderTree.h"
+#include "include/garana/Accessors/StructuredGenTree.h"
+#include "include/garana/Accessors/FlatGenTree.h"
 
 //ROOT includes
 #include "TTree.h"
