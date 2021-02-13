@@ -10,10 +10,14 @@ project(garana VERSION 1.0.0
 # Only do these if this is the main project, and not if it is included through add_subdirectory
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
+  if(UNIX)
+    set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:\$ORIGIN/../bin:\$ORIGIN")
+  endif()
+
   # Optionally set things like CMAKE_CXX_STANDARD, CMAKE_POSITION_INDEPENDENT_CODE here
 
   # Let's ensure -std=c++xx instead of -std=g++xx
-  #set(CMAKE_CXX_EXTENSIONS OFF)
+  set(CMAKE_CXX_EXTENSIONS OFF)
 
   # Let's nicely support folders in IDEs
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -33,13 +37,23 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   endif()
 endif()
 
-  # find required package: ROOT
-  find_package(ROOT 6.16 CONFIG REQUIRED)
-  if(ROOT_FOUND)
-  else()
-    message(STATUS "ROOT not found!")
-  endif()
+set(BUILD_SHARED_LIBS ON)
 
+# find required package: ROOT
+list(APPEND CMAKE_PREFIX_PATH "$ENV{ROOTSYS}")
+find_package(ROOT 6.16 CONFIG REQUIRED)
+if(ROOT_FOUND)
+  message(STATUS "FOUND ROOT :)")
+else()
+  message(STATUS "ROOT not found!")
+endif()
+
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+set(BUILD_SHARED_LIBS ON)
+set(CMAKE_CXX_FLAGS_INIT "-Wall")
+
+set(BASEPATH "${CMAKE_SOURCE_DIR}")
+include_directories("${BASEPATH}")
 
 # The compiled library code is here
 add_subdirectory(src)
@@ -53,4 +67,3 @@ add_subdirectory(apps)
 #   AND BUILD_TESTING)
 #  add_subdirectory(tests)
 #endif()
-

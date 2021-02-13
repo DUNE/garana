@@ -20,14 +20,18 @@ add_library(GaranaBase SHARED ${SOURCE_LIST} ${HEADER_LIST})
 target_include_directories(GaranaBase PUBLIC ../../include)
 
 # This depends on (header only)
-target_link_libraries(GaranaBase PUBLIC ROOT::Tree)
+target_link_libraries(GaranaBase PUBLIC ROOT::Tree ROOT::Core GaranaDict)
 
 # All users of this library will need at least C++11
-target_compile_features(GaranaBase PUBLIC cxx_std_11)
+#target_compile_features(GaranaBase PUBLIC cxx_std_11)
 
 # IDEs should put the headers in a nice place
 source_group(
   TREE "${PROJECT_SOURCE_DIR}/include"
   PREFIX "Header Files"
-  FILES ${HEADER_LIST})
+  FILES ${HEADER_LIST}
+)
+
+install(TARGETS GaranaBase DESTINATION lib)
+install(FILES ${HEADER_LIST} DESTINATION include)
 

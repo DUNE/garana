@@ -1,12 +1,19 @@
-add_executable(gar gar.cxx)
-target_compile_features(gar PRIVATE cxx_std_17)
 
-target_link_libraries(gar PUBLIC 
+add_executable(gar gar.cxx)
+
+target_include_directories(gar PUBLIC
+                           "${PROJECT_BINARY_DIR}"
+                           )
+
+target_link_libraries(gar PRIVATE
+                        "${ROOT_LIBRARIES}"
+                        #ROOT::Hist,
+                        #ROOT::RIO,
+                        #ROOT::Gpad,
                         GaranaAccessors
                         GaranaBase
                         GaranaProducts
-                        ROOT::Hist
-                        ROOT::RIO
-                        ROOT::Gpad
+                        GaranaDict
 )
 
+install(TARGETS gar DESTINATION bin)

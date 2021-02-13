@@ -8,13 +8,14 @@
 /// for genie based event reweighting.
 
 #include "include/garana/DataProducts/GTruth.h"
+
 #include <vector>
 #include <iostream>
 #include <string>
 #include <sstream> // for ostringstream
 #include <iomanip>
 
-namespace garana {
+using namespace garana;
 
   //---------------------------------------------------------------
   GTruth::GTruth() {}
@@ -131,6 +132,4 @@ namespace garana {
     return output;
   }
 
-} // namespace garana
-
-
+  ClassImp(GTruth)

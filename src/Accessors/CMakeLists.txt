@@ -26,13 +26,17 @@ add_library( GaranaAccessors SHARED ${SOURCE_LIST} ${HEADER_LIST})
 # We need this directory, and users of our library will need it too 
 target_include_directories(GaranaAccessors PUBLIC ../../include)
 
-target_link_libraries(GaranaAccessors PUBLIC GaranaProducts GaranaBase ROOT::RIO ROOT::Tree ROOT::Physics)
+target_link_libraries(GaranaAccessors PUBLIC GaranaProducts GaranaBase ROOT::RIO ROOT::Tree ROOT::Physics ROOT::Core GaranaDict)
 
 # All users of this library will need at least C++11 
-target_compile_features(GaranaAccessors PUBLIC cxx_std_11)
+#target_compile_features(GaranaAccessors PUBLIC cxx_std_11)
 
 # IDEs should put the headers in a nice place
 source_group(
   TREE "${PROJECT_SOURCE_DIR}/include"
   PREFIX "Header Files"
-  FILES ${HEADER_LIST})
+  FILES ${HEADER_LIST}
+)
+
+install(TARGETS GaranaAccessors DESTINATION lib)
+install(FILES ${HEADER_LIST} DESTINATION include)

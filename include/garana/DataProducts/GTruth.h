@@ -15,10 +15,11 @@
 
 #include <iostream>
 #include <TLorentzVector.h>
+#include <TROOT.h>
 
 namespace garana {
 
-  class GTruth {
+  class GTruth : public TObject {
 
   public:
     GTruth();
@@ -85,10 +86,11 @@ namespace garana {
     // Flag for values that might not have been set
     static constexpr double kUndefinedValue = -99999;
 
-  public:
+   public:
     friend std::ostream& operator<< (std::ostream& output, const garana::GTruth &gtruth);
-  };
 
+   ClassDef(GTruth,2)
+  };
 } // end garana namespace
 
 #endif // GARANA_GTRUTH_H
