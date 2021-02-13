@@ -42,4 +42,4 @@ source_group(
 
 install(TARGETS GaranaProducts GaranaDict DESTINATION lib)
 install(FILES ${HEADER_LIST} DESTINATION include)
-install(FILES "${CMAKE_BINARY_DIR}/src/DataProducts/libGaranaDict_rdict.pcm" DESTINATION lib)
+install(FILES "${CMAKE_BINARY_DIR}/garana/src/DataProducts/libGaranaDict_rdict.pcm" DESTINATION lib)

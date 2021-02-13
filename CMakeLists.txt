@@ -50,10 +50,13 @@ endif()
 
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(BUILD_SHARED_LIBS ON)
+#set(CMAKE_CXX_FLAGS "${ROOT_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS_INIT "-Wall")
 
 set(BASEPATH "${CMAKE_SOURCE_DIR}")
 include_directories("${BASEPATH}")
+
+include(${ROOT_USE_FILE})
 
 # The compiled library code is here
 add_subdirectory(src)
