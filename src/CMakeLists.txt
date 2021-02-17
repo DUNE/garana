@@ -1,3 +1,4 @@
 add_subdirectory(DataProducts)
 add_subdirectory(Base)
 add_subdirectory(Accessors)
+add_subdirectory(Processors)

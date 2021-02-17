@@ -19,17 +19,28 @@ namespace garana{
 
 	  HeaderTree();
 	  HeaderTree(TTree* tree);
+	  HeaderTree(TTree* tree, char opt);
 
+	  Int_t Run() const;
+	  Int_t SubRun() const;
 	  std::string* const TreeType() const;
+	  void SetRun(const Int_t run);
+	  void SetSubRun(const Int_t subrun);
+	  void SetTreeType(std::string type);
 
    private:
 
 	  bool SetBranchAddresses() override;
 
 	  //leaf types
-	  std::string* fTreeType = nullptr;
+	  Int_t        fRun = -1;
+	  Int_t        fSubRun = -1;
+      std::string  fTreeType = "";
+      std::string* fTreeTypePtr = &fTreeType;
 
 	  //branches
+	  TBranch* b_Run = nullptr;
+	  TBranch* b_SubRun = nullptr;
 	  TBranch* b_TreeType = nullptr;
 
 

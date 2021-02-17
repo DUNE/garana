@@ -30,13 +30,13 @@ namespace garana {
     TreeManager();
     TreeManager(std::string infilename);
 
+    HeaderTree* GetHeaderTree() const;
     GenTree* GetGenTree() const;
 
 
   private:
 
     void Init();
-    //bool FindTree(std::string name) const;
 
     std::string   fInFileName = "";
     TFile*        fInFile = nullptr;

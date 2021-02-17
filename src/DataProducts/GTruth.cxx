@@ -18,8 +18,8 @@
 using namespace garana;
 
   //---------------------------------------------------------------
-  GTruth::GTruth() {}
- /*   : fVertex(0, 0, 0, 0)
+  GTruth::GTruth()
+    : fVertex(0, 0, 0, 0)
     , fweight(0)
     , fprobability(0)
     , fXsec(0)
@@ -62,10 +62,66 @@ using namespace garana;
     , fNumPiMinus(-1)
     , fResNum(-1)
     , fDecayMode(-1)
-  {
+  {}
 
+  bool GTruth::IsFilled(){
+
+	  //check if all data members still initialized from default constructor
+	  // note some might retain initial values so check
+	  // check if all have init values
+
+      const TLorentzVector emptyVec(0,0,0,0); //initializes to (0,0,0,0)
+
+	  if(
+	         fVertex == emptyVec
+	      && fweight == 0
+	      && fprobability == 0
+	      && fXsec == 0
+	      && fDiffXsec == 0
+	      && fGPhaseSpace == -1
+	      && fProbePDG == -1
+	      && fProbeP4 == emptyVec
+	      && fTgtP4 == emptyVec
+
+	      && ftgtZ == 0
+	      && ftgtA == 0
+	      && ftgtPDG == 0
+	      && fHitNucPDG == kUndefinedValue
+	      && fHitQrkPDG == kUndefinedValue
+	      && !fIsSeaQuark
+	      && fHitNucP4 == emptyVec
+	      && fHitNucPos == 0
+
+	      && fGscatter == -1
+	      && fGint == -1
+
+	      && fgQ2 == kUndefinedValue
+	      && fgq2 == kUndefinedValue
+	      && fgW == kUndefinedValue
+	      && fgT == kUndefinedValue
+	      && fgX == kUndefinedValue
+	      && fgY == kUndefinedValue
+	      && fFSleptonP4 == emptyVec
+	      && fFShadSystP4 == emptyVec
+
+	      && !fIsCharm
+	      && fCharmHadronPdg == 0
+	      && !fIsStrange
+	      && fStrangeHadronPdg == 0
+	      && fNumProton == -1
+	      && fNumNeutron == -1
+	      && fNumPi0 == -1
+	      && fNumPiPlus == -1
+	      && fNumPiMinus == -1
+	      && fResNum == -1
+	      && fDecayMode == -1
+	  ) {
+		  return false;
+	  }
+
+	  return true;
   }
-*/
+
   namespace gtruthaux {
     std::string stringifyTLorentzVector(const TLorentzVector& tv4) {
       std::ostringstream s;

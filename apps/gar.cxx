@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
             std::cout << "check if GENIE" << std::endl;
             if(!gen->IsGenie(i)) continue;
             std::cout << "found GENIE" << std::endl;
-            hnue->Fill(gen->NuP(i).E());
+            hnue->Fill(gen->NuP(i)->E());
             std::cout << "fill hist" << std::endl;
         }
     }

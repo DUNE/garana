@@ -34,6 +34,7 @@ using namespace garana;
  float FSParticle::X()                    const { return fR.X();  }
  float FSParticle::Y()                    const { return fR.Y();  }
  float FSParticle::Z()                    const { return fR.Z();  }
+ float FSParticle::T()                    const { return fR.T();  }
  float FSParticle::Px()                   const { return fP.Px();  }
  float FSParticle::Py()                   const { return fP.Py();  }
  float FSParticle::Pz()                   const { return fP.Pz();  }

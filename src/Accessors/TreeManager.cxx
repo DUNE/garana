@@ -66,6 +66,12 @@ void TreeManager::Init() {
     }
 }//Init()
 
+HeaderTree* TreeManager::GetHeaderTree() const{
+
+	return fHeaderTree;
+
+}
+
 GenTree* TreeManager::GetGenTree() const{
 
     try{

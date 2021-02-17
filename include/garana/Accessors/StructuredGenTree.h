@@ -23,15 +23,16 @@ namespace garana {
     bool SetBranchAddresses() override;
 
     //accessors inherited from GenTree
-    UInt_t         NGen() const override;
-    UInt_t         NFSParticles( UInt_t igen ) const override;
-    Bool_t         IsGenie( UInt_t igen ) const override;
-    Bool_t         IsCC( UInt_t igen ) const override;
-    Int_t          NuPDG( UInt_t igen ) const override;
-    TLorentzVector NuP( UInt_t igen) const override;
-    TLorentzVector NuVertex( UInt_t igen) const override;
-    Float_t        FSEnergy(UInt_t igen) const override;
+    const UInt_t    NGen()                      const override;
+    const UInt_t    NFSParticles( UInt_t igen ) const override;
+    const Bool_t    IsGenie( UInt_t igen )      const override;
+    const Bool_t    IsCC( UInt_t igen )         const override;
+    const Int_t     NuPDG( UInt_t igen )        const override;
+    TLorentzVector* NuP( UInt_t igen)                override;
+    TLorentzVector* NuVertex( UInt_t igen)           override;
+    const Float_t   FSEnergy(UInt_t igen)       const override;
 
+    const GTruth* GetGTruth(UInt_t igen) const;
     const std::vector<FSParticle>* GetParticles(UInt_t igen) const;
 
   private:

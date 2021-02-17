@@ -9,3 +9,7 @@ bool GenTree::SetBranchAddresses(){
     return true;
 
 }
+
+const std::vector<Int_t>* GenTree::GetGIndex() const {
+	return fGIndex;
+}

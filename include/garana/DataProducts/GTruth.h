@@ -13,13 +13,15 @@
 #ifndef GARANA_GTRUTH_H
 #define GARANA_GTRUTH_H
 
+#pragma once
+
 #include <iostream>
 #include <TLorentzVector.h>
 #include <TROOT.h>
 
 namespace garana {
 
-  class GTruth : public TObject {
+  class GTruth: public TObject {
 
   public:
     GTruth();
@@ -86,11 +88,14 @@ namespace garana {
     // Flag for values that might not have been set
     static constexpr double kUndefinedValue = -99999;
 
-   public:
     friend std::ostream& operator<< (std::ostream& output, const garana::GTruth &gtruth);
 
-   ClassDef(GTruth,2)
-  };
+    bool IsFilled();
+
+
+
+   ClassDef(GTruth,2) //
+  }; //class GTruth
 } // end garana namespace
 
 #endif // GARANA_GTRUTH_H

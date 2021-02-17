@@ -22,10 +22,11 @@ namespace garana {
     float X()                    const;    ///< return position x-component [GeV/c]
     float Y()                    const;    ///< return position y-component [GeV/c]
     float Z()                    const;    ///< return position z-component [GeV/c]
+    float T()                    const;    ///< return time [ns]
     float Px()                   const;    ///< return momentum x-component [GeV/c]
     float Py()                   const;    ///< return momentum y-component [GeV/c]
     float Pz()                   const;    ///< return momentum z-component [GeV/c]
-    float P()                    const;    ///< return magnitude of particle momentum
+    float P()                    const;    ///< return magnitude of particle momentum [GeV/c]
     float E()                    const;    ///< return total energy [GeV]
     float KE()                   const;
 

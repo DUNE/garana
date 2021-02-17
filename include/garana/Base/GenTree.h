@@ -12,21 +12,21 @@ namespace garana{
 
    virtual ~GenTree() {};
 
-   virtual UInt_t         NGen() const = 0;
-   virtual UInt_t         NFSParticles( UInt_t igen ) const = 0;
-   virtual Bool_t         IsGenie( UInt_t igen ) const = 0;
-   virtual Bool_t         IsCC( UInt_t igen ) const = 0;
-   virtual Int_t          NuPDG( UInt_t igen ) const = 0;
-   virtual TLorentzVector NuP( UInt_t igen) const = 0;
-   virtual TLorentzVector NuVertex( UInt_t igen) const = 0;
-   virtual Float_t        FSEnergy(UInt_t igen) const = 0;
+   virtual const UInt_t          NGen()                      const = 0;
+   virtual const UInt_t          NFSParticles( UInt_t igen ) const = 0;
+   virtual const Bool_t          IsGenie( UInt_t igen )      const = 0;
+   virtual const Bool_t          IsCC( UInt_t igen )         const = 0;
+   virtual const Int_t           NuPDG( UInt_t igen )        const = 0;
+   virtual       TLorentzVector* NuP( UInt_t igen)                 = 0;
+   virtual       TLorentzVector* NuVertex( UInt_t igen)            = 0;
+   virtual const Float_t         FSEnergy(UInt_t igen)       const = 0;
 
-
+   const std::vector<Int_t>* GetGIndex() const;
    bool SetBranchAddresses() override;
 
   protected:
 
-   std::vector<Int_t>* fGIndex = nullptr;
+   const std::vector<Int_t>* fGIndex = nullptr;
    TBranch* b_GIndex = nullptr;
 
  }; //class
