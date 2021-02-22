@@ -141,9 +141,15 @@ std::cout << "FlatG4Tree SetBranchAddresses()" << std::endl;
 	 return this->fNSim;
  }//
 
+ //FIX ME (dummy implementation)
 vector<TLorentzVector>* FlatG4Tree::SimMom(UInt_t iparticle) {
+	if(iparticle>0)
+		return nullptr;
 	return nullptr;
 }
+// FIX ME (dummy implementation)
 vector<TLorentzVector>* FlatG4Tree::SimPos(UInt_t iparticle) {
+	if(iparticle>0)
+		return nullptr;
 	return nullptr;
 }
