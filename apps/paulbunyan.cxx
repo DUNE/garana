@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 
-#include "include/garana/Processors/MillGenTree.h"
-#include "include/garana/Processors/MillHeaderTree.h"
+#include "garana/Processors/MillGenTree.h"
+#include "garana/Processors/MillHeaderTree.h"
 //#include "include/garana/DataProducts/FSParticle.h"
 //#include "include/garana/DataProducts/GTruth.h"
 
@@ -84,10 +84,10 @@ int main(int argc, char *argv[]) {
     //// done with prerequisites. on to the optional trees.
     // output (flat) trees
     TTree* gen_out     = new TTree("genTree", "generator level info"); //does this overwrite gen above?
-    TTree* g4_out      = nullptr;
-    TTree* det_out     = nullptr;
-    TTree* reco_out    = nullptr;
-    TTree* display_out = nullptr;
+    //TTree* g4_out      = nullptr;
+    //TTree* det_out     = nullptr;
+    //TTree* reco_out    = nullptr;
+    //TTree* display_out = nullptr;
 
     //chop genTree
     if(gen){

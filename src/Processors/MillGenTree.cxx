@@ -6,7 +6,7 @@
  */
 
 //#include "include/garana/Accessors/StructuredGenTree.h"
-#include "include/garana/Processors/MillGenTree.h"
+#include "garana/Processors/MillGenTree.h"
 
 #include <TTree.h>
 
@@ -115,7 +115,7 @@ bool MillGenTree::VerifyBranches() {
     	return false;
     }
 
-    if(branches->GetEntriesFast() != nameToGenBranch.size())
+    if(branches->GetEntriesFast() != (Int_t)nameToGenBranch.size())
     	std::cout << "WARNING(MillGenTree::VerifyBranches): Mismatch in number of branches (expected "
     	          << nameToGenBranch.size() << " but found " << branches->GetEntriesFast()
     	          << ")" << std::endl;

@@ -8,11 +8,17 @@
 #pragma link C++ class std::vector<std::vector<Int_t>>+;
 #pragma link C++ class std::vector<std::vector<Double_t>>+;
 #pragma link C++ class std::vector<std::vector<std::vector<Double_t>>>+;
+#pragma link C++ class std::vector<TLorentzVector>+;
 
 #pragma link C++ class garana::GTruth+;
 #pragma link C++ class std::vector<garana::GTruth>+;
+
 #pragma link C++ class garana::FSParticle+;
 #pragma link C++ class std::vector<garana::FSParticle>+;
 #pragma link C++ class std::vector<std::vector<garana::FSParticle>>+;
+
+#pragma link C++ class garana::G4Particle+;
+#pragma link C++ class std::vector<garana::G4Particle>+;
+//#pragma link C++ class std::vector<std::vector<garana::G4Particle>>+;
 
 #endif

@@ -5,11 +5,9 @@
  *      Author: chilgenb
  */
 
-#include "include/garana/Accessors/FlatGenTree.h"
+#include "garana/Accessors/FlatGenTree.h"
 
 using namespace garana;
-
-FlatGenTree::FlatGenTree() {}
 
 FlatGenTree::FlatGenTree(TTree* tree)
 {
@@ -285,7 +283,14 @@ const Float_t FlatGenTree::FSEnergy(const UInt_t igen) const {
     return e;
 }
 
- void FlatGenTree::FSParticlesFromGTruth(size_t igen, vector<UInt_t>& fsindex){}
+ std::pair<UInt_t,UInt_t> FlatGenTree::FSParticlesFromGTruth(size_t igen) const{
+
+	 if(fGenToFSLimits.size()==0)
+		 return {UINT_MAX,UINT_MAX};
+
+	 return fGenToFSLimits[igen];
+
+ }
 
  void FlatGenTree::FindFSLimits() {
 
@@ -311,7 +316,7 @@ const Float_t FlatGenTree::FSEnergy(const UInt_t igen) const {
 		 return;
 	 }
 
-	 for(UInt_t igen=1; igen<fNGen+1; igen++){
+	 for(UInt_t igen=1; igen<(UInt_t)fNGen+1; igen++){
 
 		 end = fNFS->at(igen-1) - 1 + beg;
 		 std::cout << "igen = " << igen << ", beg = " << beg
@@ -320,7 +325,7 @@ const Float_t FlatGenTree::FSEnergy(const UInt_t igen) const {
 		 std::pair<fsBegin,fsEnd> limits = {beg,end};
 		 fGenToFSLimits.push_back(limits);
 
-		 if(igen<fNGen)
+		 if(igen<(UInt_t)fNGen)
 			 beg = fNFS->at(igen);
 	 }
 

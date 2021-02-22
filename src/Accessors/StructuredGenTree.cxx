@@ -1,10 +1,9 @@
 
-#include "include/garana/Accessors/StructuredGenTree.h"
+#include "garana/Accessors/StructuredGenTree.h"
 #include <climits>
 
 using namespace garana;
 
-StructuredGenTree::StructuredGenTree() {}
 StructuredGenTree::StructuredGenTree(TTree* tree){
 
     SetupRead(tree); //initialize tree pointer in TreeReader instance and set branch address

@@ -5,10 +5,7 @@
  *      Author: chilgenb
  */
 
-#include "include/garana/Accessors/TreeManager.h"
-//#include "include/garana/Accessors/HeaderTree.h"
-//#include "include/garana/Accessors/StructuredGenTree.h"
-//#include "include/garana/Accessors/FlatGenTree.h"
+#include "garana/Accessors/TreeManager.h"
 
 #include <string>
 #include <iostream>
@@ -72,8 +69,9 @@ int main(int argc, char *argv[]) {
     	cerr << "WARNING: test failed. something is amiss with your trees." << endl;
     	return 1;
     }
-    else
+    else {
     	std::cout << "SUCESS!!!!!! =D" << std::endl;
+    }
 
 	return 0;
 }
@@ -150,8 +148,6 @@ namespace{
 				if(g1->IsCC(igen)!=g2->IsCC(igen))
 					return false;
 
-				auto const& vert1 = *(g1->NuVertex(igen));
-				//TLorentzVector* vert2 = g2->NuVertex(igen);
 				if(*(g1->NuVertex(igen)) !=  *(g2->NuVertex(igen)))
 					return false;
 

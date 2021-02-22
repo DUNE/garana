@@ -5,7 +5,7 @@
  *      Author: chilgenb
  */
 
-#include "include/garana/DataProducts/FSParticle.h"
+#include "garana/DataProducts/FSParticle.h"
 #include <climits>
 
 using namespace garana;
