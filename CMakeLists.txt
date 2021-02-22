@@ -52,7 +52,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(CMAKE_CXX_EXTENSIONS OFF)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra -pedantic -Wno-ignored-qualifiers -Wno-inline")
 
-  list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+  #list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
   set(BUILD_SHARED_LIBS ON)
 
@@ -62,11 +62,11 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   endif()
 
   # Enable RPATH support for installed binaries and libraries
-  include(AddInstallRPATHSupport)
-  add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
-                            LIB_DIRS "${CMAKE_INSTALL_FULL_LIBDIR}"
-                            INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}"
-                            USE_LINK_PATH)
+  #include(AddInstallRPATHSupport)
+  #add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
+  #                          LIB_DIRS "${CMAKE_INSTALL_FULL_LIBDIR}"
+  #                          INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}"
+  #                         USE_LINK_PATH)
 
   # Encourage user to specify a build type (e.g. Release, Debug, etc.), otherwise set it to Release.
   if(NOT CMAKE_CONFIGURATION_TYPES)
@@ -94,6 +94,13 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   endif()
 endif() #end if top level project directory
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+include(AddInstallRPATHSupport)
+add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
+                          LIB_DIRS "${CMAKE_INSTALL_FULL_LIBDIR}"
+                          INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}"
+                          USE_LINK_PATH)
 
 # find required package: ROOT
 list(APPEND CMAKE_PREFIX_PATH "$ENV{ROOTSYS}")
