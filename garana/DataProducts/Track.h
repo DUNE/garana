@@ -10,12 +10,12 @@
 
 #include <TLorentzVector.h>
 #include <TVector3.h>
-#include <TROOT.h>
+//#include <TROOT.h>
 
 #include <climits>
 
 namespace garana {
-  class Track : public TObject {
+  class Track { //: public TObject {
 
     public: 
 
@@ -44,7 +44,7 @@ namespace garana {
 	  float*          fCovMatBeg;//[15]; ///< covariance matrix at beginning of track -- packed in a 1D array, assuming symmetry
 	  float*          fCovMatEnd;//[15]; ///< covariance matrix at end of track
 
-	  ClassDef(Track,2)
+	  //ClassDef(Track,2)
 
   }; //class
 }//namespace
