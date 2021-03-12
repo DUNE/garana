@@ -7,7 +7,10 @@
 
 #include "garana/DataProducts/Track.h"
 
+using std::vector;
+using std::pair;
 using namespace garana;
+
 
 Track::Track() :
 		fLenFwd(FLT_MAX),
@@ -16,7 +19,12 @@ Track::Track() :
 		fMomEnd(FLT_MAX),
 		fChiFwd(FLT_MAX),
 		fChiBac(FLT_MAX),
-		fNHits (UINT_MAX)
+		fNHits (UINT_MAX),
+		fChgFwd(INT_MAX),
+		fChgBac(INT_MAX),
+		fIonFwd(FLT_MAX),
+		fIonBac(FLT_MAX)
+
 {
 	fVtx.SetXYZT(FLT_MAX,FLT_MAX,FLT_MAX,FLT_MAX);
 	fEnd.SetXYZT(FLT_MAX,FLT_MAX,FLT_MAX,FLT_MAX);
@@ -37,10 +45,12 @@ Track::Track() :
 	}
 }//
 
-Track::Track(float lenFw, float lenBk, float pBeg, float pEnd,
+Track::Track(float& lenFw, float& lenBk, float& pBeg, float& pEnd,
 		TLorentzVector& vtx, TLorentzVector& end, TVector3& vtxDir, TVector3& endDir,
-		float chiFwd, float chiBac, size_t nHit,
-		float* trkParBeg, float* trkParEnd, float* covarBeg, float* covarEnd ) :
+		float& chiFwd, float& chiBac, size_t& nHit,
+		float* trkParBeg, float* trkParEnd, float* covarBeg, float* covarEnd,
+		int& chargeFwd, int& chargeBac, vector<pair<int,float>>& pidf,
+		vector<pair<int,float>>& pidb, float& ionf, float& ionb ) :
 			fLenFwd(lenFw),
 			fLenBac(lenBk),
 			fMomBeg(pBeg),
@@ -51,13 +61,14 @@ Track::Track(float lenFw, float lenBk, float pBeg, float pEnd,
 			fEndDir(endDir),
 			fChiFwd(chiFwd),
 			fChiBac(chiBac),
-			fNHits (nHit)
+			fNHits (nHit),
+			fChgFwd(chargeFwd),
+			fChgBac(chargeBac),
+			fIonFwd(ionf),
+			fIonBac(ionb),
+			fPidFwd(pidf),
+			fPidBac(pidb)
 {
-
-	//fVtx = vtx;
-	//fEnd = end;
-	//fVtxDir = vtxDir;
-	//fEndDir = endDir;
 
 	for(size_t i=0; i<5; i++) {
 		fTrackParBeg = new float[5];
@@ -73,4 +84,4 @@ Track::Track(float lenFw, float lenBk, float pBeg, float pEnd,
 	}
 }//constructor
 
-ClassImp(Track)
+//ClassImp(Track)
