@@ -25,7 +25,7 @@ end_product_list
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # e15  - with gcc 6.4.0 and -std=c++14
 
-qualifier root              notes
+qualifier root 
 e19:debug e19:p383b:debug
 e19:prof  e19:p383b:prof
 c7:debug  c7:p383b:debug
