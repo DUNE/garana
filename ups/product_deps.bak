@@ -1,6 +1,6 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	garana	v01_00_00
+parent	garana	v00_00_01
 defaultqual	e19
 
 # These optional lines define the installed directories where
@@ -19,14 +19,17 @@ defaultqual	e19
 bindir  fq_dir       bin
 
 product         version
-root          v6_22_06a
+root            v6_22_06a
 end_product_list
 
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # e15  - with gcc 6.4.0 and -std=c++14
 
-qualifier root
-e19:prof e19:debug  G1810a0211a:e1000:k250    dkcharmtau        e19:debug  -nq-          e19:debug      e19:debug  e19:debug  e19:debug  e19:debug  e19:debug e19:debug
+qualifier root              notes
+e19:debug e19:p383b:debug
+e19:prof  e19:p383b:prof
+c7:debug  c7:p383b:debug
+c7:prof   c7:p383b:prof 
 end_qualifier_list
 
 # table fragment to set FW_SEARCH_PATH needed
