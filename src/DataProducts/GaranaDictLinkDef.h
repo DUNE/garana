@@ -21,4 +21,16 @@
 #pragma link C++ class std::vector<garana::G4Particle>+;
 //#pragma link C++ class std::vector<std::vector<garana::G4Particle>>+;
 
+#pragma link C++ class garana::Track+;
+#pragma link C++ class std::vector<garana::Track>+;
+
+#pragma link C++ class garana::Vertex+;
+#pragma link C++ class std::vector<garana::Vertex>+;
+
+#pragma link C++ class garana::Vee+;
+#pragma link C++ class std::vector<garana::Vee>+;
+
+#pragma link C++ class garana::CaloCluster+;
+#pragma link C++ class std::vector<garana::CaloCluster>+;
+
 #endif

@@ -49,8 +49,12 @@ namespace garana {
     RecoTree*    GetRecoTree()    const;
     DisplayTree* GetDisplayTree() const;
 
-    const string genName = "genTree";   //GenTree::treename;
-    const string g4Name  = "g4Tree" ;   //G4Tree::treename;
+    // tree names
+    const string genName  = "genTree";   //GenTree::treename;
+    const string g4Name   = "g4Tree" ;   //G4Tree::treename;
+    const string detName  = "detTree";
+    const string recoName = "recoTree";
+    const string displayName = "displayTree";
 
   private:
 

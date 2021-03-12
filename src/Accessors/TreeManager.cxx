@@ -67,12 +67,12 @@ void TreeManager::Init() {
         fFlatGenTree = new FlatGenTree(gen);
     }
 
-    /// g4Tree
+    /// g4Tree ///
      TTree* g4 = nullptr;
      try{
      	g4 = (TTree*)fInFile->FindObjectAny(g4Name.c_str());
      	if(!g4)
-     		throw gen;
+     		throw g4;
      }
      catch(TTree* t){
      std::cerr << "TreeManager::Init: "
@@ -85,6 +85,26 @@ void TreeManager::Init() {
      }
      else { //flat tree
          fFlatG4Tree = new FlatG4Tree(g4);
+     }
+
+     /// recoTree ///
+     TTree* reco = nullptr;
+     try{
+     	reco = (TTree*)fInFile->FindObjectAny(recoName.c_str());
+     	if(!reco)
+     		throw reco;
+     }
+     catch(TTree* t){
+     std::cerr << "TreeManager::Init: "
+     		  << "No RecoTree found in input file, " << fInFile
+     		  << '\n';
+     }
+
+     if(treeType == "structured"){ //structured tree
+         fStructRecoTree = new StructuredRecoTree(reco);
+     }
+     else { //flat tree
+         fFlatRecoTree = new FlatRecoTree(reco);
      }
 
 }// Init()

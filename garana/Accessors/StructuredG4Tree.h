@@ -33,7 +33,7 @@ namespace garana {
 
    private:
 
-	 //pure virtual function from G4Tree
+	 //pure virtual function from TreeReader
 	 bool SetBranchAddresses() override;
 
 

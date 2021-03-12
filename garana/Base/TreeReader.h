@@ -5,6 +5,7 @@
 #include <TFile.h>
 #include <TTree.h>
 #include <TLorentzVector.h>
+#include <TVector3.h>
 
 // C++ includes
 #include <iostream>
