@@ -13,6 +13,11 @@
 //#include <TROOT.h>
 
 #include <climits>
+#include <vector>
+#include <utility>
+
+using std::pair;
+using std::vector;
 
 namespace garana {
   class Track { //: public TObject {
@@ -20,10 +25,11 @@ namespace garana {
     public: 
 
 	  Track();
-	  Track(float lenFw, float lenBk, float pBeg, float pEnd,
+	  Track(float& lenFw, float& lenBk, float& pBeg, float& pEnd,
 			TLorentzVector& vtx, TLorentzVector& end, TVector3& vtxDir, TVector3& endDir,
-			float chiFwd, float chiBac, size_t nHit,
-			float* trkParBeg, float* trkParEnd, float* covarBeg, float* covarEnd );
+			float& chiFwd, float& chiBac, size_t& nHit,
+			float* trkParBeg, float* trkParEnd, float* covarBeg, float* covarEnd,
+			int& chargeFwd, int& chargeBac, vector<pair<int,float>>& pidf, vector<pair<int,float>>& pidb, float& ionf, float& ionb );
 
     //private:
 
@@ -43,6 +49,13 @@ namespace garana {
 	  float*          fTrackParEnd;//[5]; ///< Track parameters at end of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
 	  float*          fCovMatBeg;//[15]; ///< covariance matrix at beginning of track -- packed in a 1D array, assuming symmetry
 	  float*          fCovMatEnd;//[15]; ///< covariance matrix at end of track
+
+      int             fChgFwd;
+      int             fChgBac;
+      float           fIonFwd;
+      float           fIonBac;
+      vector<pair<int,float>> fPidFwd;
+      vector<pair<int,float>> fPidBac;
 
 	  //ClassDef(Track,2)
 
