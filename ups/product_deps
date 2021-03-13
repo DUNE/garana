@@ -19,27 +19,20 @@ defaultqual	e19
 bindir  fq_dir       bin
 
 product         version
-<<<<<<< Updated upstream
 root           v6_22_06a
-=======
-root            v6_22_06a
->>>>>>> Stashed changes
 end_product_list
 
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # e15  - with gcc 6.4.0 and -std=c++14
 
-<<<<<<< Updated upstream
-qualifier   root            comment
-e19:prof    e19:p383b:prof
-e19:debug   e19:p383b:debug
-=======
-qualifier root              notes
+#qualifier   root            comment
+#e19:prof    e19:p383b:prof
+#e19:debug   e19:p383b:debug
+qualifier root        
 e19:debug e19:p383b:debug
 e19:prof  e19:p383b:prof
 c7:debug  c7:p383b:debug
 c7:prof   c7:p383b:prof 
->>>>>>> Stashed changes
 end_qualifier_list
 
 # table fragment to set FW_SEARCH_PATH needed
