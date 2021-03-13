@@ -72,15 +72,17 @@ Track::Track(const float& lenFw, const float& lenBk, const float& pBeg, const fl
 {
 
 	std::cout << "about to fill fTrackPar" << std::endl;
+
+	fTrackParBeg = new float[5];
+	fTrackParEnd = new float[5];
 	for(size_t i=0; i<5; i++) {
-		fTrackParBeg = new float[5];
-		fTrackParEnd = new float[5];
 		fTrackParBeg[i] = trkParBeg[i];
 		fTrackParEnd[i] = trkParEnd[i];
 	}
+
+	fCovMatBeg =  new float[15];
+	fCovMatEnd =  new float[15];
 	for(size_t i=0; i<15; i++) {
-		fCovMatBeg =  new float[15];
-		fCovMatEnd =  new float[15];
 		fCovMatBeg[i] =  covarBeg[i];
 		fCovMatEnd[i] =  covarEnd[i];
 	}
