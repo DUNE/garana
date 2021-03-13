@@ -6,6 +6,7 @@
  */
 
 #include "garana/DataProducts/Track.h"
+#include <iostream>
 
 using std::vector;
 using std::pair;
@@ -70,6 +71,7 @@ Track::Track(const float& lenFw, const float& lenBk, const float& pBeg, const fl
 			fPidBac(pidb)
 {
 
+	std::cout << "about to fill fTrackPar" << std::endl;
 	for(size_t i=0; i<5; i++) {
 		fTrackParBeg = new float[5];
 		fTrackParEnd = new float[5];
