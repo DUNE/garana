@@ -25,11 +25,12 @@ namespace garana {
     public: 
 
 	  Track();
-	  Track(float& lenFw, float& lenBk, float& pBeg, float& pEnd,
-			TLorentzVector& vtx, TLorentzVector& end, TVector3& vtxDir, TVector3& endDir,
-			float& chiFwd, float& chiBac, size_t& nHit,
-			float* trkParBeg, float* trkParEnd, float* covarBeg, float* covarEnd,
-			int& chargeFwd, int& chargeBac, vector<pair<int,float>>& pidf, vector<pair<int,float>>& pidb, float& ionf, float& ionb );
+	  Track(const float& lenFw, const float& lenBk, const float& pBeg, const float& pEnd,
+			const TLorentzVector& vtx, const TLorentzVector& end, const TVector3& vtxDir, const TVector3& endDir,
+			const float& chiFwd, const float& chiBac, const size_t& nHit,
+			const float* trkParBeg, const float* trkParEnd, const float* covarBeg, const float* covarEnd,
+			const int& chargeFwd, const int& chargeBac, const vector<pair<int,float>>& pidf, const vector<pair<int,float>>& pidb,
+			const float& ionf, const float& ionb );
 
     //private:
 
