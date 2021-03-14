@@ -41,7 +41,7 @@ namespace garana {
 
 	  //vertex
       virtual TLorentzVector GetVertex(size_t ivertex) const = 0;
-      virtual float**        VertexCovariance(size_t ivertex) const = 0;
+      virtual void           VertexCovariance(size_t ivertex, float covar[][3]) const = 0;
 
       //vee
 

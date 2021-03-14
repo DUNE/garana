@@ -16,10 +16,10 @@ Vee::Vee() {
   for(size_t i=0; i<3; i++){
 
 	  //fMomPerHypoth[i].SetPxPyPzE(FLT_MAX,FLT_MAX,FLT_MAX,FLT_MAX);
-	  fCovar = new float*[3];
+	  //fCovar = new float*[3];
 
 	  for(size_t j=0; j<3; j++){
-		  fCovar[i] = new float[3];
+		  //fCovar[i] = new float[3];
 		  fCovar[i][j] = FLT_MAX;
 	  }
   }
@@ -33,6 +33,7 @@ Vee::Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const
   for(size_t i=0; i<3; i++){
 
 	  //fMomPerHypoth[i] = moms[i];
+	  fMomPerHypoth.push_back(moms[i]);
 	  //fCovar = new float*[3];
 
 	  for(size_t j=0; j<3; j++){

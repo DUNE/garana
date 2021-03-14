@@ -82,7 +82,7 @@ TLorentzVector StructuredRecoTree::GetVertex(size_t ivertex)           const {
 	return *(fVertices->at(ivertex).GetVertex());
 }
 
-float**        StructuredRecoTree::VertexCovariance(size_t ivertex) const {
-	return fVertices->at(ivertex).GetCovar();
+void        StructuredRecoTree::VertexCovariance(size_t ivertex, float covar[][3]) const {
+	fVertices->at(ivertex).GetCovar(covar);
 }
 

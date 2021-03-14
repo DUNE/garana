@@ -136,10 +136,8 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
 
  }
 
- float**        FlatRecoTree::VertexCovariance(size_t ivertex) const {
-	 float** covar = new float*[3];
-	 for(size_t i=0; i<3; i++)
-	     covar[i] = new float[3];
+ void        FlatRecoTree::VertexCovariance(size_t ivertex, float covar[][3]) const {
+
 	 covar[0][0] = fVtxCovar11->at(ivertex);
 	 covar[0][1] = fVtxCovar12->at(ivertex);
 	 covar[0][2] = fVtxCovar13->at(ivertex);
@@ -149,5 +147,5 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
 	 covar[2][0] = fVtxCovar31->at(ivertex);
 	 covar[2][1] = fVtxCovar32->at(ivertex);
 	 covar[2][2] = fVtxCovar33->at(ivertex);
-	 return covar;
+
  }

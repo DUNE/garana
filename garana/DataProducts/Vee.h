@@ -30,6 +30,7 @@ namespace garana {
 
 	  vector<TLorentzVector> fMomPerHypoth; ///< four-momentum of vee, one per hypothesis [GeV]
 	  float fChisqr; ///< chi-squared of something ?? FIX ME!
+	  float fCovar[3][3];
 
 	//ClassDef(Vee,2)
 

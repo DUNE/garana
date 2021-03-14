@@ -36,7 +36,7 @@ namespace garana {
 
 	 //vertex
      TLorentzVector GetVertex(size_t ivertex)           const override;
-     float**        VertexCovariance(size_t ivertex) const override;
+     void           VertexCovariance(size_t ivertex, float covar[][3]) const override;
 
    private:
 

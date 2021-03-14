@@ -22,7 +22,7 @@ namespace garana {
 	  Vertex(const TLorentzVector& position, const float** covar);
 
 	  TLorentzVector* GetVertex();
-	  float**         GetCovar();
+	  void            GetCovar( float covar[][3]);
 
     protected:
 
