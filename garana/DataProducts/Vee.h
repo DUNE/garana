@@ -21,7 +21,7 @@ namespace garana {
 	  typedef enum { Kshort=0, Lambda1=1, Lambda2=2 } hypothesis_t;
 
 	  Vee();
-	  Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const float& chisqr, const float** covar);
+	  Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const float& chisqr, const float* covar);
 
 	  float const& GetChiSqr();
       const vector<TLorentzVector>* GetMomentaPerHypothesis();

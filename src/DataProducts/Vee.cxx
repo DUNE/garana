@@ -25,7 +25,7 @@ Vee::Vee() {
   }
 } //
 
-Vee::Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const float& chisqr, const float** covar) {
+Vee::Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const float& chisqr, const float* covar) {
 
   fChisqr = chisqr;
   fPosition = vertex;
@@ -38,7 +38,7 @@ Vee::Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const
 
 	  for(size_t j=0; j<3; j++){
 		//  fCovar[i] = new float[3];
-		  fCovar[i][j] = covar[i][j]; //TODO check input array dimensions
+		  fCovar[i][j] = covar[0]; //TODO check input array dimensions
 
 	  }
   }
