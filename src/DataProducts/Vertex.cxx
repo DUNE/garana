@@ -21,14 +21,14 @@ Vertex::Vertex() {
 	  }
 } //
 
-Vertex::Vertex(const TLorentzVector& position, const float** covar) {
+Vertex::Vertex(const TLorentzVector& position, const float* covar) {
 
 	  fPosition = position;
 	  for(size_t i=0; i<3; i++){
 		  //fCovar = new float*[3];
 		  for(size_t j=0; j<3; j++){
 			  //fCovar[i] = new float[3];
-			  fCovar[i][j] = covar[i][j]; //TODO check input array dimensions
+			  fCovar[i][j] = covar[i]; //TODO check input array dimensions
 		  }
 	  }
 } //
