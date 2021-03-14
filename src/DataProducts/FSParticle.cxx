@@ -43,4 +43,4 @@ using namespace garana;
  float FSParticle::KE()                   const { return E()-sqrt(E()*E()-P()*P()); }
 
 
-ClassImp(FSParticle)
+//ClassImp(FSParticle)

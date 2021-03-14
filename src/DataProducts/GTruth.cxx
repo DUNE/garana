@@ -188,4 +188,4 @@ using namespace garana;
     return output;
   }
 
-  ClassImp(GTruth)
+  //ClassImp(GTruth)

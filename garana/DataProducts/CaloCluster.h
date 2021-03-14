@@ -10,14 +10,14 @@
 
 #include <TLorentzVector.h>
 #include <TVector3.h>
-#include <TROOT.h>
+//#include <TROOT.h>
 
 #include <vector>
 #include <climits>
 
 namespace garana {
 
-  class CaloCluster : public TObject {
+  class CaloCluster { //: public TObject {
 
     public: 
 
@@ -45,7 +45,7 @@ namespace garana {
       float fPhi;               ///< intrasic direction of the cluster phi
       std::vector<TVector3> fEigenVecs; ///< Eigenvectors of the cluster in ascending order (principal axis with smallest inertial mass) normalised to 1
 
-    ClassDef(CaloCluster,2)
+    //ClassDef(CaloCluster,2)
 
   }; //class
 }//namespace

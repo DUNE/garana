@@ -75,4 +75,4 @@ CaloCluster::CaloCluster(TLorentzVector& pos, float energy, float energyErr, flo
 	 return &fEigenVecs;
  }
 
- ClassImp(CaloCluster)
+ //ClassImp(CaloCluster)

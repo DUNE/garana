@@ -21,7 +21,7 @@ Vertex::Vertex() {
 	  }
 } //
 
-Vertex::Vertex(TLorentzVector& position, float** covar) {
+Vertex::Vertex(const TLorentzVector& position, const float** covar) {
 
 	  fPosition = position;
 	  for(size_t i=0; i<3; i++){
@@ -41,4 +41,4 @@ float** Vertex::GetCovar()  {
 	return fCovar;
 }
 
-ClassImp(Vertex)
+//ClassImp(Vertex)

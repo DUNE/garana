@@ -7,6 +7,6 @@
 
 #include "garana/DataProducts/G4Particle.h"
 
-using namespace garana;
+//using namespace garana;
 
-ClassImp(G4Particle)
+//ClassImp(G4Particle)

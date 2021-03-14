@@ -10,6 +10,8 @@
 
 #include "garana/DataProducts/Vertex.h"
 
+using std::vector;
+
 namespace garana {
   class Vee : public Vertex {
 
@@ -19,17 +21,17 @@ namespace garana {
 	  typedef enum { Kshort=0, Lambda1=1, Lambda2=2 } hypothesis_t;
 
 	  Vee();
-	  Vee(TLorentzVector& vertex, TLorentzVector* moms, float chisqr, float** covar);
+	  Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const float& chisqr, const float** covar);
 
-	  float GetChiSqr();
-      TLorentzVector* GetMomentaPerHypothesis();
+	  float const& GetChiSqr();
+      const vector<TLorentzVector>* GetMomentaPerHypothesis();
 
     private:
 
-	  TLorentzVector fMomPerHypoth[3]; ///< four-momentum of vee, one per hypothesis [GeV]
+	  vector<TLorentzVector> fMomPerHypoth; ///< four-momentum of vee, one per hypothesis [GeV]
 	  float fChisqr; ///< chi-squared of something ?? FIX ME!
 
-	ClassDef(Vee,2)
+	//ClassDef(Vee,2)
 
   }; //class
 }//namespace

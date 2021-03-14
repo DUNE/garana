@@ -9,17 +9,17 @@
 #define GARANA_VERTEX_H_
 
 #include <TLorentzVector.h>
-#include <TROOT.h>
+//#include <TROOT.h>
 #include <climits>
 
 namespace garana {
 
-  class Vertex : public TObject {
+  class Vertex { //: public TObject {
 
     public:
 
 	  Vertex();
-	  Vertex(TLorentzVector& position, float** covar);
+	  Vertex(const TLorentzVector& position, const float** covar);
 
 	  TLorentzVector* GetVertex();
 	  float**         GetCovar();
@@ -27,10 +27,10 @@ namespace garana {
     protected:
 
 	  TLorentzVector fPosition;    ///< 4-position of vertex [cm,ns]
-	  float**        fCovar;//[3][3]; ///< vertex 3-position fit uncertainties [cm]
+	  float        fCovar[3][3]; ///< vertex 3-position fit uncertainties [cm]
 	  //TODO extend covar matrix to time?
 
-	ClassDef(Vertex,2)
+	//ClassDef(Vertex,2)
 
   }; //class
 }//namespace
