@@ -22,8 +22,8 @@ namespace garana {
     public: 
 
 	  CaloCluster();
-	  CaloCluster(TLorentzVector& pos, float energy, float energyErr, float timeDiff,
-			      float* shape, float theta, float phi, std::vector<TVector3>& eigenVecs );
+	  CaloCluster(const TLorentzVector& pos, const float& energy, const float& energyErr, const float& timeDiff,
+			      const float* shape, const float& theta, const float& phi, const std::vector<TVector3>& eigenVecs );
 
 	  TLorentzVector*        Position();
 	  float                  Energy();
