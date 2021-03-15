@@ -46,10 +46,10 @@ namespace garana {
 	  float          fChiBac;         ///< chisquared backward fit
 	  size_t         fNHits;          ///< number of hits
 
-	  float*          fTrackParBeg; ///< Track parameters at beginning of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
-	  float*          fTrackParEnd; ///< Track parameters at end of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
-	  float*          fCovMatBeg;   ///< covariance matrix at beginning of track -- packed in a 1D array, assuming symmetry
-	  float*          fCovMatEnd;   ///< covariance matrix at end of track
+	  float          fTrackParBeg[5]; ///< Track parameters at beginning of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
+	  float          fTrackParEnd[5]; ///< Track parameters at end of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
+	  float          fCovMatBeg[15];   ///< covariance matrix at beginning of track -- packed in a 1D array, assuming symmetry
+	  float          fCovMatEnd[15];   ///< covariance matrix at end of track
 
       int             fChgFwd;
       int             fChgBac;
