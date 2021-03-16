@@ -40,7 +40,7 @@ namespace garana {
   public :
 
     TreeManager(){}
-    TreeManager(string infilename);
+    TreeManager(const string& infilename);//, bool onGen, bool onG4, bool onDet, bool onReco, bool onDis);
 
     HeaderTree*  GetHeaderTree()  const;
     GenTree*     GetGenTree()     const;
@@ -48,6 +48,19 @@ namespace garana {
     DetTree*     GetDetTree()     const;
     RecoTree*    GetRecoTree()    const;
     DisplayTree* GetDisplayTree() const;
+    void         GetEntry(UInt_t ientry);
+
+    void         SetActiveGenTree(bool active=true) {fOnGen = active; }
+    void         SetActiveG4Tree (bool active=true) {fOnG4  = active; }
+    void         SetActiveDetTree(bool active=true) {fOnDet = active; }
+    void         SetActiveRecTree(bool active=true) {fOnRec = active; }
+    void         SetActiveDisTree(bool active=true) {fOnDis = active; }
+
+    bool         IsActiveGenTree() const {return fOnGen; }
+    bool         IsActiveG4Tree () const {return fOnG4 ; }
+    bool         IsActiveDetTree() const {return fOnDet; }
+    bool         IsActiveRecTree() const {return fOnRec; }
+    bool         IsActiveDisTree() const {return fOnDis; }
 
     // tree names
     const string genName  = "genTree";   //GenTree::treename;
@@ -62,6 +75,12 @@ namespace garana {
 
     string   fInFileName = "";
     TFile*   fInFile     = nullptr;
+
+    bool     fOnGen      = true;
+    bool     fOnG4       = true;
+    bool     fOnDet      = false;
+    bool     fOnRec      = true;
+    bool     fOnDis      = false;
 
     HeaderTree*            fHeaderTree        = nullptr;
 

@@ -78,7 +78,7 @@ TVector3 StructuredRecoTree::TrackMomEnd(size_t itrack) const {
 }
 
 //vertex
-TLorentzVector StructuredRecoTree::GetVertex(size_t ivertex)           const {
+TLorentzVector StructuredRecoTree::GetVertex(size_t ivertex)         const {
 	return *(fVertices->at(ivertex).GetVertex());
 }
 

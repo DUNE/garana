@@ -5,6 +5,7 @@
 #pragma link off all functions;
 #pragma link C++ nestedclasses;
 
+#pragma link C++ class std::vector<std::vector<UInt_t>>+;
 #pragma link C++ class std::vector<std::vector<Int_t>>+;
 #pragma link C++ class std::vector<std::vector<Double_t>>+;
 #pragma link C++ class std::vector<std::vector<std::vector<Double_t>>>+;

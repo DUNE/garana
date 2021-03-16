@@ -35,7 +35,7 @@ namespace garana {
      TVector3       TrackMomEnd(size_t itrack) const override;
 
 	 //vertex
-     TLorentzVector GetVertex(size_t ivertex)           const override;
+     TLorentzVector GetVertex(size_t ivertex)        const override;
      void           VertexCovariance(size_t ivertex, float covar[][3]) const override;
 
    private:
@@ -49,11 +49,6 @@ namespace garana {
      vector<Vertex>*         fVertices         = nullptr;
      vector<CaloCluster>*    fCalClusters      = nullptr;
 
-	 vector<vector<UInt_t>>* fTrackG4PIndices  = nullptr;
-	 vector<vector<UInt_t>>* fVertTrackIndices = nullptr;
-	 vector<vector<UInt_t>>* fVeeTrackIndices  = nullptr;
-	 vector<vector<UInt_t>>* fCalTrackIndices  = nullptr;
-
 	 vector<vector<Int_t>>*  fVertTrackEnds    = nullptr;
 	 vector<vector<Int_t>>*  fVeeTrackEnds     = nullptr;
 
@@ -61,11 +56,6 @@ namespace garana {
 	 TBranch*            b_Vees             = nullptr;
 	 TBranch*            b_Vertices         = nullptr;
 	 TBranch*            b_CalClusters      = nullptr;
-
-     TBranch*            b_TrackG4PIndices  = nullptr;
-     TBranch*            b_VertTrackIndices = nullptr;
-     TBranch*            b_VeeTrackIndices  = nullptr;
-     TBranch*            b_CalTrackIndices  = nullptr;
 
      TBranch*            b_VertTrackEnds    = nullptr;
      TBranch*            b_VeeTrackEnds     = nullptr;

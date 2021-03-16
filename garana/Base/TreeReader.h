@@ -48,6 +48,8 @@ namespace garana {
 
     char     fOpt    = 'r';
     TTree*   fTreeIn = nullptr; ///< pointer to the analyzed TTree or TChain
+    UInt_t    fCurrentEntry = UINT_MAX;
+
     TBranch* b_Event = nullptr;
     Int_t    fEvent  = -1; ///< event number for tree entry
 

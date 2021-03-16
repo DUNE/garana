@@ -21,6 +21,7 @@ namespace garana {
 	FlatG4Tree() {}
 	FlatG4Tree(TTree* tree);
 	FlatG4Tree(TTree* tree, char opt);
+	//~FlatG4Tree() {}
 
     //accessors inherited from G4Tree
 	const UInt_t NSim() const override;

@@ -37,7 +37,10 @@ size_t TreeReader::NEntries() const {
 }
 
 void TreeReader::GetEntry(UInt_t ientry=0) {
-    fTreeIn->GetEntry(ientry);
+	if(ientry != fCurrentEntry) {
+		fCurrentEntry = ientry;
+		fTreeIn->GetEntry(ientry);
+	}
     return;
 }
 
@@ -95,3 +98,5 @@ bool TreeReader::BlockWrite() const{
 	}
 	return false;
 }
+
+

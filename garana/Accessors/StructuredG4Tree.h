@@ -21,15 +21,15 @@ namespace garana {
 
 	 StructuredG4Tree() {};
 	 StructuredG4Tree(TTree* tree);
-	 ~StructuredG4Tree();
+	// ~StructuredG4Tree(){}
 
 
 
-	 const UInt_t                   NSim()                        const override;
+	 const UInt_t                  NSim()                        const override;
 	       vector<TLorentzVector>* SimMom(UInt_t iparticle)            override;
 	       vector<TLorentzVector>* SimPos(UInt_t iparticle)            override;
-	       G4Particle*              GetParticle(UInt_t iparticle)               ;
-	       //vector<G4Particle*>*      GetParticles()                              ;
+	       G4Particle*             GetParticle(UInt_t iparticle)               ;
+	       //vector<G4Particle*>*      GetParticles()                            ;
 
    private:
 
@@ -38,11 +38,8 @@ namespace garana {
 
 
 	 //leaves and branches
-	 vector<G4Particle>* fG4Particles   = nullptr;  ///< 'condensed' nusimdata::MCParticles from G4
-	 vector<UInt_t>*     fG4TruthIndex  = nullptr;
-
-     TBranch*            b_G4Particles  = nullptr;
-     TBranch*            b_G4TruthIndex = nullptr;
+	 vector<G4Particle>*     fG4Particles   = nullptr;  ///< 'condensed' nusimdata::MCParticles from G4
+     TBranch*                b_G4Particles  = nullptr;
 
      //G4Particle*   fG4p           = nullptr;
     // vector<G4Particle*>* fG4ps    = nullptr;

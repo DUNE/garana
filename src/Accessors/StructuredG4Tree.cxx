@@ -12,26 +12,14 @@ using std::vector;
 
 StructuredG4Tree::StructuredG4Tree(TTree* tree=0) {
 
-	fMom = new vector<TLorentzVector>();
-	fPos = new vector<TLorentzVector>();
-	//fG4ps = new vector<G4Particle*>();
-	//fG4Particles = new vector<G4Particle>();
-	//fG4TruthIndex = new vector<UInt_t>();
 	SetupRead(tree); //initialize tree pointer in TreeReader instance and set branch address
 }//
-
-StructuredG4Tree::~StructuredG4Tree(){
-	delete fMom;
-	delete fPos;
-	//delete fG4ps;
-	//delete fG4Particles;
-	//delete fG4TruthIndex;
-}
 
 bool StructuredG4Tree::SetBranchAddresses() {
 
     fTreeIn->SetBranchAddress("Event",        &fEvent,        &b_Event       );
     fTreeIn->SetBranchAddress("TruthIndex",   &fG4TruthIndex, &b_G4TruthIndex);
+    fTreeIn->SetBranchAddress("FSIndex",      &fG4FSIndex,    &b_G4FSIndex);
     fTreeIn->SetBranchAddress("G4Particles",  &fG4Particles,  &b_G4Particles );
 
     return true;

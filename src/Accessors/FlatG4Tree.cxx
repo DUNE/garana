@@ -32,6 +32,7 @@ FlatG4Tree::FlatG4Tree(TTree* tree, char opt)
 
 }
 
+
 /*void FlatG4Tree::GetEntry(UInt_t entry) {
 	this->fG4ToFSLimits.clear();
 	fTreeIn->GetEntry(entry);
@@ -44,6 +45,8 @@ std::cout << "FlatG4Tree SetBranchAddresses()" << std::endl;
 
 	if(fOpt=='r'){
 		fTreeIn->SetBranchAddress("Event",             &fEvent,             &b_Event            );
+	    fTreeIn->SetBranchAddress("TruthIndex",        &fG4TruthIndex,      &b_G4TruthIndex     );
+	    fTreeIn->SetBranchAddress("FSIndex",      &fG4FSIndex,    &b_G4FSIndex);
 		fTreeIn->SetBranchAddress("NSim",              &fNSim,              &b_NSim             );
 		fTreeIn->SetBranchAddress("NPts",              &fNPts,              &b_NPts             );
 		fTreeIn->SetBranchAddress("TrkID",             &fTrkID,             &b_TrkID            );

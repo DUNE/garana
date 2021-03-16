@@ -12,9 +12,16 @@ using namespace garana;
 using std::cerr;
 using std::endl;
 
-TreeManager::TreeManager(std::string infilename) {
+TreeManager::TreeManager(const string& infilename) : //, bool onGen=1, bool onG4=1, bool onDet=0, bool onReco=1, bool onDis=0) :
+	fInFileName(infilename),
+	fOnGen(true),
+	fOnG4(true),
+	fOnDet(false),
+	fOnRec(true),
+	fOnDis(false)
+	{
 
-	fInFileName = infilename;
+	//fInFileName = infilename;
 	Init();
 
 }
@@ -214,3 +221,26 @@ DisplayTree* TreeManager::GetDisplayTree() const{
     return nullptr;
 
 }//GetGenTree()
+
+
+void TreeManager::GetEntry(UInt_t ientry=0){
+
+	if(fOnGen) {
+		if(fStructGenTree)    fStructGenTree->GetEntry(ientry);
+		else if(fFlatGenTree) fFlatGenTree->GetEntry(ientry);
+	}
+	if(fOnG4) {
+		if(fStructG4Tree)    fStructG4Tree->GetEntry(ientry);
+		else if(fFlatG4Tree) fFlatG4Tree->GetEntry(ientry);
+	}
+	if(fOnDet) {
+		if(fStructDetTree)    fStructDetTree->GetEntry(ientry);
+		else if(fFlatDetTree) fFlatDetTree->GetEntry(ientry);
+	}
+	if(fOnRec) {
+		if(fStructRecoTree)    fStructRecoTree->GetEntry(ientry);
+		else if(fFlatRecoTree) fFlatRecoTree->GetEntry(ientry);
+	}
+
+	// probably don't want to include display tree
+}

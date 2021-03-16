@@ -37,7 +37,7 @@ namespace garana {
     TVector3       TrackMomEnd(size_t itrack) const override;
 
 	 //vertex
-    TLorentzVector GetVertex(size_t ivertex)           const override;
+    TLorentzVector GetVertex(size_t ivertex)          const override;
     void           VertexCovariance(size_t ivertex, float covar[][3]) const override;
 
     //private:
@@ -46,6 +46,8 @@ namespace garana {
     bool SetBranchAddresses() override;
     void SetVecs();
     void ClearVecs();
+
+    TLorentzVector fVertexPos;
 
 	//leaves and branches
     //track info

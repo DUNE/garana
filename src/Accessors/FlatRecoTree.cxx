@@ -128,10 +128,11 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
   //vertex
  TLorentzVector FlatRecoTree::GetVertex(size_t ivertex) const {
 
-	 TLorentzVector v(fVtxX->at(ivertex),
-	                  fVtxX->at(ivertex),
-	                  fVtxX->at(ivertex),
-	                  fVtxT->at(ivertex) );
+
+     TLorentzVector v(  (double)fVtxX->at(ivertex),
+	                    (double)fVtxY->at(ivertex),
+	                    (double)fVtxZ->at(ivertex),
+	                    (double)fVtxT->at(ivertex) );
 	 return v;
 
  }

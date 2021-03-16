@@ -40,12 +40,31 @@ namespace garana {
       virtual TVector3       TrackMomEnd(size_t itrack) const = 0;
 
 	  //vertex
-      virtual TLorentzVector GetVertex(size_t ivertex) const = 0;
+      virtual TLorentzVector GetVertex(size_t ivertex)  const = 0;
       virtual void           VertexCovariance(size_t ivertex, float covar[][3]) const = 0;
 
       //vee
 
       //calo cluster
+
+
+      void GetTrackG4PIndices       (const size_t& itrk,    vector<UInt_t>& ig4ps  ) const;
+      void GetVertexTrackIndices    (const size_t& ivtx,    vector<UInt_t>& itracks) const;
+      void GetVeeTrackIndices       (const size_t& ivee,    vector<UInt_t>& itracks) const;
+      void GetCalClusterTrackIndices(const size_t& iclust,  vector<UInt_t>& itracks) const;
+
+    protected:
+
+      //associations
+ 	  vector<vector<UInt_t>>* fTrackG4PIndices  = nullptr;
+ 	  vector<vector<UInt_t>>* fVertTrackIndices = nullptr;
+ 	  vector<vector<UInt_t>>* fVeeTrackIndices  = nullptr;
+ 	  vector<vector<UInt_t>>* fCalTrackIndices  = nullptr;
+
+      TBranch*            b_TrackG4PIndices  = nullptr;
+      TBranch*            b_VertTrackIndices = nullptr;
+      TBranch*            b_VeeTrackIndices  = nullptr;
+      TBranch*            b_CalTrackIndices  = nullptr;
 
   };//class
 }//namespace

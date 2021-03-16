@@ -10,23 +10,24 @@
 
 #include <TLorentzVector.h>
 #include <climits>
-#include <TROOT.h>
+//#include <TROOT.h>
 
 namespace garana {
 
-  class G4Particle : public TObject {
+  class G4Particle { //: public TObject {
 
     public:
-	  G4Particle() :
+	  G4Particle() {} /*:
 	  fRi(TLorentzVector()),
 	  fRf(TLorentzVector()),
 	  fPi(TLorentzVector()),
 	  fPf(TLorentzVector())
-      {}
+      {}*/
 
-      G4Particle(int pdg, int parentPdg, int progenitorPdg, int trackId, int parentTrackId,
-                 int progenitorTrackId, int processI, int processF, TLorentzVector ri,
-                 TLorentzVector rf, TLorentzVector pi, TLorentzVector pf):
+      G4Particle(const int& pdg, const int& parentPdg, const int& progenitorPdg, const int& trackId,
+    		     const int& parentTrackId, const int& progenitorTrackId, const int& processI,
+    		     const int& processF, const TLorentzVector& ri,
+                 const TLorentzVector& rf, const TLorentzVector& pi, const TLorentzVector& pf):
                   fPdg(pdg),
                   fParentPdg(parentPdg),
                   fProgenitorPdg(progenitorPdg),
@@ -87,7 +88,7 @@ namespace garana {
       TLorentzVector fPf;                ///< final particle 4-momentum in lab frame [GeV/c,GeV]
 
 
-      ClassDef(G4Particle,2)
+      //ClassDef(G4Particle,2)
 
   };//class
 }//namepsace

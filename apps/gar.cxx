@@ -72,9 +72,14 @@ int main(int argc, char *argv[]){
 
     RecoTree* reco = tm->GetRecoTree();
 
-    TH2F* h_recovtx_xy =  new TH2F("h_recovtx_xy",";reco vertex x [cm]; reco vertex y [cm]", 20, -200, 200, 20, -100, 100);
-    TH2F* h_recovtx_zy =  new TH2F("h_recovtx_zy",";reco vertex z [cm]; reco vertex y [cm]", 20, -100, 100, 20, -100, 100);
-    TH2F* h_recovtx_xz =  new TH2F("h_recovtx_xz",";reco vertex x [cm]; reco vertex z [cm]", 20, -200, 200, 20, -100, 100);
+    TH2F* h_recotrk_vtx_xy =  new TH2F("h_recotrk_vtx_xy",";reco vertex x [cm]; reco vertex y [cm]", 20, -250, 250, 20, -400, 100);
+    TH2F* h_recotrk_vtx_zy =  new TH2F("h_recotrk_vtx_zy",";reco vertex z [cm]; reco vertex y [cm]", 20, 1200, 1800, 20, -400, 100);
+    TH2F* h_recotrk_vtx_xz =  new TH2F("h_recotrk_vtx_xz",";reco vertex x [cm]; reco vertex z [cm]", 20, -250, 250, 20, 1200, 1800);
+
+    TH2F* h_recovtx_vtx_xy =  new TH2F("h_recovtx_vtx_xy",";reco vertex x [cm]; reco vertex y [cm]", 20, -250, 250, 20, -400, 100);
+    TH2F* h_recovtx_vtx_zy =  new TH2F("h_recovtx_vtx_zy",";reco vertex z [cm]; reco vertex y [cm]", 20, 1200, 1800, 20, -400, 100);
+    TH2F* h_recovtx_vtx_xz =  new TH2F("h_recovtx_vtx_xz",";reco vertex x [cm]; reco vertex z [cm]", 20, -250, 250, 20, 1200, 1800);
+
 
     for(size_t ientry=0; ientry<reco->NEntries(); ientry++){
 
@@ -82,25 +87,49 @@ int main(int argc, char *argv[]){
 
         // tracks
         for(size_t itrk=0; itrk<reco->NTrack(); itrk++) {
-        	auto vtx = reco->TrackVertex(itrk);
-        	h_recovtx_xy->Fill(vtx.X(), vtx.Y());
-        	h_recovtx_zy->Fill(vtx.Z(), vtx.Y());
-        	h_recovtx_xz->Fill(vtx.X(), vtx.Z());
+        	auto trkvtx = reco->TrackVertex(itrk);
+        	h_recotrk_vtx_xy->Fill(trkvtx.X(), trkvtx.Y());
+        	h_recotrk_vtx_zy->Fill(trkvtx.Z(), trkvtx.Y());
+        	h_recotrk_vtx_xz->Fill(trkvtx.X(), trkvtx.Z());
+
+        }// for tracks
+
+        // vertices
+        for(size_t ivtx=0; ivtx<reco->NVertex(); ivtx++) {
+        	auto vtx = reco->GetVertex(ivtx);
+        	h_recovtx_vtx_xy->Fill(vtx.X(), vtx.Y());
+        	h_recovtx_vtx_zy->Fill(vtx.Z(), vtx.Y());
+        	h_recovtx_vtx_xz->Fill(vtx.X(), vtx.Z());
 
         }// for tracks
     }// for reco
 
-    TCanvas* c_recovtx_xy = new TCanvas("c_recovtx_xy","reco track vertex: X-Y");
-    h_recovtx_xy->Draw("colz");
-    c_recovtx_xy->SaveAs("reco_trk_vtx_xy.png");
+    TCanvas* c_recotrk_vtx_xy = new TCanvas("c_recotrk_vtx_xy","reco track vertex: X-Y");
+    h_recotrk_vtx_xy->Draw("colz");
+    h_recovtx_vtx_xy->Draw("same");
+    c_recotrk_vtx_xy->SaveAs("reco_trk_vtx_xy.png");
 
-    TCanvas* c_recovtx_zy = new TCanvas("c_recovtx_zy","reco track vertex: Z-Y");
-    h_recovtx_zy->Draw("colz");
-    c_recovtx_zy->SaveAs("reco_trk_vtx_zy.png");
+    TCanvas* c_recotrk_vtx_zy = new TCanvas("c_recotrk_vtx_zy","reco track vertex: Z-Y");
+    h_recotrk_vtx_zy->Draw("colz");
+    h_recovtx_vtx_zy->Draw("same*");
+    c_recotrk_vtx_zy->SaveAs("reco_trk_vtx_zy.png");
 
-    TCanvas* c_recovtx_xz = new TCanvas("c_recovtx_xz","reco track vertex: X-Y");
-    h_recovtx_xz->Draw("colz");
-    c_recovtx_xz->SaveAs("reco_trk_vtx_xz.png");
+    TCanvas* c_recotrk_vtx_xz = new TCanvas("c_recotrk_vtx_xz","reco track vertex: X-Y");
+    h_recotrk_vtx_xz->Draw("colz");
+    h_recovtx_vtx_xz->Draw("same*");
+    c_recotrk_vtx_xz->SaveAs("reco_trk_vtx_xz.png");
+
+    TCanvas* c_recovtx_vtx_xy = new TCanvas("c_recovtx_vtx_xy","reco vertex: X-Y");
+    h_recovtx_vtx_xy->Draw("colz");
+    c_recovtx_vtx_xy->SaveAs("reco_vtx_vtx_xy.png");
+
+    TCanvas* c_recovtx_vtx_zy = new TCanvas("c_recovtx_vtx_zy","reco vertex: Z-Y");
+    h_recovtx_vtx_zy->Draw("colz");
+    c_recovtx_vtx_zy->SaveAs("reco_vtx_vtx_zy.png");
+
+    TCanvas* c_recovtx_vtx_xz = new TCanvas("c_recovtx_vtx_xz","reco vertex: X-Y");
+    h_recovtx_vtx_xz->Draw("colz");
+    c_recovtx_vtx_xz->SaveAs("reco_vtx_vtx_xz.png");
 
 
     // clean up bare pointers
@@ -114,12 +143,18 @@ int main(int argc, char *argv[]){
     delete c;
     delete cg4;
 
-    delete h_recovtx_xy;
-    delete h_recovtx_zy;
-    delete h_recovtx_xz;
-    delete c_recovtx_xy;
-    delete c_recovtx_zy;
-    delete c_recovtx_xz;
+    delete h_recotrk_vtx_xy;
+    delete h_recotrk_vtx_zy;
+    delete h_recotrk_vtx_xz;
+    delete h_recovtx_vtx_xy;
+    delete h_recovtx_vtx_zy;
+    delete h_recovtx_vtx_xz;
+    delete c_recotrk_vtx_xy;
+    delete c_recotrk_vtx_zy;
+    delete c_recotrk_vtx_xz;
+    delete c_recovtx_vtx_xy;
+    delete c_recovtx_vtx_zy;
+    delete c_recovtx_vtx_xz;
 
     return 0;
 }
