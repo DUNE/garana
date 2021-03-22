@@ -10,9 +10,11 @@
 using std::vector;
 using namespace garana;
 
+// assumes read-only mode
 FlatG4Tree::FlatG4Tree(TTree* tree)
 {
     SetupRead(tree);
+    SetLimits();
 }
 
 FlatG4Tree::FlatG4Tree(TTree* tree, char opt)
@@ -22,12 +24,14 @@ FlatG4Tree::FlatG4Tree(TTree* tree, char opt)
     if(fOpt=='r'){
     	std::cout << "constructed FlatG4Tree object in read-only mode" << std::endl;
     	SetupRead(tree);
+    	SetLimits();
     }
     else {
     	std::cout << "constructed FlatG4Tree object in write mode" << std::endl;
     	fTreeIn = tree;
     	SetBranchAddresses();
     	SetVecs();
+    	SetLimits();
     }
 
 }
@@ -46,7 +50,7 @@ std::cout << "FlatG4Tree SetBranchAddresses()" << std::endl;
 	if(fOpt=='r'){
 		fTreeIn->SetBranchAddress("Event",             &fEvent,             &b_Event            );
 	    fTreeIn->SetBranchAddress("TruthIndex",        &fG4TruthIndex,      &b_G4TruthIndex     );
-	    fTreeIn->SetBranchAddress("FSIndex",      &fG4FSIndex,    &b_G4FSIndex);
+	    //fTreeIn->SetBranchAddress("FSIndex",      &fG4FSIndex,    &b_G4FSIndex);
 		fTreeIn->SetBranchAddress("NSim",              &fNSim,              &b_NSim             );
 		fTreeIn->SetBranchAddress("NPts",              &fNPts,              &b_NPts             );
 		fTreeIn->SetBranchAddress("TrkID",             &fTrkID,             &b_TrkID            );
@@ -141,18 +145,62 @@ std::cout << "FlatG4Tree SetBranchAddresses()" << std::endl;
  }
 
  const UInt_t FlatG4Tree::NSim() const {
-	 return this->fNSim;
+	 return fNSim;
  }//
 
- //FIX ME (dummy implementation)
-vector<TLorentzVector>* FlatG4Tree::SimMom(UInt_t iparticle) {
-	if(iparticle>0)
-		return nullptr;
-	return nullptr;
+ const bool   FlatG4Tree::IsPrimary(const UInt_t& iparticle) const {
+	if(fParentPdg->at(iparticle)==INT_MAX) return true;
+	else return false;
+ }
+
+ const Int_t  FlatG4Tree::PDG(const UInt_t& iparticle)       const {
+	 return fPDG->at(iparticle);
+ }
+
+
+const vector<TLorentzVector>* FlatG4Tree::SimMom(const UInt_t& iparticle) {
+	UInt_t first = fLimits[iparticle].first;
+	UInt_t last = fLimits[iparticle].second;
+	vector<TLorentzVector>* v = new vector<TLorentzVector>();
+	v->push_back(TLorentzVector(fPx->at(first),fPy->at(first),fPz->at(first),fE->at(first)));
+	v->push_back(TLorentzVector(fPx->at(last),fPy->at(last),fPz->at(last),fE->at(last)));
+	return v;
+
 }
 // FIX ME (dummy implementation)
-vector<TLorentzVector>* FlatG4Tree::SimPos(UInt_t iparticle) {
-	if(iparticle>0)
-		return nullptr;
-	return nullptr;
+const vector<TLorentzVector>* FlatG4Tree::SimPos(const UInt_t& iparticle) {
+	UInt_t first = fLimits[iparticle].first;
+	UInt_t last = fLimits[iparticle].second;
+	vector<TLorentzVector>* v = new vector<TLorentzVector>();
+	v->push_back(TLorentzVector(fX->at(first),fY->at(first),fZ->at(first),fT->at(first)));
+	v->push_back(TLorentzVector(fX->at(last), fY->at(last), fZ->at(last), fT->at(last)));
+	return v;
+}
+
+const int FlatG4Tree::ParentPDG(const UInt_t& iparticle)         const {
+	return fParentPdg->at(iparticle);
+}
+
+const int FlatG4Tree::ProgenitorPDG(const UInt_t& iparticle)     const {
+	return fProgenitorPdg->at(iparticle);
+}
+
+const int FlatG4Tree::TrackID(const UInt_t& iparticle)           const {
+	return fTrkID->at(iparticle);
+}
+
+const int FlatG4Tree::ParentTrackID(const UInt_t& iparticle)     const {
+	return fParentTrackId->at(iparticle);
+}
+
+const int FlatG4Tree::ProgenitorTrackID(const UInt_t& iparticle) const {
+	return fProgenitorTrackId->at(iparticle);
+}
+
+void FlatG4Tree::SetLimits(){
+	UInt_t last=0;
+	for(UInt_t i=0; i<fNSim; i++) {
+		fLimits[i] = std::make_pair(last,last+fNPts->at(i));
+		last += fNPts->at(i);
+	}
 }

@@ -23,16 +23,15 @@ namespace garana {
 	  Vee();
 	  Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const float& chisqr, const float* covar);
 
-	  float const& GetChiSqr();
-      const vector<TLorentzVector>* GetMomentaPerHypothesis();
+	  float const&                  GetChiSqr()                 const;
+      const vector<TLorentzVector>* GetMomentaPerHypothesis()   const;
+      // GetCovar inherited from Vertex
 
     private:
 
 	  vector<TLorentzVector> fMomPerHypoth; ///< four-momentum of vee, one per hypothesis [GeV]
-	  float fChisqr; ///< chi-squared of something ?? FIX ME!
+	  float fChisqr;                        // TODO chi-squared of something ?? CHECK ME!
 	  float fCovar[3][3];
-
-	//ClassDef(Vee,2)
 
   }; //class
 }//namespace

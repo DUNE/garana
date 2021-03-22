@@ -25,11 +25,19 @@ namespace garana {
 
 
 
-	 const UInt_t                  NSim()                        const override;
-	       vector<TLorentzVector>* SimMom(UInt_t iparticle)            override;
-	       vector<TLorentzVector>* SimPos(UInt_t iparticle)            override;
-	       G4Particle*             GetParticle(UInt_t iparticle)               ;
-	       //vector<G4Particle*>*      GetParticles()                            ;
+	 const UInt_t                  NSim()                                     const override;
+	 const vector<TLorentzVector>* SimMom(const UInt_t& iparticle)                  override;
+	 const vector<TLorentzVector>* SimPos(const UInt_t& iparticle)                  override;
+	 const bool                    IsPrimary(const UInt_t& iparticle)         const override;
+	 const Int_t                   PDG(const UInt_t& iparticle)               const override;
+	 const int                     ParentPDG(const UInt_t& iparticle)         const override;
+	 const int                     ProgenitorPDG(const UInt_t& iparticle)     const override;
+	 const int                     TrackID(const UInt_t& iparticle)           const override;
+	 const int                     ParentTrackID(const UInt_t& iparticle)     const override;
+	 const int                     ProgenitorTrackID(const UInt_t& iparticle) const override;
+
+	 const G4Particle*             GetParticle(const UInt_t& iparticle) const;
+	 //vector<G4Particle*>*      GetParticles();
 
    private:
 

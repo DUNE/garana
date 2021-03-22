@@ -36,7 +36,7 @@ size_t TreeReader::NEntries() const {
     return fTreeIn->GetEntries();
 }
 
-void TreeReader::GetEntry(UInt_t ientry=0) {
+void TreeReader::GetEntry(const UInt_t& ientry=0) {
 	if(ientry != fCurrentEntry) {
 		fCurrentEntry = ientry;
 		fTreeIn->GetEntry(ientry);

@@ -16,14 +16,7 @@ set(${LIBRARY_TARGET_NAME}_SRC
 )
 
 add_library( ${LIBRARY_TARGET_NAME} SHARED ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
-
-# We need this directory, and users of our library will need it too 
-#target_include_directories(GaranaProcessors PUBLIC ../../include)
-
 target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC GaranaAccessors GaranaProducts GaranaBase ROOT::RIO ROOT::Tree ROOT::Physics GaranaDict)
-
-# All users of this library will need at least C++11 
-#target_compile_features(GaranaAccessors PUBLIC cxx_std_11)
 
 # IDEs should put the headers in a nice place
 source_group(
@@ -31,9 +24,6 @@ source_group(
   PREFIX "Header Files"
   FILES ${${LIBRARY_TARGET_NAME}_HDR} #${HEADER_LIST}
 )
-
-#install(TARGETS GaranaProcessors DESTINATION lib)
-#install(FILES ${HEADER_LIST} DESTINATION include)
 
 install(TARGETS ${LIBRARY_TARGET_NAME}
         EXPORT  ${PROJECT_NAME}

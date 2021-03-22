@@ -152,7 +152,7 @@ namespace{
 				if(*(g1->NuVertex(igen)) !=  *(g2->NuVertex(igen)))
 					return false;
 
-				if(g1->FSEnergy(igen) != g2->FSEnergy(igen))
+				if(g1->FSTotEnergy(igen) != g2->FSTotEnergy(igen))
 					return false;
 
 			}//for gen subentries

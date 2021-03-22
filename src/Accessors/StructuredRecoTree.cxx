@@ -7,6 +7,7 @@
 
 #include "garana/Accessors/StructuredRecoTree.h"
 
+using std::vector;
 using namespace garana;
 
 StructuredRecoTree::StructuredRecoTree(TTree* tree=0) {
@@ -43,46 +44,136 @@ bool StructuredRecoTree::SetBranchAddresses() {
 
 
     return true;
-}
+}// end const'or
 
-size_t StructuredRecoTree::NTrack()      const {
+////============ sizes ============================
+const size_t StructuredRecoTree::NTrack()      const {
 	return fTracks->size();
 }
-size_t StructuredRecoTree::NVertex()     const {
+const size_t StructuredRecoTree::NVertex()     const {
 	return fVertices->size();
 }
-size_t StructuredRecoTree::NVee()        const {
+const size_t StructuredRecoTree::NVee()        const {
 	return fVees->size();
 }
-size_t StructuredRecoTree::NCalCluster() const {
+const size_t StructuredRecoTree::NCalCluster() const {
 	return fCalClusters->size();
 }
 
-// track
-TLorentzVector StructuredRecoTree::TrackVertex(size_t itrack) const {
-	return fTracks->at(itrack).fVtx;
+////======================== track ===================================
+const TLorentzVector* StructuredRecoTree::TrackVertex(const size_t& itrack) const {
+	return &(fTracks->at(itrack).fVtx);
 }
 
-TLorentzVector StructuredRecoTree::TrackEnd(size_t itrack)    const {
-	return fTracks->at(itrack).fEnd;
+const TLorentzVector* StructuredRecoTree::TrackEnd(const size_t& itrack) const {
+	return &(fTracks->at(itrack).fEnd);
 }
-size_t         StructuredRecoTree::NTrackHit(size_t itrack)   const {
+const size_t StructuredRecoTree::NTrackHit(const size_t& itrack) const {
 	return fTracks->at(itrack).fNHits;
 }
-TVector3 StructuredRecoTree::TrackMomBeg(size_t itrack) const {
-    return fTracks->at(itrack).fMomBeg*fTracks->at(itrack).fVtxDir;
+const TVector3* StructuredRecoTree::TrackMomBeg(const size_t& itrack) const {
+	TVector3* v = new TVector3(fTracks->at(itrack).fVtxDir);
+	(*v) *= fTracks->at(itrack).fMomBeg;
+    return v;
 }
 
-TVector3 StructuredRecoTree::TrackMomEnd(size_t itrack) const {
-    return fTracks->at(itrack).fMomEnd*fTracks->at(itrack).fVtxDir;
+const TVector3* StructuredRecoTree::TrackMomEnd(const size_t& itrack) const {
+	TVector3* v = new TVector3(fTracks->at(itrack).fEndDir);
+	(*v) *= fTracks->at(itrack).fMomEnd;
+    return v;
 }
 
-//vertex
-TLorentzVector StructuredRecoTree::GetVertex(size_t ivertex)         const {
-	return *(fVertices->at(ivertex).GetVertex());
+const float StructuredRecoTree::TrackLenFwd(const size_t& itrack) const {
+	return fTracks->at(itrack).fLenFwd;
 }
 
-void        StructuredRecoTree::VertexCovariance(size_t ivertex, float covar[][3]) const {
+const float StructuredRecoTree::TrackLenBkd(const size_t& itrack) const {
+	return fTracks->at(itrack).fLenBac;
+}
+
+const float StructuredRecoTree::TrackIonizFwd(const size_t& itrack) const {
+	return fTracks->at(itrack).fIonFwd;
+}
+
+const float StructuredRecoTree::TrackIonizBkd(const size_t& itrack) const {
+	return fTracks->at(itrack).fLenBac;
+}
+
+const int StructuredRecoTree::TrackChgFwd(const size_t& itrack) const {
+	return fTracks->at(itrack).fChgFwd;
+}
+
+const int StructuredRecoTree::TrackChgBkd(const size_t& itrack) const {
+	return fTracks->at(itrack).fChgBac;
+}
+
+void StructuredRecoTree::TrackParBeg(const size_t& itrack, float pars[5]) const {
+	for(size_t i=0; i<5; i++)
+		pars[i] = fTracks->at(itrack).fTrackParBeg[i];
+}
+
+void StructuredRecoTree::TrackParEnd(const size_t& itrack, float pars[5]) const {
+	for(size_t i=0; i<5; i++)
+		pars[i] = fTracks->at(itrack).fTrackParEnd[i];
+}
+
+//============== vertex ======================
+const TLorentzVector* StructuredRecoTree::GetVertex(const size_t& ivertex) const {
+	return fVertices->at(ivertex).GetVertex();
+}
+
+void StructuredRecoTree::VertexCovariance(const size_t& ivertex, float covar[][3]) const {
 	fVertices->at(ivertex).GetCovar(covar);
+}
+
+/// =============== Vee =======================
+
+const TLorentzVector* StructuredRecoTree::VeeVertex(const size_t& ivee) const {
+	return fVees->at(ivee).GetVertex();
+}
+
+void StructuredRecoTree::VeeCovariance(const size_t& ivee, float covar[][3]) const {
+	return fVees->at(ivee).GetCovar(covar);
+}
+
+const vector<TLorentzVector>* StructuredRecoTree::VeeMomentumPerHypothesis(const size_t& ivee) const {
+	return fVees->at(ivee).GetMomentaPerHypothesis();
+}
+
+const float StructuredRecoTree::VeeChiSquared(const size_t& ivee) const {
+	return fVees->at(ivee).GetChiSqr();
+}
+
+/// ================ ECal cluster ======================
+const TLorentzVector*   StructuredRecoTree::CalClustPosition(const size_t& icluster) const {
+	return fCalClusters->at(icluster).Position();
+}
+
+const float  StructuredRecoTree::CalClustEnergy(const size_t& icluster) const {
+	return fCalClusters->at(icluster).Energy();
+}
+
+const float  StructuredRecoTree::CalClustEnergyError(const size_t& icluster) const {
+	return fCalClusters->at(icluster).EnergyError();
+}
+
+const float  StructuredRecoTree::CalClustTimeDifference(const size_t& icluster) const {
+	return fCalClusters->at(icluster).TimeDifference();
+}
+
+const float* StructuredRecoTree::CalClustShape(const size_t& icluster) const {
+	return fCalClusters->at(icluster).Shape();
+}
+
+const float  StructuredRecoTree::CalClustTheta(const size_t& icluster) const {
+	return fCalClusters->at(icluster).Theta();
+}
+
+const float  StructuredRecoTree::CalClustPhi(const size_t& icluster) const {
+	return fCalClusters->at(icluster).Phi();
+}
+
+const vector<TVector3>* StructuredRecoTree::CalClustEigenVecs(const size_t& icluster) const{
+	return fCalClusters->at(icluster).EigenVecs();
 }
 

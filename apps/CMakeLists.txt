@@ -11,10 +11,12 @@ target_link_libraries(gar# PRIVATE
                         #ROOT::Hist,
                         #ROOT::RIO,
                         #ROOT::Gpad,
+                        GaranaUtility
                         GaranaAccessors
                         GaranaBase
                         GaranaProducts
                         GaranaDict
+
 )
 
 #### setup for paulbunyan ####
@@ -34,6 +36,7 @@ target_link_libraries(paulbunyan# PRIVATE
                         GaranaProducts
                         GaranaDict
                         GaranaProcessors
+
 )
 
 #### setup for test_derived_flat_tree ####

@@ -11,6 +11,7 @@
 using namespace garana;
 using std::cerr;
 using std::endl;
+using std::vector;
 
 TreeManager::TreeManager(const string& infilename) : //, bool onGen=1, bool onG4=1, bool onDet=0, bool onReco=1, bool onDis=0) :
 	fInFileName(infilename),
@@ -23,6 +24,7 @@ TreeManager::TreeManager(const string& infilename) : //, bool onGen=1, bool onG4
 
 	//fInFileName = infilename;
 	Init();
+	CheckEntries();
 
 }
 
@@ -52,7 +54,7 @@ void TreeManager::Init() {
     }
 
     fHeaderTree = new HeaderTree(header);
-    std::string treeType = *(fHeaderTree->TreeType());
+    fTreeType = *(fHeaderTree->TreeType());
     
     /// genTree
     TTree* gen = nullptr;
@@ -67,7 +69,7 @@ void TreeManager::Init() {
     		  << '\n';
     }
 
-    if(treeType == "structured"){ //structured tree
+    if(fTreeType == "structured"){ //structured tree
         fStructGenTree = new StructuredGenTree(gen);
     }
     else { //flat tree
@@ -87,7 +89,7 @@ void TreeManager::Init() {
      		  << '\n';
      }
 
-     if(treeType == "structured"){ //structured tree
+     if(fTreeType == "structured"){ //structured tree
          fStructG4Tree = new StructuredG4Tree(g4);
      }
      else { //flat tree
@@ -107,7 +109,7 @@ void TreeManager::Init() {
      		  << '\n';
      }
 
-     if(treeType == "structured"){ //structured tree
+     if(fTreeType == "structured"){ //structured tree
          fStructRecoTree = new StructuredRecoTree(reco);
      }
      else { //flat tree
@@ -223,7 +225,7 @@ DisplayTree* TreeManager::GetDisplayTree() const{
 }//GetGenTree()
 
 
-void TreeManager::GetEntry(UInt_t ientry=0){
+void TreeManager::GetEntry(const UInt_t& ientry){
 
 	if(fOnGen) {
 		if(fStructGenTree)    fStructGenTree->GetEntry(ientry);
@@ -243,4 +245,39 @@ void TreeManager::GetEntry(UInt_t ientry=0){
 	}
 
 	// probably don't want to include display tree
+}
+
+bool TreeManager::CheckEntries() {
+
+	vector<UInt_t> ns;
+	if(fOnGen) {
+		if(fStructGenTree)    ns.push_back(fStructGenTree->NEntries());
+		else if(fFlatGenTree) ns.push_back(fFlatGenTree->NEntries());
+	}
+	if(fOnG4) {
+		if(fStructG4Tree)    ns.push_back(fStructG4Tree->NEntries());
+		else if(fFlatG4Tree) ns.push_back(fFlatG4Tree->NEntries());
+	}
+	if(fOnDet) {
+		if(fStructDetTree)    ns.push_back(fStructDetTree->NEntries());
+		else if(fFlatDetTree) ns.push_back(fFlatDetTree->NEntries());
+	}
+	if(fOnRec) {
+		if(fStructRecoTree)    ns.push_back(fStructRecoTree->NEntries());
+		else if(fFlatRecoTree) ns.push_back(fFlatRecoTree->NEntries());
+	}
+
+	try {
+		for(size_t i=1; i<ns.size(); i++){
+			if(ns[0]!=ns[i])
+				throw ns[0];
+		}
+	}
+	catch(Int_t n){
+		cerr << "number of entries differs between trees!" << endl;
+		return false;
+	}
+
+	fNEntries = ns[0];
+	return true;
 }

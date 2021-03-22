@@ -44,5 +44,3 @@ void Vertex::GetCovar(float covar[][3])  {
 		}
 	}
 }
-
-//ClassImp(Vertex)

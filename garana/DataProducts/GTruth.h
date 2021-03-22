@@ -13,48 +13,40 @@
 #ifndef GARANA_GTRUTH_H
 #define GARANA_GTRUTH_H
 
-#pragma once
-
 #include <iostream>
 #include <TLorentzVector.h>
-#include <TROOT.h>
 
 namespace garana {
 
-  class GTruth: public TObject {
+  class GTruth {
 
   public:
     GTruth();
 
     // genie::GHepRecord info
     // holds a genie::Interaction
+
     TLorentzVector fVertex;
-    // skipping TBits data members  EventFlags and EventMask
     double         fweight;       ///< event interaction weight (genie internal)
     double         fprobability;  ///< interaction probability
     double         fXsec;         ///< cross section of interaction
     double         fDiffXsec;     ///< differential cross section of interaction
     int            fGPhaseSpace;  ///< phase space system of DiffXSec
 
-    // genie::Interaction
-    //   container for InitialState, ProcessInfo, XclsTag, Kinematics, KPhaseSpace)
-    //   holds no fundamental type info
-
     // genie:::InitialState info (sub-object to genie::Interactions)
     int            fProbePDG;
-    // holds a genie::Target
     TLorentzVector fProbeP4;
-    TLorentzVector fTgtP4;                                      // added version 13
+    TLorentzVector fTgtP4;
 
     // genie::Target info (sub-object to genie::InitialState)
     int            ftgtZ;
     int            ftgtA;
     int            ftgtPDG;       ///< PDG of Target Nucleus, nucleon only if free
-    int            fHitNucPDG;    ///< hit nucleon PDG code     // added version 13
-    int            fHitQrkPDG;    ///< hit quark PDG code       // added version 13
+    int            fHitNucPDG;    ///< hit nucleon PDG code
+    int            fHitQrkPDG;    ///< hit quark PDG code
     bool           fIsSeaQuark;
     TLorentzVector fHitNucP4;
-    double         fHitNucPos;                                  // added version 12
+    double         fHitNucPos;
 
     // genie::ProcessInfo (sub-object to genie::Interactions)
     int            fGscatter;     ///< neutrino scattering code
@@ -62,7 +54,6 @@ namespace garana {
 
     // genie::Kinematics info (sub-object to genie::Interactions)
     ///< these are for the internal (on shell) genie kinematics
-    ///<   this list might be an incomplete transcription of map<KineVar_t,double>
     double         fgQ2;
     double         fgq2;
     double         fgW;
@@ -92,9 +83,6 @@ namespace garana {
 
     bool IsFilled();
 
-
-
-   ClassDef(GTruth,2) //
   }; //class GTruth
 } // end garana namespace
 

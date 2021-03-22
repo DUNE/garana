@@ -26,15 +26,46 @@ namespace garana {
 	FlatGenTree(TTree* tree, char opt);
 
     //accessors inherited from GenTree
-    const UInt_t      NGen()                           const override;
-    const UInt_t      NFSParticles(const UInt_t igen ) const override;
-    const Bool_t      IsGenie(const UInt_t igen )      const override;
-    const Bool_t      IsCC(const UInt_t igen )         const override;
-    const Int_t       NuPDG(const UInt_t igen )        const override;
-    TLorentzVector*   NuP(const UInt_t igen)                 override;
-    TLorentzVector*   NuVertex(const  UInt_t igen)           override;
-    const Float_t     FSEnergy(const UInt_t igen)      const override;
-    virtual void      GetEntry(UInt_t entry)                 override;
+    const UInt_t          NGen()                            const override;
+    const UInt_t          NFSParticles(const UInt_t& igen ) const override;
+    const Bool_t          IsGenie(const UInt_t& igen )      const override;
+
+    const Bool_t          IsCC(const UInt_t& igen )         const override;
+    const Int_t           NuPDG(const UInt_t& igen )        const override;
+    const TLorentzVector* NuP(const UInt_t& igen)                 override;
+    const TLorentzVector* NuVertex(const UInt_t& igen)            override;
+
+    const int             ScatterCode(const UInt_t& igen)   const override;
+    const int             InteractCode(const UInt_t& igen)  const override;
+
+    const Int_t           TgtPDG(const UInt_t& igen )       const override;
+    const TLorentzVector* TgtP4(const UInt_t& igen)         const override;
+    const int             TgtZ(const UInt_t& igen )         const override;
+    const int             TgtA(const UInt_t& igen )         const override;
+    const int             HitNucPDG(const UInt_t& igen )    const override;
+    const TLorentzVector* HitNucP4(const UInt_t& igen )     const override;
+
+    const double          Q2(const UInt_t& igen )           const override;
+    const double          q2(const UInt_t& igen )           const override;
+    const double          W(const UInt_t& igen )            const override;
+    const double          T(const UInt_t& igen )            const override;
+    const double          X(const UInt_t& igen )            const override;
+    const double          Y(const UInt_t& igen )            const override;
+    const TLorentzVector* FSLeptonP4(const UInt_t& igen )   const override;
+    const TLorentzVector* FSHadSystP4(const UInt_t& igen )  const override;
+
+    const int             NumNuProton(const UInt_t& igen)   const override;
+    const int             NumNuNeutron(const UInt_t& igen)  const override;
+    const int             NumNuPi0(const UInt_t& igen)      const override;
+    const int             NumNuPiPlus(const UInt_t& igen)   const override;
+    const int             NumNuPiMinus(const UInt_t& igen)  const override;
+
+    const Float_t         FSTotEnergy(const UInt_t& igen)      const override;
+    const Float_t         FSEnergy(const UInt_t& igen, const UInt_t& ifsp)      const override;
+    const Float_t         FSPDG(const UInt_t& igen, const UInt_t& ifsp)         const override;
+    const Int_t           FSTrackId(const UInt_t& igen, const UInt_t& ifsp)     const override;
+
+    void GetEntry(const UInt_t& ientry) override;
 
     //private:
   protected:
@@ -139,9 +170,10 @@ namespace garana {
 
     //vector pointers
     //final state particles
-    vector<UInt_t>*   fNFS              = nullptr;  ///< number of FSParticles for igen^th GTruth len=NGen
-    vector<UInt_t>*   fFSIndex          = nullptr;  ///<
-    vector<UInt_t>*   fFSPdg            = nullptr;  ///< particle PDG code
+    vector<UInt_t>*  fNFS              = nullptr;  ///< number of FSParticles for igen^th GTruth len=NGen
+    vector<UInt_t>*  fFSIndex          = nullptr;  ///<
+    vector<UInt_t>*  fFSTrackId        = nullptr;  ///< particle generator track ID
+    vector<UInt_t>*  fFSPdg            = nullptr;  ///< particle PDG code
     vector<Float_t>* fFSPosX           = nullptr;  ///< x-coordinate [cm]
     vector<Float_t>* fFSPosY           = nullptr;  ///< y-coordinate [cm]
     vector<Float_t>* fFSPosZ           = nullptr;  ///< z-coordinate [cm]

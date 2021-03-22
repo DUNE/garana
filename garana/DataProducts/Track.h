@@ -10,7 +10,6 @@
 
 #include <TLorentzVector.h>
 #include <TVector3.h>
-//#include <TROOT.h>
 
 #include <climits>
 #include <vector>
@@ -20,7 +19,7 @@ using std::pair;
 using std::vector;
 
 namespace garana {
-  class Track { //: public TObject {
+  class Track {
 
     public: 
 
@@ -48,17 +47,15 @@ namespace garana {
 
 	  float          fTrackParBeg[5]; ///< Track parameters at beginning of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
 	  float          fTrackParEnd[5]; ///< Track parameters at end of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
-	  float          fCovMatBeg[15];   ///< covariance matrix at beginning of track -- packed in a 1D array, assuming symmetry
-	  float          fCovMatEnd[15];   ///< covariance matrix at end of track
+	  float          fCovMatBeg[15];  ///< covariance matrix at beginning of track -- packed in a 1D array, assuming symmetry
+	  float          fCovMatEnd[15];  ///< covariance matrix at end of track
 
-      int             fChgFwd;
-      int             fChgBac;
-      float           fIonFwd;
-      float           fIonBac;
+      int            fChgFwd;
+      int            fChgBac;
+      float          fIonFwd;
+      float          fIonBac;
       vector<pair<int,float>> fPidFwd;
       vector<pair<int,float>> fPidBac;
-
-	  //ClassDef(Track,2)
 
   }; //class
 }//namespace

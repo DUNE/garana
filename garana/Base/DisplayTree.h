@@ -18,8 +18,6 @@ namespace garana {
 
 	  virtual ~DisplayTree() {};
 
-	  //inline static const std::string treename = "displayTree";
-
   };//class
 }//namespace
 

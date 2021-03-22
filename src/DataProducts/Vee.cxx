@@ -44,12 +44,10 @@ Vee::Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const
   }
 } //
 
-float const& Vee::GetChiSqr() {
+float const& Vee::GetChiSqr() const {
 	return fChisqr;
 }
 
-const vector<TLorentzVector>* Vee::GetMomentaPerHypothesis() {
+const vector<TLorentzVector>* Vee::GetMomentaPerHypothesis() const {
 	return &fMomPerHypoth;
 }
-
-//ClassImp(Vee)

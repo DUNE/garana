@@ -88,5 +88,3 @@ Track::Track(const float& lenFw, const float& lenBk, const float& pBeg, const fl
 		fCovMatEnd[i] =  covarEnd[i];
 	}
 }//constructor
-
-//ClassImp(Track)

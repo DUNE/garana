@@ -31,7 +31,7 @@ namespace garana {
     void SetupRead(TTree* tree);
     TTree* GetInputTree();
     size_t NEntries() const;
-    virtual void GetEntry(UInt_t ientry);
+    virtual void GetEntry(const UInt_t& ientry);
     Int_t Event() const;
     const TObjArray* GetBranchList() const;
     void Fill();

@@ -36,7 +36,7 @@ FlatGenTree::FlatGenTree(TTree* tree, char opt)
 
 }
 
-void FlatGenTree::GetEntry(UInt_t entry) {
+void FlatGenTree::GetEntry(const UInt_t& entry) {
 	this->fGenToFSLimits.clear();
 	fTreeIn->GetEntry(entry);
     this->FindFSLimits();
@@ -50,6 +50,7 @@ std::cout << "FlatGenTree SetBranchAddresses()" << std::endl;
 		fTreeIn->SetBranchAddress("Event",             &fEvent,            &b_Event           );
 		fTreeIn->SetBranchAddress("NGen",              &fNGen,             &b_NGen            );
 		fTreeIn->SetBranchAddress("GIndex",            &fGIndex,           &b_GIndex          );
+		//fTreeIn->SetBranchAddress("FSIndex",           &fFSIndex,          &b_FSIndex         );
 
 
 		//FSParticles
@@ -229,11 +230,11 @@ const UInt_t FlatGenTree::NGen() const {
 	return fNGen;
 }
 
-const UInt_t FlatGenTree::NFSParticles( UInt_t igen ) const {
+const UInt_t FlatGenTree::NFSParticles(const UInt_t& igen) const {
     return fNFS->at(igen);
 }
 
-const Bool_t FlatGenTree::IsGenie( UInt_t igen ) const {
+const Bool_t FlatGenTree::IsGenie(const UInt_t& igen ) const {
 
     if (fGIndex->at(igen) >-1)
     	return kTRUE;
@@ -241,7 +242,7 @@ const Bool_t FlatGenTree::IsGenie( UInt_t igen ) const {
     	return kFALSE;
 }
 
-const Bool_t FlatGenTree::IsCC( UInt_t igen ) const {
+const Bool_t FlatGenTree::IsCC(const UInt_t& igen ) const {
 
     if(IsGenie(igen))
         return fGint->at(igen) == 2;
@@ -249,11 +250,11 @@ const Bool_t FlatGenTree::IsCC( UInt_t igen ) const {
     return kFALSE;
 }
 
-const Int_t FlatGenTree::NuPDG( UInt_t igen ) const {
+const Int_t FlatGenTree::NuPDG(const UInt_t& igen ) const {
     return fProbePDG->at(igen);
 }
 
-TLorentzVector* FlatGenTree::NuP(const UInt_t igen) {
+const TLorentzVector* FlatGenTree::NuP(const UInt_t& igen) {
 
 	if(!IsGenie(igen))
 		return nullptr;
@@ -263,7 +264,7 @@ TLorentzVector* FlatGenTree::NuP(const UInt_t igen) {
 	return &fNuP;
 }
 
-TLorentzVector* FlatGenTree::NuVertex(const UInt_t igen) {
+const TLorentzVector* FlatGenTree::NuVertex(const UInt_t& igen) {
 
 	if(!IsGenie(igen))
 	    return nullptr;
@@ -274,13 +275,117 @@ TLorentzVector* FlatGenTree::NuVertex(const UInt_t igen) {
 	return &fNuVertex;
 }
 
-const Float_t FlatGenTree::FSEnergy(const UInt_t igen) const {
+const int FlatGenTree::ScatterCode(const UInt_t& igen) const {
+	return fGscatter->at(igen);
+}
+
+const int FlatGenTree::InteractCode(const UInt_t& igen) const {
+	return fGint->at(igen);
+}
+
+const TLorentzVector* FlatGenTree::TgtP4(const UInt_t& igen) const {
+	    const TLorentzVector* v = new TLorentzVector(fTgtPx->at(igen),fTgtPy->at(igen),
+	    		                     fTgtPz->at(igen), fTgtE->at(igen));
+		return v;
+}
+
+const int FlatGenTree::TgtZ(const UInt_t& igen ) const {
+	return fTgtZ->at(igen);
+}
+
+const int FlatGenTree::TgtA(const UInt_t& igen ) const {
+	return fTgtA->at(igen);
+}
+
+const int FlatGenTree::TgtPDG(const UInt_t& igen ) const {
+	return fTgtPDG->at(igen);
+}
+
+const int FlatGenTree::HitNucPDG(const UInt_t& igen ) const {
+	return fHitNucPDG->at(igen);
+}
+
+const TLorentzVector* FlatGenTree::HitNucP4(const UInt_t& igen ) const {
+    const TLorentzVector* v = new TLorentzVector(fHitNucPx->at(igen),fHitNucPy->at(igen),
+    		                     fHitNucPz->at(igen), fHitNucE->at(igen));
+	return v;
+}
+
+const double FlatGenTree::Q2(const UInt_t& igen ) const {
+	return fGQ2->at(igen);
+}
+
+const double FlatGenTree::q2(const UInt_t& igen ) const {
+	return fGq2->at(igen);
+}
+
+const double FlatGenTree::W(const UInt_t& igen ) const {
+	return fGW->at(igen);
+}
+
+const double FlatGenTree::T(const UInt_t& igen ) const {
+	return fGT->at(igen);
+}
+
+const double FlatGenTree::X(const UInt_t& igen ) const {
+	return fGX->at(igen);
+}
+
+const double FlatGenTree::Y(const UInt_t& igen ) const {
+	return fGY->at(igen);
+}
+
+const TLorentzVector* FlatGenTree::FSLeptonP4(const UInt_t& igen )   const {
+    const TLorentzVector* v = new TLorentzVector(fFSleptonPx->at(igen),fFSleptonPy->at(igen),
+    		                     fFSleptonPz->at(igen), fFSleptonE->at(igen));
+	return v;
+}
+
+const TLorentzVector* FlatGenTree::FSHadSystP4(const UInt_t& igen )  const {
+    const TLorentzVector* v = new TLorentzVector(fFShadSystPx->at(igen),fFShadSystPy->at(igen),
+    		                     fFShadSystPz->at(igen), fFShadSystE->at(igen));
+	return v;
+}
+
+const int FlatGenTree::NumNuProton(const UInt_t& igen)  const {
+	return fNumProton->at(igen);
+}
+
+const int FlatGenTree::NumNuNeutron(const UInt_t& igen) const {
+	return fNumNeutron->at(igen);
+}
+
+const int FlatGenTree::NumNuPi0(const UInt_t& igen)     const {
+	return fNumPi0->at(igen);
+}
+
+const int FlatGenTree::NumNuPiPlus(const UInt_t& igen)  const {
+	return fNumPiPlus->at(igen);
+}
+
+const int FlatGenTree::NumNuPiMinus(const UInt_t& igen) const {
+	return fNumPiMinus->at(igen);
+}
+
+const Float_t FlatGenTree::FSTotEnergy(const UInt_t& igen) const {
 
     Float_t e = 0.;
     for(UInt_t i = fGenToFSLimits[igen].first; i < fGenToFSLimits[igen].second + 1; i++){
         e += fFSE->at(i);
     }
     return e;
+}
+
+const Float_t FlatGenTree::FSEnergy(const UInt_t& igen, const UInt_t& ifsp)  const {
+	return fFSE->at(fGenToFSLimits[igen].first+ifsp);
+}
+
+const Float_t FlatGenTree::FSPDG(const UInt_t& igen, const UInt_t& ifsp)     const {
+	return fFSPdg->at(fGenToFSLimits[igen].first+ifsp);
+}
+
+const Int_t   FlatGenTree::FSTrackId(const UInt_t& igen, const UInt_t& ifsp) const {
+	return fFSTrackId->at(fGenToFSLimits[igen].first+ifsp);
 }
 
  std::pair<UInt_t,UInt_t> FlatGenTree::FSParticlesFromGTruth(size_t igen) const{

@@ -6,7 +6,7 @@
  */
 
 #ifndef GARANA_TREEMANAGER_H_
-#define GARANA TREEMANAGER_H_
+#define GARANA_TREEMANAGER_H_
 
 //garana includes
 #include "garana/Accessors/HeaderTree.h"
@@ -42,13 +42,15 @@ namespace garana {
     TreeManager(){}
     TreeManager(const string& infilename);//, bool onGen, bool onG4, bool onDet, bool onReco, bool onDis);
 
-    HeaderTree*  GetHeaderTree()  const;
-    GenTree*     GetGenTree()     const;
-    G4Tree*      GetG4Tree()      const;
-    DetTree*     GetDetTree()     const;
-    RecoTree*    GetRecoTree()    const;
-    DisplayTree* GetDisplayTree() const;
-    void         GetEntry(UInt_t ientry);
+    HeaderTree*   GetHeaderTree()  const;
+    GenTree*      GetGenTree()     const;
+    G4Tree*       GetG4Tree()      const;
+    DetTree*      GetDetTree()     const;
+    RecoTree*     GetRecoTree()    const;
+    DisplayTree*  GetDisplayTree() const;
+    void          GetEntry(const UInt_t& ientry);
+
+    UInt_t const& NEntries()       const {return fNEntries;}
 
     void         SetActiveGenTree(bool active=true) {fOnGen = active; }
     void         SetActiveG4Tree (bool active=true) {fOnG4  = active; }
@@ -72,9 +74,12 @@ namespace garana {
   private:
 
     void Init();
+    bool CheckEntries();
 
     string   fInFileName = "";
     TFile*   fInFile     = nullptr;
+    string   fTreeType   = "";
+    UInt_t   fNEntries   = 0;
 
     bool     fOnGen      = true;
     bool     fOnG4       = true;

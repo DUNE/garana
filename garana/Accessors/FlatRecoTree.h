@@ -10,6 +10,8 @@
 
 #include "garana/Base/RecoTree.h"
 
+using std::vector;
+
 namespace garana {
 
  class FlatRecoTree : public RecoTree {
@@ -23,22 +25,46 @@ namespace garana {
     //accessors inherited from RecoTree
     //virtual void GetEntry(UInt_t entry) override;
 
-	 // sizes
-	 size_t NTrack()      const override;
-	 size_t NVertex()     const override;
-	 size_t NVee()        const override;
-	 size_t NCalCluster() const override;
+	// sizes
+	const size_t NTrack()      const override;
+	const size_t NVertex()     const override;
+	const size_t NVee()        const override;
+	const size_t NCalCluster() const override;
 
 	 // track
-    TLorentzVector TrackVertex(size_t itrack) const override;
-    TLorentzVector TrackEnd(size_t itrack)    const override;
-    size_t         NTrackHit(size_t itrack)   const override;
-    TVector3       TrackMomBeg(size_t itrack) const override;
-    TVector3       TrackMomEnd(size_t itrack) const override;
+    const TLorentzVector* TrackVertex(const size_t& itrack)                const override;
+    const TLorentzVector* TrackEnd(const size_t& itrack)                   const override;
+    const size_t          NTrackHit(const size_t& itrack)                  const override;
+    const TVector3*       TrackMomBeg(const size_t& itrack)                const override;
+    const TVector3*       TrackMomEnd(const size_t& itrack)                const override;
+    const float           TrackLenFwd(const size_t& itrack)                const override;
+    const float           TrackLenBkd(const size_t& itrack)                const override;
+    const float           TrackIonizFwd(const size_t& itrack)              const override;
+    const float           TrackIonizBkd(const size_t& itrack)              const override;
+    const int             TrackChgFwd(const size_t& itrack)                const override;
+    const int             TrackChgBkd(const size_t& itrack)                const override;
+    void                  TrackParBeg(const size_t& itrack, float pars[5]) const override;
+    void                  TrackParEnd(const size_t& itrack, float pars[5]) const override;
 
 	 //vertex
-    TLorentzVector GetVertex(size_t ivertex)          const override;
-    void           VertexCovariance(size_t ivertex, float covar[][3]) const override;
+    const TLorentzVector* GetVertex(const size_t& ivertex)                          const override;
+    void                  VertexCovariance(const size_t& ivertex, float covar[][3]) const override;
+
+    //vee
+    const TLorentzVector*         VeeVertex(const size_t& ivee)                       const override;
+    void                          VeeCovariance(const size_t& ivee, float covar[][3]) const override;
+    const vector<TLorentzVector>* VeeMomentumPerHypothesis(const size_t& ivee)        const override;
+    const float                   VeeChiSquared(const size_t& ivee)                   const override;
+
+    //ECal cluster
+    const TLorentzVector*   CalClustPosition(const size_t& ivee)       const override;
+    const float             CalClustEnergy(const size_t& ivee)         const override;
+    const float             CalClustEnergyError(const size_t& ivee)    const override;
+    const float             CalClustTimeDifference(const size_t& ivee) const override;
+    const float*            CalClustShape(const size_t& ivee)          const override;
+    const float             CalClustTheta(const size_t& ivee)          const override;
+    const float             CalClustPhi(const size_t& ivee)            const override;
+    const vector<TVector3>* CalClustEigenVecs(const size_t& ivee)      const override;
 
     //private:
   protected:
@@ -46,8 +72,6 @@ namespace garana {
     bool SetBranchAddresses() override;
     void SetVecs();
     void ClearVecs();
-
-    TLorentzVector fVertexPos;
 
 	//leaves and branches
     //track info
@@ -74,18 +98,18 @@ namespace garana {
 	vector<float>*  fTrkChiBac           = nullptr;        ///< chisquared backward fit
 	vector<size_t>* fTrkNHits            = nullptr;        ///< number of hits
 
-	vector<float>* fTrackXBeg           = nullptr;  ///< Track parameters at beginning of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
-	vector<float>* fTrackYBeg           = nullptr;
-	vector<float>* fTrackZBeg           = nullptr;
-	vector<float>* fTrackCurvBeg        = nullptr;
-	vector<float>* fTrackPhiBeg         = nullptr;
-	vector<float>* fTrackLambBeg        = nullptr;
-	vector<float>* fTrackParEnd         = nullptr;  ///< Track parameters at end of track y, z, curvature, phi, lambda  -- 5-param track  (cm, cm, cm-1, rad, rad)
-	vector<float>* fTrackYEnd           = nullptr;
-	vector<float>* fTrackZEnd           = nullptr;
-	vector<float>* fTrackCurvEnd        = nullptr;
-	vector<float>* fTrackPhiEnd         = nullptr;
-	vector<float>* fTrackLambEnd        = nullptr;
+	vector<float>* fTrackXBeg           = nullptr; ///< Track x-coord at beginning of track [cm]
+	vector<float>* fTrackYBeg           = nullptr; ///< Track y-coord (par[0]) at beginning of track [cm]
+	vector<float>* fTrackZBeg           = nullptr; ///< Track z-coord (par[1]) at beginning of track [cm]
+	vector<float>* fTrackCurvBeg        = nullptr; ///< Track curvature (par[2]) at beginning of track [cm^-1]
+	vector<float>* fTrackPhiBeg         = nullptr; ///< Track phi (par[3]) at beginning of track [rad]
+	vector<float>* fTrackLambBeg        = nullptr; ///< Track lambda (par[4]) at beginning of track [rad]
+	vector<float>* fTrackXEnd           = nullptr; ///< Track x-coord at end of track [cm]
+	vector<float>* fTrackYEnd           = nullptr; ///< Track y-coord (par[0]) at end of track [cm]
+	vector<float>* fTrackZEnd           = nullptr; ///< Track z-coord (par[1]) at end of track [cm]
+	vector<float>* fTrackCurvEnd        = nullptr; ///< Track curvature (par[2]) at end of track [cm^-1]
+	vector<float>* fTrackPhiEnd         = nullptr; ///< Track phi (par[3]) at end of track [rad]
+	vector<float>* fTrackLambEnd        = nullptr; ///< Track lambda (par[4]) at end of track [rad]
 	vector<float>* fTrkCovMat1Beg          = nullptr; ///< covariance matrix at beginning of track -- assuming symmetry
 	vector<float>* fTrkCovMat2Beg          = nullptr;
 	vector<float>* fTrkCovMat3Beg          = nullptr;
@@ -116,6 +140,11 @@ namespace garana {
 	vector<float>* fTrkCovMat13End         = nullptr;
 	vector<float>* fTrkCovMat14End         = nullptr;
 	vector<float>* fTrkCovMat15End         = nullptr;
+
+	vector<float>* fTrkIonizFwd            = nullptr;
+	vector<float>* fTrkIonizBac            = nullptr;
+	vector<int>*   fTrkChgFwd              = nullptr;
+	vector<int>*   fTrkChgBac              = nullptr;
 
 
 	// Vee info
@@ -178,9 +207,15 @@ namespace garana {
     vector<float>* fCalClustWidth       = nullptr; ///< cluster shape parameter width
     vector<float>* fCalClustTheta       = nullptr; ///< intrasic direction of the cluster theta
     vector<float>* fCalClustPhi         = nullptr; ///< intrasic direction of the cluster phi
-    vector<float>* fCalClustEigenX      = nullptr; ///< Eigenvectors of the cluster in ascending order (principal axis with smallest inertial mass) normalised to 1
-    vector<float>* fCalClustEigenY      = nullptr;
-    vector<float>* fCalClustEigenZ      = nullptr;
+    vector<float>* fCalClustEigen1X     = nullptr; ///< Eigenvectors of the cluster in ascending order (principal axis with smallest inertial mass) normalised to 1
+    vector<float>* fCalClustEigen1Y     = nullptr;
+    vector<float>* fCalClustEigen1Z     = nullptr;
+    vector<float>* fCalClustEigen2X     = nullptr; ///< Eigenvectors of the cluster in ascending order (principal axis with smallest inertial mass) normalised to 1
+    vector<float>* fCalClustEigen2Y     = nullptr;
+    vector<float>* fCalClustEigen2Z     = nullptr;
+    vector<float>* fCalClustEigen3X     = nullptr; ///< Eigenvectors of the cluster in ascending order (principal axis with smallest inertial mass) normalised to 1
+    vector<float>* fCalClustEigen3Y     = nullptr;
+    vector<float>* fCalClustEigen3Z     = nullptr;
 
     // associations
 	vector<vector<UInt_t>>* fTrackG4PIndices   = nullptr;
