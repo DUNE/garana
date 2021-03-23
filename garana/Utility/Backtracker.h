@@ -57,40 +57,38 @@ namespace garana {
    	  const vector<UInt_t>*  TrackToVees(const UInt_t& itrk)     const;
    	  const vector<UInt_t>*  VeeToTracks(const UInt_t& ivee)     const;
 
-	  /*void       GTruthToG4Particles(const size_t& ientry, const GTruth& truth, vector<G4Particle>& g4ps);
-	  void       GTruthToTracks(const size_t& ientry, const GTruth& truth, vector<Track>& tracks);
-	  void       FSParticleToG4Particles(const size_t& ientry, const FSParticle& fsp, vector<G4Particle>& g4ps);
-	  GTruth     G4ParticleToGTruth(const size_t& ientry, const G4Particle& g4p);
-	  FSParticle G4ParticleToFSParticle(const size_t& ientry, const G4Particle& g4p);
-	  GTruth     TrackToGTruth(const size_t& ientry, const Track& trk);
-   	  void       TrackToG4Particles(const size_t& ientry, const Track& trk, vector<G4Particle>& g4ps);*/
+   	  const vector<UInt_t>*  TrackToCalClusters(const UInt_t& itrk)     const;
+   	  const vector<UInt_t>*  CalClusterToTracks(const UInt_t& itrk)     const;
 
     private:
 
    	  const TreeManager* fTM = nullptr;
    	  template <class T>
    	  bool CheckRange(const map<UInt_t,T>& m, const UInt_t& i) const;
+   	  void Clear();
 
-      map< UInt_t, vector<UInt_t> > fGTruthToG4Particles; // gen -> g4
-      map< UInt_t, UInt_t >         fG4ParticleToGTruth;  // g4 -> gen
-      map< UInt_t, vector<UInt_t> > fGTruthToTracks;      // gen -> reco
+      map< UInt_t, vector<UInt_t> > fGTruthToG4Particles; // gen  -> g4
+      map< UInt_t, UInt_t >         fG4ParticleToGTruth;  // g4   -> gen
+      map< UInt_t, vector<UInt_t> > fGTruthToTracks;      // gen  -> reco
       map< UInt_t, UInt_t >         fTrackToGTruth;       // reco -> gen
       map< UInt_t, vector<UInt_t> > fTrackToG4Particles;  // reco -> g4
-      map< UInt_t, vector<UInt_t> > fG4ParticleToTracks;  // g4 -> reco
+      map< UInt_t, vector<UInt_t> > fG4ParticleToTracks;  // g4   -> reco
       //map< UInt_t, vector<UInt_t> > fFSParticleToG4Particles;
-      //map< UInt_t, UInt_t >         fG4ParticleToFSParticle;
-      map< UInt_t, vector<UInt_t> > fG4ParticleToVertices;     // g4 -> reco
-      map< UInt_t, vector<UInt_t> > fVertexToG4Particles;    // reco -> g4
-      map< UInt_t, UInt_t >         fVertexToGTruth;         // reco -> gen
-      map< UInt_t, UInt_t >         fGTruthToVertex;         // gen -> reco
-      map< UInt_t, vector<UInt_t> > fVeeToG4Particles;       // reco -> g4
-      map< UInt_t, UInt_t >         fG4ParticleToVee;        // g4 -> reco
-      map< UInt_t, UInt_t>          fVeeToGTruth;            // reco -> gen
-      map< UInt_t, UInt_t >         fGTruthToVee;            // gen -> reco
-      map< UInt_t, vector<UInt_t> > fTrackToVertices; // reco -> reco
-      map< UInt_t, vector<UInt_t> > fVertexToTracks;  // reco -> reco
-      map< UInt_t, vector<UInt_t> > fVeeToTracks;     // reco -> reco
-      map< UInt_t, vector<UInt_t> > fTrackToVees;     // reco -> reco
+      //map< UInt_t, UInt_t >         fG4ParticleToFSParticle; //TODO are these really necessary?
+      map< UInt_t, vector<UInt_t> > fG4ParticleToVertices;// g4   -> reco
+      map< UInt_t, vector<UInt_t> > fVertexToG4Particles; // reco -> g4
+      map< UInt_t, UInt_t >         fVertexToGTruth;      // reco -> gen
+      map< UInt_t, UInt_t >         fGTruthToVertex;      // gen  -> reco
+      map< UInt_t, vector<UInt_t> > fVeeToG4Particles;    // reco -> g4
+      map< UInt_t, UInt_t >         fG4ParticleToVee;     // g4   -> reco
+      map< UInt_t, UInt_t>          fVeeToGTruth;         // reco -> gen
+      map< UInt_t, UInt_t >         fGTruthToVee;         // gen  -> reco
+      map< UInt_t, vector<UInt_t> > fTrackToVertices;     // reco -> reco
+      map< UInt_t, vector<UInt_t> > fVertexToTracks;      // reco -> reco
+      map< UInt_t, vector<UInt_t> > fVeeToTracks;         // reco -> reco
+      map< UInt_t, vector<UInt_t> > fTrackToVees;         // reco -> reco
+      map< UInt_t, vector<UInt_t> > fCaloClusterToTracks; // reco -> reco
+      map< UInt_t, vector<UInt_t> > fTrackToCaloClusters; // reco -> reco
 
   }; //class
 }//namespace

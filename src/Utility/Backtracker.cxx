@@ -10,6 +10,7 @@
 using namespace garana;
 using std::vector;
 using std::cerr;
+using std::cout;
 using std::endl;
 
 const vector<UInt_t>* Backtracker::GTruthToG4Particles(const UInt_t& itruth) const {
@@ -152,8 +153,26 @@ const vector<UInt_t>* Backtracker::TrackToVees(const UInt_t& itrk) const {
 	}
 }
 const vector<UInt_t>* Backtracker::VeeToTracks(const UInt_t& ivee) const {
-	if(CheckRange(fTrackToVees, ivee)) {
+	if(CheckRange(fVeeToTracks, ivee)) {
 		return &fVeeToTracks.at(ivee);
+	}
+	else {
+		return new vector<UInt_t>();
+	}
+}
+
+const vector<UInt_t>*  Backtracker::TrackToCalClusters(const UInt_t& itrk) const {
+	if(CheckRange(fTrackToCaloClusters, itrk)) {
+		return &fTrackToCaloClusters.at(itrk);
+	}
+	else {
+		return new vector<UInt_t>();
+	}
+}
+
+const vector<UInt_t>*  Backtracker::CalClusterToTracks(const UInt_t& itrk) const {
+	if(CheckRange(fCaloClusterToTracks, itrk)) {
+		return &fCaloClusterToTracks.at(itrk);
 	}
 	else {
 		return new vector<UInt_t>();
@@ -162,29 +181,7 @@ const vector<UInt_t>* Backtracker::VeeToTracks(const UInt_t& ivee) const {
 
 void Backtracker::FillMaps() {
 
-    fGTruthToG4Particles.clear();
-    fG4ParticleToGTruth.clear();
-    fGTruthToTracks.clear();
-    fTrackToGTruth.clear();
-    fTrackToG4Particles.clear();
-    fG4ParticleToTracks.clear();
-    //fFSParticleToG4Particles.clear();
-    //fG4ParticleToFSParticle.clear();
-    fVertexToGTruth.clear();
-    fGTruthToVertex.clear();
-    fG4ParticleToVertices.clear();
-    fVertexToG4Particles.clear();
-    fVertexToGTruth.clear();
-    fGTruthToVertex.clear();
-    fVeeToG4Particles.clear();
-    fG4ParticleToVee.clear();
-    fVeeToGTruth.clear();
-    fGTruthToVee.clear();
-    fTrackToVertices.clear();
-    fVertexToTracks.clear();
-    fVeeToTracks.clear();
-    fTrackToVees.clear();
-
+	Clear();
     //GenTree*  gen = nullptr;
     G4Tree*   g4  = nullptr;
     //DetTree*  det = nullptr;
@@ -280,6 +277,16 @@ void Backtracker::FillMaps() {
         	    fGTruthToVee[ fVeeToGTruth[ivee] ] = ivee;
             }//endfor vees
 
+            //ECal clusters
+            for(UInt_t iclust=0; iclust<rec->NCalCluster(); iclust++){
+
+            	rec->GetCalClusterTrackIndices(iclust,fCaloClusterToTracks[iclust]);
+
+            	for(UInt_t itrk=0; itrk<fCaloClusterToTracks[iclust].size(); itrk++){
+            		fTrackToCaloClusters[ fCaloClusterToTracks[iclust][itrk] ].push_back(iclust);
+            	}
+            }
+
 		}//endif recotree
 
 	}//if gentree
@@ -298,4 +305,32 @@ bool Backtracker::CheckRange(const map<UInt_t,T>& m, const UInt_t& i) const {
 		cerr << "ERROR Backtracker: map index not found" << endl;
 		return false;
 	}
+}
+
+void Backtracker::Clear() {
+
+    fGTruthToG4Particles.clear();
+    fG4ParticleToGTruth.clear();
+    fGTruthToTracks.clear();
+    fTrackToGTruth.clear();
+    fTrackToG4Particles.clear();
+    fG4ParticleToTracks.clear();
+    //fFSParticleToG4Particles.clear();
+    //fG4ParticleToFSParticle.clear();
+    fVertexToGTruth.clear();
+    fGTruthToVertex.clear();
+    fG4ParticleToVertices.clear();
+    fVertexToG4Particles.clear();
+    fVertexToGTruth.clear();
+    fGTruthToVertex.clear();
+    fVeeToG4Particles.clear();
+    fG4ParticleToVee.clear();
+    fVeeToGTruth.clear();
+    fGTruthToVee.clear();
+    fTrackToVertices.clear();
+    fVertexToTracks.clear();
+    fVeeToTracks.clear();
+    fTrackToVees.clear();
+    fCaloClusterToTracks.clear();
+    fTrackToCaloClusters.clear();
 }
