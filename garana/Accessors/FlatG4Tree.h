@@ -10,6 +10,7 @@
 
 #include "garana/Base/G4Tree.h"
 #include <map>
+#include <utility>
 
 using std::vector;
 
@@ -26,6 +27,7 @@ namespace garana {
 
     // accessors inherited from G4Tree
 	const UInt_t                  NSim()                                     const override;
+	const UInt_t                  NPoints(const UInt_t& iparticle)           const override;
     const bool                    IsPrimary(const UInt_t& iparticle)         const override;
     const Int_t                   PDG(const UInt_t& iparticle)               const override;
 	const vector<TLorentzVector>* SimMom(const UInt_t& iparticle)                  override;
@@ -35,6 +37,8 @@ namespace garana {
 	const int                     TrackID(const UInt_t& iparticle)           const override;
 	const int                     ParentTrackID(const UInt_t& iparticle)     const override;
 	const int                     ProgenitorTrackID(const UInt_t& iparticle) const override;
+	const Int_t                   ProcessI(const UInt_t& iparticle)          const override;
+	const Int_t                   ProcessF(const UInt_t& iparticle)          const override;
 
   protected:
 

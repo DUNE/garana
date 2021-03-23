@@ -28,19 +28,29 @@ namespace garana {
 	 const size_t NCalCluster() const override;
 
 	 // track
-     const TLorentzVector* TrackVertex(const size_t& itrack)   const override;
-     const TLorentzVector* TrackEnd(const size_t& itrack)      const override;
-     const size_t          NTrackHit(const size_t& itrack)     const override;
-     const TVector3*       TrackMomBeg(const size_t& itrack)   const override;
-     const TVector3*       TrackMomEnd(const size_t& itrack)   const override;
-     const float           TrackLenFwd(const size_t& itrack)   const override;
-     const float           TrackLenBkd(const size_t& itrack)   const override;
-     const float           TrackIonizFwd(const size_t& itrack) const override;
-     const float           TrackIonizBkd(const size_t& itrack) const override;
-     const int             TrackChgFwd(const size_t& itrack)   const override;
-     const int             TrackChgBkd(const size_t& itrack)   const override;
+     const TLorentzVector* TrackVertex(const size_t& itrack)                const override;
+     const TLorentzVector* TrackEnd(const size_t& itrack)                   const override;
+     const size_t          NTrackHit(const size_t& itrack)                  const override;
+     const TVector3*       TrackMomBeg(const size_t& itrack)                const override;
+     const TVector3*       TrackMomEnd(const size_t& itrack)                const override;
+     const float           TrackVtxDirectionX(const size_t& itrack)         const override;
+     const float           TrackVtxDirectionY(const size_t& itrack)         const override;
+     const float           TrackVtxDirectionZ(const size_t& itrack)         const override;
+     const float           TrackEndDirectionX(const size_t& itrack)         const override;
+     const float           TrackEndDirectionY(const size_t& itrack)         const override;
+     const float           TrackEndDirectionZ(const size_t& itrack)         const override;
+     const float           TrackLenFwd(const size_t& itrack)                const override;
+     const float           TrackLenBkd(const size_t& itrack)                const override;
+     const float           TrackIonizFwd(const size_t& itrack)              const override;
+     const float           TrackIonizBkd(const size_t& itrack)              const override;
+     const int             TrackChiSqrFwd(const size_t& itrack)             const override;
+     const int             TrackChiSqrBkd(const size_t& itrack)             const override;
+     const int             TrackChgFwd(const size_t& itrack)                const override;
+     const int             TrackChgBkd(const size_t& itrack)                const override;
      void                  TrackParBeg(const size_t& itrack, float pars[5]) const override;
      void                  TrackParEnd(const size_t& itrack, float pars[5]) const override;
+     void                  TrackCovarBeg(const size_t& itrack, float pars[15]) const override;
+     void                  TrackCovarEnd(const size_t& itrack, float pars[15]) const override;
 
 	 //vertex
      const TLorentzVector* GetVertex(const size_t& ivertex)                          const override;

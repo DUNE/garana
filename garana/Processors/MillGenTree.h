@@ -3,8 +3,6 @@
 
 #include "garana/Accessors/FlatGenTree.h"
 #include "garana/Accessors/StructuredGenTree.h"
-//#include garana/DataProducts/FSParticle.h"
-//#include garana/DataProducts/GTruth.h"
 #include "garana/Processors/Mill.h"
 
 #include <vector>

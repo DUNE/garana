@@ -148,6 +148,10 @@ std::cout << "FlatG4Tree SetBranchAddresses()" << std::endl;
 	 return fNSim;
  }//
 
+ const UInt_t FlatG4Tree::NPoints(const UInt_t& iparticle) const {
+ 	return fNPts->at(iparticle);
+ }//
+
  const bool   FlatG4Tree::IsPrimary(const UInt_t& iparticle) const {
 	if(fParentPdg->at(iparticle)==INT_MAX) return true;
 	else return false;
@@ -195,6 +199,14 @@ const int FlatG4Tree::ParentTrackID(const UInt_t& iparticle)     const {
 
 const int FlatG4Tree::ProgenitorTrackID(const UInt_t& iparticle) const {
 	return fProgenitorTrackId->at(iparticle);
+}
+
+const Int_t FlatG4Tree::ProcessI(const UInt_t& iparticle) const {
+	return fProcessI->at(iparticle);
+}
+
+const Int_t FlatG4Tree::ProcessF(const UInt_t& iparticle) const {
+	return fProcessF->at(iparticle);
 }
 
 void FlatG4Tree::SetLimits(){

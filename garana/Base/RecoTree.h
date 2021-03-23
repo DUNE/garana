@@ -32,19 +32,29 @@ namespace garana {
 	  virtual const size_t NCalCluster() const = 0; ///< number of ECal clusters in this event
 
 	  // track
-      virtual const TLorentzVector* TrackVertex(const size_t& itrack)   const = 0; ///< 4-position of track's assumed start point
-      virtual const TLorentzVector* TrackEnd(const size_t& itrack)      const = 0; ///< 4-position of track's assumed end point
-      virtual const size_t          NTrackHit(const size_t& itrack)     const = 0; ///< number of reconstructed hits used in track fit
-      virtual const TVector3*       TrackMomBeg(const size_t& itrack)   const = 0; ///< momentum 3-vector as track's assumed start point
-      virtual const TVector3*       TrackMomEnd(const size_t& itrack)   const = 0; ///< momentum 3-vector as track's assumed end point
-      virtual const float           TrackLenFwd(const size_t& itrack)   const = 0; ///< track length from forward fit
-      virtual const float           TrackLenBkd(const size_t& itrack)   const = 0; ///< track length from backward fit
-      virtual const float           TrackIonizFwd(const size_t& itrack) const = 0; ///< track average ionization rate from forward fit
-      virtual const float           TrackIonizBkd(const size_t& itrack) const = 0; ///< track average ionization rate from backward fit
-      virtual const int             TrackChgFwd(const size_t& itrack)   const = 0; ///< charge sign of track if current hypothesis correct
-      virtual const int             TrackChgBkd(const size_t& itrack)   const = 0; ///< charge sign of track if current hypothesis wrong
-      virtual void                  TrackParBeg(const size_t& itrack, float pars[5]) const = 0; ///< track fit parameters at the track's assumed start
-      virtual void                  TrackParEnd(const size_t& itrack, float pars[5]) const = 0; ///< track fit parameters at the track's assumed end
+      virtual const TLorentzVector* TrackVertex(const size_t& itrack)        const = 0; ///< 4-position of track's assumed start point
+      virtual const TLorentzVector* TrackEnd(const size_t& itrack)           const = 0; ///< 4-position of track's assumed end point
+      virtual const size_t          NTrackHit(const size_t& itrack)          const = 0; ///< number of reconstructed hits used in track fit
+      virtual const TVector3*       TrackMomBeg(const size_t& itrack)        const = 0; ///< momentum 3-vector as track's assumed start point
+      virtual const TVector3*       TrackMomEnd(const size_t& itrack)        const = 0; ///< momentum 3-vector as track's assumed end point
+      virtual const float           TrackVtxDirectionX(const size_t& itrack) const = 0; ///< x-direction cosine at track vertex
+      virtual const float           TrackVtxDirectionY(const size_t& itrack) const = 0; ///< y-direction cosine at track vertex
+      virtual const float           TrackVtxDirectionZ(const size_t& itrack) const = 0; ///< z-direction cosine at track vertex
+      virtual const float           TrackEndDirectionX(const size_t& itrack) const = 0; ///< x-direction cosine at track end
+      virtual const float           TrackEndDirectionY(const size_t& itrack) const = 0; ///< y-direction cosine at track end
+      virtual const float           TrackEndDirectionZ(const size_t& itrack) const = 0; ///< z-direction cosine at track end
+      virtual const float           TrackLenFwd(const size_t& itrack)        const = 0; ///< track length from forward fit
+      virtual const float           TrackLenBkd(const size_t& itrack)        const = 0; ///< track length from backward fit
+      virtual const float           TrackIonizFwd(const size_t& itrack)      const = 0; ///< track average ionization rate from forward fit
+      virtual const float           TrackIonizBkd(const size_t& itrack)      const = 0; ///< track average ionization rate from backward fit
+      virtual const int             TrackChiSqrFwd(const size_t& itrack)     const = 0; ///< chi-squared of track fit in forward direction
+      virtual const int             TrackChiSqrBkd(const size_t& itrack)     const = 0; ///< chi-squared of track fit in backward direction
+      virtual const int             TrackChgFwd(const size_t& itrack)        const = 0; ///< charge sign of track if current hypothesis correct
+      virtual const int             TrackChgBkd(const size_t& itrack)        const = 0; ///< charge sign of track if current hypothesis wrong
+      virtual void                  TrackParBeg(const size_t& itrack, float pars[5])    const = 0; ///< track fit parameters at the track's assumed start
+      virtual void                  TrackParEnd(const size_t& itrack, float pars[5])    const = 0; ///< track fit parameters at the track's assumed end
+      virtual void                  TrackCovarBeg(const size_t& itrack, float pars[15]) const = 0; ///< track fit covariance matrix (assume symmetry) at track's assumed start
+      virtual void                  TrackCovarEnd(const size_t& itrack, float pars[15]) const = 0; ///< track fit covariance matrix (assume symmetry) at track's assumed end
 
 	  //vertex
       virtual const TLorentzVector* GetVertex(const size_t& ivertex)                          const = 0; ///< vertex 4-position for vertex with index ivertex

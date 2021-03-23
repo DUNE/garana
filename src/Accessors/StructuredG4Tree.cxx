@@ -63,9 +63,13 @@ const G4Particle* StructuredG4Tree::GetParticle(const UInt_t& iparticle) const {
 }//*/
 
 const UInt_t StructuredG4Tree::NSim() const {
-
 	return fG4Particles->size();
 }//
+
+const UInt_t StructuredG4Tree::NPoints(const UInt_t& iparticle) const {
+	return GetParticle(iparticle)->NPoints();
+}//
+
 
 const vector<TLorentzVector>* StructuredG4Tree::SimMom(const UInt_t& iparticle) {
 
@@ -100,20 +104,31 @@ const vector<TLorentzVector>* StructuredG4Tree::SimPos(const UInt_t& iparticle) 
 
 const int StructuredG4Tree::ParentPDG(const UInt_t& iparticle)         const {
 	return GetParticle(iparticle)->ParentPDG();
-}
+}//
 
 const int StructuredG4Tree::ProgenitorPDG(const UInt_t& iparticle)     const {
 	return GetParticle(iparticle)->ProgenitorPDG();
-}
+}//
 
 const int StructuredG4Tree::TrackID(const UInt_t& iparticle)           const {
 	return GetParticle(iparticle)->TrackID();
-}
+}//
 
 const int StructuredG4Tree::ParentTrackID(const UInt_t& iparticle)     const {
 	return GetParticle(iparticle)->ParentTrackID();
-}
+}//
 
 const int StructuredG4Tree::ProgenitorTrackID(const UInt_t& iparticle) const {
 	return GetParticle(iparticle)->ProgenitorTrackID();
-}
+}//
+
+const Int_t StructuredG4Tree::ProcessI(const UInt_t& iparticle) const {
+	return GetParticle(iparticle)->ProcessI();
+}//
+
+const Int_t StructuredG4Tree::ProcessF(const UInt_t& iparticle) const {
+	return GetParticle(iparticle)->ProcessF();
+}//
+
+
+

@@ -17,10 +17,11 @@ namespace garana {
 
     public:
 	  G4Particle() {}
-      G4Particle(const int& pdg, const int& parentPdg, const int& progenitorPdg, const int& trackId,
+      G4Particle(const int& npts, const int& pdg, const int& parentPdg, const int& progenitorPdg, const int& trackId,
     		     const int& parentTrackId, const int& progenitorTrackId, const int& processI,
     		     const int& processF, const TLorentzVector& ri,
                  const TLorentzVector& rf, const TLorentzVector& pi, const TLorentzVector& pf):
+                  fNpts(npts),
                   fPdg(pdg),
                   fParentPdg(parentPdg),
                   fProgenitorPdg(progenitorPdg),
@@ -36,13 +37,15 @@ namespace garana {
                   {}
       //default dest'or
 
-
+      int const&            NPoints()           const { return fNpts;              }
       int const&            PDG()               const { return fPdg;               }
       int const&            ParentPDG()         const { return fParentPdg;         }
       int const&            ProgenitorPDG()     const { return fProgenitorPdg;     }
       int const&            TrackID()           const { return fTrackId;           }
       int const&            ParentTrackID()     const { return fParentTrackId;     }
       int const&            ProgenitorTrackID() const { return fProgenitorTrackId; }
+      int const&            ProcessI()          const { return fProcessI;          }
+      int const&            ProcessF()          const { return fProcessF;          }
       const TLorentzVector* PosI()              const { return &fRi;               }
       const TLorentzVector* PosF()              const { return &fRf;               }
       const TLorentzVector* MomI()              const { return &fPi;               }
@@ -68,6 +71,7 @@ namespace garana {
 
     private:
 
+      int            fNpts              = INT_MAX;  ///< number of G4 steps (i.e. trajectory points)
       int            fPdg               = INT_MAX;  ///< particle PDG code
       int            fParentPdg         = INT_MAX;  ///< particle parent's PDG code
       int            fProgenitorPdg     = INT_MAX;  ///< FS particle from gen stage that led to this one

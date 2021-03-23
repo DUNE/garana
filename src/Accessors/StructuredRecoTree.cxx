@@ -83,6 +83,30 @@ const TVector3* StructuredRecoTree::TrackMomEnd(const size_t& itrack) const {
     return v;
 }
 
+const float StructuredRecoTree::TrackVtxDirectionX(const size_t& itrack) const {
+	return fTracks->at(itrack).fVtxDir.X();
+}
+
+const float StructuredRecoTree::TrackVtxDirectionY(const size_t& itrack) const {
+	return fTracks->at(itrack).fVtxDir.Y();
+}
+
+const float StructuredRecoTree::TrackVtxDirectionZ(const size_t& itrack) const {
+	return fTracks->at(itrack).fVtxDir.Z();
+}
+
+const float StructuredRecoTree::TrackEndDirectionX(const size_t& itrack) const {
+	return fTracks->at(itrack).fEndDir.X();
+}
+
+const float StructuredRecoTree::TrackEndDirectionY(const size_t& itrack) const {
+	return fTracks->at(itrack).fEndDir.Y();
+}
+
+const float StructuredRecoTree::TrackEndDirectionZ(const size_t& itrack) const {
+	return fTracks->at(itrack).fEndDir.Z();
+}
+
 const float StructuredRecoTree::TrackLenFwd(const size_t& itrack) const {
 	return fTracks->at(itrack).fLenFwd;
 }
@@ -97,6 +121,14 @@ const float StructuredRecoTree::TrackIonizFwd(const size_t& itrack) const {
 
 const float StructuredRecoTree::TrackIonizBkd(const size_t& itrack) const {
 	return fTracks->at(itrack).fLenBac;
+}
+
+const int StructuredRecoTree::TrackChiSqrFwd(const size_t& itrack) const {
+	return fTracks->at(itrack).fChiFwd;
+}
+
+const int StructuredRecoTree::TrackChiSqrBkd(const size_t& itrack) const {
+	return fTracks->at(itrack).fChiBac;
 }
 
 const int StructuredRecoTree::TrackChgFwd(const size_t& itrack) const {
@@ -115,6 +147,16 @@ void StructuredRecoTree::TrackParBeg(const size_t& itrack, float pars[5]) const 
 void StructuredRecoTree::TrackParEnd(const size_t& itrack, float pars[5]) const {
 	for(size_t i=0; i<5; i++)
 		pars[i] = fTracks->at(itrack).fTrackParEnd[i];
+}
+
+void StructuredRecoTree::TrackCovarBeg(const size_t& itrack, float covar[15]) const {
+	for(size_t i=0; i<15; i++)
+		covar[i] = fTracks->at(itrack).fCovMatBeg[i];
+}
+
+void StructuredRecoTree::TrackCovarEnd(const size_t& itrack, float covar[15]) const {
+	for(size_t i=0; i<15; i++)
+		covar[i] = fTracks->at(itrack).fCovMatEnd[i];
 }
 
 //============== vertex ======================
