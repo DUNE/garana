@@ -24,8 +24,12 @@ namespace garana {
 	  // pure virtual functions for structured or flat g4Tree
 	  virtual const UInt_t                  NSim()                                     const = 0; ///< number of particles
 	  virtual const UInt_t                  NPoints(const UInt_t& iparticle)           const = 0; ///< number of G4 steps (i.e. trajectory points)
-	  virtual const vector<TLorentzVector>* SimMom(const UInt_t& iparticle)                  = 0; ///< particle 4-momentum
-	  virtual const vector<TLorentzVector>* SimPos(const UInt_t& iparticle)                  = 0; ///< particle 4-position
+	  virtual const UInt_t                  NRegions(const UInt_t& iparticle)          const = 0; ///< number of regions traversed by particle
+	  virtual const Int_t                   Region(const UInt_t& iparticle, const UInt_t& iregion)              const = 0; ///< region number
+	  virtual const vector<const TLorentzVector*>* SimMomEnter(const UInt_t& iparticle)const = 0; ///< particle 4-momentum at entry point in region
+	  virtual const vector<const TLorentzVector*>* SimMomExit(const UInt_t& iparticle) const = 0; ///< particle 4-momentum at exit point in region
+	  virtual const vector<const TLorentzVector*>* SimPosEnter(const UInt_t& iparticle)const = 0; ///< particle 4-position at entry point in region
+	  virtual const vector<const TLorentzVector*>* SimPosExit(const UInt_t& iparticle) const = 0; ///< particle 4-position at exit point in region
       virtual const bool                    IsPrimary(const UInt_t& iparticle)         const = 0; ///< did particle come from generator?
       virtual const Int_t                   PDG(const UInt_t& iparticle)               const = 0; ///< particle PDG code
       virtual const int                     ParentPDG(const UInt_t& iparticle)         const = 0; ///< parent particle's PDG code
@@ -40,8 +44,7 @@ namespace garana {
 	  UInt_t const&                         GetTruthIndex(UInt_t iparticle) const; ///< index in gen tree subentry to truth match to this
 
     protected:
-	     vector<TLorentzVector>* fPos           = nullptr;
-	     vector<TLorentzVector>* fMom           = nullptr;
+
 		 vector<UInt_t>*         fG4TruthIndex  = nullptr;
 		 vector<UInt_t>*         fG4FSIndex     = nullptr;
 		 TBranch*                b_G4TruthIndex = nullptr;

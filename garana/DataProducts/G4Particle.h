@@ -56,7 +56,8 @@ namespace garana {
       const TLorentzVector* PositionExit(const size_t& iregion)   const { return &fR.at(iregion).second ; }
       const TLorentzVector* MomentumEnter(const size_t& iregion)  const { return &fP.at(iregion).first ; }
       const TLorentzVector* MomentumExit(const size_t& iregion)   const { return &fP.at(iregion).second ; }
-      const string          Region(const size_t iregion)          const { return fRegions.at(iregion); }
+      const int             Region(const size_t& iregion)         const { return fRegions.at(iregion); }
+      const size_t          NRegions()                            const { return fRegions.size(); }
 
 
     private:
@@ -72,7 +73,7 @@ namespace garana {
       int                                         fProcessF          = INT_MAX;  ///< process that killed the particle
       vector<pair<TLorentzVector,TLorentzVector>> fR;                            ///< particle 4-position at entry (first) and exit (second) points for selected geometric regions
       vector<pair<TLorentzVector,TLorentzVector>> fP;                            ///< particle 4-momentum at entry (first) and exit (second) points for selected geometric regions
-      vector<int>                                 fRegions;                      ///< region names (e.g. tpc inactive (2), tpc active (1), tpcFiducial(0), eCal (3))
+      vector<int>                                 fRegions;                      ///< region numbers (e.g. tpc inactive (2), tpc active (1), tpcFiducial(0), eCal (3))
 
   };//class
 }//namepsace

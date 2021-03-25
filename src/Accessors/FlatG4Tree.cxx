@@ -14,7 +14,7 @@ using namespace garana;
 FlatG4Tree::FlatG4Tree(TTree* tree)
 {
     SetupRead(tree);
-    SetLimits();
+
 }
 
 FlatG4Tree::FlatG4Tree(TTree* tree, char opt)
@@ -24,24 +24,25 @@ FlatG4Tree::FlatG4Tree(TTree* tree, char opt)
     if(fOpt=='r'){
     	std::cout << "constructed FlatG4Tree object in read-only mode" << std::endl;
     	SetupRead(tree);
-    	SetLimits();
     }
     else {
     	std::cout << "constructed FlatG4Tree object in write mode" << std::endl;
     	fTreeIn = tree;
     	SetBranchAddresses();
     	SetVecs();
-    	SetLimits();
     }
 
 }
 
 
-/*void FlatG4Tree::GetEntry(UInt_t entry) {
-	this->fG4ToFSLimits.clear();
-	fTreeIn->GetEntry(entry);
-    this->FindFSLimits();
-}*/
+void FlatG4Tree::GetEntry(const UInt_t& ientry) {
+
+	FillIndexMap();
+	if(ientry != fCurrentEntry) {
+		fCurrentEntry = ientry;
+		fTreeIn->GetEntry(ientry);
+	}
+}
 
 bool FlatG4Tree::SetBranchAddresses(){
 
@@ -53,6 +54,8 @@ std::cout << "FlatG4Tree SetBranchAddresses()" << std::endl;
 	    //fTreeIn->SetBranchAddress("FSIndex",      &fG4FSIndex,    &b_G4FSIndex);
 		fTreeIn->SetBranchAddress("NSim",              &fNSim,              &b_NSim             );
 		fTreeIn->SetBranchAddress("NPts",              &fNPts,              &b_NPts             );
+		fTreeIn->SetBranchAddress("NRegions",          &fNRegions,          &b_NRegions         );
+		fTreeIn->SetBranchAddress("Region",            &fRegions,           &b_Regions          );
 		fTreeIn->SetBranchAddress("TrkID",             &fTrkID,             &b_TrkID            );
 		fTreeIn->SetBranchAddress("Pdg",               &fPDG,               &b_PDG              );
 		fTreeIn->SetBranchAddress("ParentPdg",         &fParentPdg,         &b_ParentPdg        );
@@ -78,6 +81,8 @@ std::cout << "FlatG4Tree SetBranchAddresses()" << std::endl;
 		fTreeIn->Branch("Event",             &fEvent,            "Event/I");
 		fTreeIn->Branch("NSim",              &fNSim,             "NSim/I" );
 		fTreeIn->Branch("NPts",              &fNPts                       );
+		fTreeIn->Branch("NRegions",          &fNRegions                   );
+		fTreeIn->Branch("Region",            &fRegions                    );
 		fTreeIn->Branch("TrkID",             &fTrkID                      );
 		fTreeIn->Branch("Pdg",               &fPDG                        );
 		fTreeIn->Branch("ParentPdg",         &fParentPdg                  );
@@ -161,58 +166,132 @@ std::cout << "FlatG4Tree SetBranchAddresses()" << std::endl;
 	 return fPDG->at(iparticle);
  }
 
-
-const vector<TLorentzVector>* FlatG4Tree::SimMom(const UInt_t& iparticle) {
-	UInt_t first = fLimits[iparticle].first;
-	UInt_t last = fLimits[iparticle].second;
-	vector<TLorentzVector>* v = new vector<TLorentzVector>();
-	v->push_back(TLorentzVector(fPx->at(first),fPy->at(first),fPz->at(first),fE->at(first)));
-	v->push_back(TLorentzVector(fPx->at(last),fPy->at(last),fPz->at(last),fE->at(last)));
-	return v;
-
+const UInt_t FlatG4Tree::NRegions(const UInt_t& iparticle) const {
+	return fNRegions->at(iparticle);
 }
-// FIX ME (dummy implementation)
-const vector<TLorentzVector>* FlatG4Tree::SimPos(const UInt_t& iparticle) {
-	UInt_t first = fLimits[iparticle].first;
-	UInt_t last = fLimits[iparticle].second;
-	vector<TLorentzVector>* v = new vector<TLorentzVector>();
-	v->push_back(TLorentzVector(fX->at(first),fY->at(first),fZ->at(first),fT->at(first)));
-	v->push_back(TLorentzVector(fX->at(last), fY->at(last), fZ->at(last), fT->at(last)));
+
+const Int_t FlatG4Tree::Region(const UInt_t& iparticle, const UInt_t& iregion) const {
+	return fRegions->at(LocalToGlobalIndex(iparticle)+iregion);
+}
+
+const vector<const TLorentzVector*>*  FlatG4Tree::SimMomEnter(const UInt_t& iparticle) const {
+
+		//output vector
+		auto v = new vector<const TLorentzVector*>();
+
+		//get index range
+		size_t ireg = LocalToGlobalIndex(iparticle);
+		size_t ireg_max = ireg+2*fNRegions->at(iparticle);
+
+		//fill for all regions
+		//entry points are every other value and precede exit points
+		for(; ireg<ireg_max; ireg+=2){
+			v->push_back(new TLorentzVector(fPx->at(ireg), fPy->at(ireg),
+					                          fPz->at(ireg), fE->at(ireg)));
+		}
+		return v;
+}
+
+const vector<const TLorentzVector*>*  FlatG4Tree::SimMomExit(const UInt_t& iparticle)  const {
+
+	//output vector
+	auto v = new vector<const TLorentzVector*>();
+
+	//get index range
+	size_t ireg = LocalToGlobalIndex(iparticle)+1;
+	const size_t ireg_max = ireg-1 + 2*fNRegions->at(iparticle);
+
+	//fill for all regions
+	//exit points are every other value and follow entry points
+	for(; ireg<ireg_max; ireg+=2){
+		v->push_back(new TLorentzVector(fPx->at(ireg), fPy->at(ireg),
+				                          fPz->at(ireg), fE->at(ireg)));
+	}
+	return v;
+}
+
+const vector<const TLorentzVector*>*  FlatG4Tree::SimPosEnter(const UInt_t& iparticle) const {
+
+	//output vector
+	auto v = new vector<const TLorentzVector*>();
+
+	//get index range
+	size_t ireg = LocalToGlobalIndex(iparticle);
+	size_t ireg_max = ireg+2*fNRegions->at(iparticle);
+
+	//fill for all regions
+	//exit points are every other value and follow entry points
+	for(; ireg<ireg_max; ireg+=2){
+		v->push_back(new TLorentzVector(fX->at(ireg), fY->at(ireg),
+				                          fZ->at(ireg), fT->at(ireg)));
+	}
+	return v;
+}
+
+const vector<const TLorentzVector*>*  FlatG4Tree::SimPosExit(const UInt_t& iparticle)  const {
+
+	//output vector
+	auto v = new vector<const TLorentzVector*>();
+
+	//get index range
+	size_t ireg = LocalToGlobalIndex(iparticle)+1;
+	size_t ireg_max = ireg-1 + 2*fNRegions->at(iparticle);
+
+	//fill for all regions
+	//exit points are every other value and follow entry points
+	for(; ireg<ireg_max; ireg+=2){
+		v->push_back(new TLorentzVector(fX->at(ireg), fY->at(ireg),
+				                          fZ->at(ireg), fT->at(ireg)));
+	}
 	return v;
 }
 
 const int FlatG4Tree::ParentPDG(const UInt_t& iparticle)         const {
-	return fParentPdg->at(iparticle);
+	return fParentPdg->at(LocalToGlobalIndex(iparticle));
 }
 
 const int FlatG4Tree::ProgenitorPDG(const UInt_t& iparticle)     const {
-	return fProgenitorPdg->at(iparticle);
+	return fProgenitorPdg->at(LocalToGlobalIndex(iparticle));
 }
 
 const int FlatG4Tree::TrackID(const UInt_t& iparticle)           const {
-	return fTrkID->at(iparticle);
+	return fTrkID->at(LocalToGlobalIndex(iparticle));
 }
 
 const int FlatG4Tree::ParentTrackID(const UInt_t& iparticle)     const {
-	return fParentTrackId->at(iparticle);
+	return fParentTrackId->at(LocalToGlobalIndex(iparticle));
 }
 
 const int FlatG4Tree::ProgenitorTrackID(const UInt_t& iparticle) const {
-	return fProgenitorTrackId->at(iparticle);
+	return fProgenitorTrackId->at(LocalToGlobalIndex(iparticle));
 }
 
 const Int_t FlatG4Tree::ProcessI(const UInt_t& iparticle) const {
-	return fProcessI->at(iparticle);
+	return fProcessI->at(LocalToGlobalIndex(iparticle));
 }
 
 const Int_t FlatG4Tree::ProcessF(const UInt_t& iparticle) const {
-	return fProcessF->at(iparticle);
+	return fProcessF->at(LocalToGlobalIndex(iparticle));
 }
 
-void FlatG4Tree::SetLimits(){
-	UInt_t last=0;
-	for(UInt_t i=0; i<fNSim; i++) {
-		fLimits[i] = std::make_pair(last,last+fNPts->at(i));
-		last += fNPts->at(i);
+const UInt_t FlatG4Tree::NSubEntries() const {
+	return fTrkID->size();
+}
+
+void FlatG4Tree::FillIndexMap() {
+	fLocalToGlobalIndex.clear();
+	UInt_t iparticle=0;
+	int trkid = -1; fTrkID->at(0);
+	for(UInt_t i=0; i<NSubEntries(); i++){
+		if(trkid!=fTrkID->at(i)){
+			fLocalToGlobalIndex[iparticle] = i;
+			trkid = fTrkID->at(i);
+			iparticle++;
+		}
 	}
+}
+
+const UInt_t FlatG4Tree::LocalToGlobalIndex(const UInt_t& iparticle) const {
+
+	return fLocalToGlobalIndex.at(iparticle);
 }

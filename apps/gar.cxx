@@ -91,16 +91,16 @@ int main(int argc, char *argv[]){
         size_t nprot = 0;
         for(size_t i=0; i<g4->NSim(); i++){
 
-            hg4->Fill(g4->SimMom(i)->at(0).E());
-            hg4_efrac->Fill(g4->SimMom(i)->at(0).E()/gen->NuP(bt.G4ParticleToGTruth(i))->E());
+            hg4->Fill(g4->SimMomEnter(i)->at(0)->E());
+            hg4_efrac->Fill(g4->SimMomEnter(i)->at(0)->E()/gen->NuP(bt.G4ParticleToGTruth(i))->E());
 
             if(g4->PDG(i) == 2212 && g4->IsPrimary(i)) { //is it a primary proton?
             	nprot++;
-            	hg4_eprot->Fill(1.e3*(g4->SimMom(i)->at(0).E()-0.938272)); //KE in [MeV]
+            	hg4_eprot->Fill(1.e3*(g4->SimMomEnter(i)->at(0)->E()-0.938272)); //KE in [MeV]
 
                 const vector<UInt_t>* matchedtracks = bt.G4ParticleToTracks(i);
                 eff_reco_prot_integ->Fill(matchedtracks->size()>0, 0.5);
-                eff_reco_prot_tprot->Fill(matchedtracks->size()>0, 1e3*(g4->SimMom(i)->at(0).E()-0.938272));
+                eff_reco_prot_tprot->Fill(matchedtracks->size()>0, 1e3*(g4->SimMomEnter(i)->at(0)->E()-0.938272));
 
             }
         }

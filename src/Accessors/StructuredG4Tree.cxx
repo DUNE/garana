@@ -13,8 +13,6 @@ using std::vector;
 StructuredG4Tree::StructuredG4Tree(TTree* tree=0) {
 
 	SetupRead(tree); //initialize tree pointer in TreeReader instance and set branch address
-	fMom = new vector<TLorentzVector>();
-	fPos = new vector<TLorentzVector>();
 }//
 
 bool StructuredG4Tree::SetBranchAddresses() {
@@ -70,37 +68,44 @@ const UInt_t StructuredG4Tree::NPoints(const UInt_t& iparticle) const {
 	return GetParticle(iparticle)->NPoints();
 }//
 
+const UInt_t StructuredG4Tree::NRegions(const UInt_t& iparticle) const {
+	return GetParticle(iparticle)->NRegions();
+}
+const Int_t  StructuredG4Tree::Region(const UInt_t& iparticle, const UInt_t& iregion) const {
+	return GetParticle(iparticle)->Region(iregion);
+}
+const vector<const TLorentzVector*>* StructuredG4Tree::SimMomEnter(const UInt_t& iparticle) const {
+	auto v = new vector<const TLorentzVector*>();
+	for(size_t ireg=0; ireg<NRegions(iparticle); ireg++){
+		v->push_back(GetParticle(iparticle)->MomentumEnter(ireg));
+	}
 
-const vector<TLorentzVector>* StructuredG4Tree::SimMom(const UInt_t& iparticle) {
+	return v;
+}
+const vector<const TLorentzVector*>* StructuredG4Tree::SimMomExit(const UInt_t& iparticle)  const {
+	auto v = new vector<const TLorentzVector*>();
+	for(size_t ireg=0; ireg<NRegions(iparticle); ireg++){
+		v->push_back(GetParticle(iparticle)->MomentumExit(ireg));
+	}
 
-	//TODO probably need to add one entry/exit point per volume of interest
-	// for now, just use particle start and end points
-	fMom->clear();
-	const G4Particle* g = GetParticle(iparticle);
-	if(!g) std::cout << "tried to get G4Particle but got nullptr" << std::endl;
+	return v;
+}
+const vector<const TLorentzVector*>* StructuredG4Tree::SimPosEnter(const UInt_t& iparticle) const {
+	auto v = new vector<const TLorentzVector*>();
+	for(size_t ireg=0; ireg<NRegions(iparticle); ireg++){
+		v->push_back(GetParticle(iparticle)->PositionEnter(ireg));
+	}
 
-	const TLorentzVector* pbeg = g->MomI();
-	const TLorentzVector* pend = g->MomF();
+	return v;
+}
+const vector<const TLorentzVector*>* StructuredG4Tree::SimPosExit(const UInt_t& iparticle)  const {
+	auto v = new vector<const TLorentzVector*>();
+	for(size_t ireg=0; ireg<NRegions(iparticle); ireg++){
+		v->push_back(GetParticle(iparticle)->PositionExit(ireg));
+	}
 
-	fMom->push_back(*pbeg);
-	fMom->push_back(*pend);
-
-	return fMom;
-}//
-
-const vector<TLorentzVector>* StructuredG4Tree::SimPos(const UInt_t& iparticle) {
-
-	fPos->clear();
-    const G4Particle* g = GetParticle(iparticle);
-
-	const TLorentzVector* pbeg = g->PosI();
-	const TLorentzVector* pend = g->PosF();
-
-	fPos->push_back(*pbeg);
-	fPos->push_back(*pend);
-
-	return fPos;
-}//
+	return v;
+}
 
 const int StructuredG4Tree::ParentPDG(const UInt_t& iparticle)         const {
 	return GetParticle(iparticle)->ParentPDG();

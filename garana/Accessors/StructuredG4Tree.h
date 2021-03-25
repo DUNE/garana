@@ -23,21 +23,23 @@ namespace garana {
 	 StructuredG4Tree(TTree* tree);
 	// ~StructuredG4Tree(){}
 
-
-
-	 const UInt_t                  NSim()                                     const override;
-	 const UInt_t                  NPoints(const UInt_t& iparticle)           const override;
-	 const vector<TLorentzVector>* SimMom(const UInt_t& iparticle)                  override;
-	 const vector<TLorentzVector>* SimPos(const UInt_t& iparticle)                  override;
-	 const bool                    IsPrimary(const UInt_t& iparticle)         const override;
-	 const Int_t                   PDG(const UInt_t& iparticle)               const override;
-	 const int                     ParentPDG(const UInt_t& iparticle)         const override;
-	 const int                     ProgenitorPDG(const UInt_t& iparticle)     const override;
-	 const int                     TrackID(const UInt_t& iparticle)           const override;
-	 const int                     ParentTrackID(const UInt_t& iparticle)     const override;
-	 const int                     ProgenitorTrackID(const UInt_t& iparticle) const override;
-     const Int_t                   ProcessI(const UInt_t& iparticle)          const override;
-     const Int_t                   ProcessF(const UInt_t& iparticle)          const override;
+	 const UInt_t                         NSim()                                                 const override;
+	 const UInt_t                         NPoints(const UInt_t& iparticle)                       const override;
+	 const UInt_t                         NRegions(const UInt_t& iparticle)                      const override;
+	 const Int_t                          Region(const UInt_t& iparticle, const UInt_t& iregion) const override;
+	 const vector<const TLorentzVector*>* SimMomEnter(const UInt_t& iparticle)                   const override;
+	 const vector<const TLorentzVector*>* SimMomExit(const UInt_t& iparticle)                    const override;
+	 const vector<const TLorentzVector*>* SimPosEnter(const UInt_t& iparticle)                   const override;
+	 const vector<const TLorentzVector*>* SimPosExit(const UInt_t& iparticle)                    const override;
+	 const bool                           IsPrimary(const UInt_t& iparticle)                     const override;
+	 const Int_t                          PDG(const UInt_t& iparticle)                           const override;
+	 const int                            ParentPDG(const UInt_t& iparticle)                     const override;
+	 const int                            ProgenitorPDG(const UInt_t& iparticle)                 const override;
+	 const int                            TrackID(const UInt_t& iparticle)                       const override;
+	 const int                            ParentTrackID(const UInt_t& iparticle)                 const override;
+	 const int                            ProgenitorTrackID(const UInt_t& iparticle)             const override;
+     const Int_t                          ProcessI(const UInt_t& iparticle)                      const override;
+     const Int_t                          ProcessF(const UInt_t& iparticle)                      const override;
 
 	 const G4Particle*             GetParticle(const UInt_t& iparticle) const;
 	 //vector<G4Particle*>*      GetParticles();
