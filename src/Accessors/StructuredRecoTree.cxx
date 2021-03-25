@@ -16,18 +16,19 @@ StructuredRecoTree::StructuredRecoTree(TTree* tree=0) {
 
 bool StructuredRecoTree::SetBranchAddresses() {
 
-    fTreeIn->SetBranchAddress("Event",            &fEvent,            &b_Event           );
-    fTreeIn->SetBranchAddress("Tracks",           &fTracks          , &b_Tracks          );
-    fTreeIn->SetBranchAddress("Vees",             &fVees            , &b_Vees            );
-    fTreeIn->SetBranchAddress("Vertices",         &fVertices        , &b_Vertices        );
-    fTreeIn->SetBranchAddress("CalClusters",      &fCalClusters     , &b_CalClusters     );
-    fTreeIn->SetBranchAddress("TrackG4Indices",   &fTrackG4PIndices , &b_TrackG4PIndices );
-    fTreeIn->SetBranchAddress("VertTrackIndices", &fVertTrackIndices, &b_VertTrackIndices);
-    fTreeIn->SetBranchAddress("VertTrackEnds",    &fVertTrackEnds   , &b_VertTrackEnds   );
-    fTreeIn->SetBranchAddress("VeeTrackIndices",  &fVeeTrackIndices , &b_VeeTrackIndices );
-    fTreeIn->SetBranchAddress("VeeTrackEnds",     &fVeeTrackEnds    , &b_VeeTrackEnds    );
-    fTreeIn->SetBranchAddress("CalTrackIndices",  &fCalTrackIndices , &b_CalTrackIndices );
+    fTreeIn->SetBranchAddress("Event",            &fEvent,                   &b_Event                  );
+    fTreeIn->SetBranchAddress("Tracks",           &fTracks          ,        &b_Tracks                 );
+    fTreeIn->SetBranchAddress("Vees",             &fVees            ,        &b_Vees                   );
+    fTreeIn->SetBranchAddress("Vertices",         &fVertices        ,        &b_Vertices               );
+    fTreeIn->SetBranchAddress("CalClusters",      &fCalClusters     ,        &b_CalClusters            );
+    fTreeIn->SetBranchAddress("TrackG4Indices",   &fTrackG4PIndices ,        &b_TrackG4PIndices        );
+    fTreeIn->SetBranchAddress("VertTrackIndices", &fVertTrackIndices,        &b_VertTrackIndices       );
+    fTreeIn->SetBranchAddress("VertTrackEnds",    &fVertTrackEnds   ,        &b_VertTrackEnds          );
+    fTreeIn->SetBranchAddress("VeeTrackIndices",  &fVeeTrackIndices ,        &b_VeeTrackIndices        );
+    fTreeIn->SetBranchAddress("VeeTrackEnds",     &fVeeTrackEnds    ,        &b_VeeTrackEnds           );
+    fTreeIn->SetBranchAddress("CalTrackIndices",  &fCalClusterTrackIndices , &b_CalClusterTrackIndices );
     //fTreeIn->SetBranchAddress("CalTrackEnds",     &fCalTrackEnds    , &b_CalTrackEnds    );
+    fTreeIn->SetBranchAddress("CalG4Indices",     &fCalClusterG4Indices ,    &b_CalClusterG4Indices    );
     /*if(fGeo->HasMuonDetector()){
             fTreeIn->SetBranchAddress("MuIDClusters", "vector<gar::rec::Cluster>",   &fMuClusters);
     }*/

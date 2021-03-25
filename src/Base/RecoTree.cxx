@@ -11,7 +11,7 @@ using namespace garana;
 using std::vector;
 
 void RecoTree::GetTrackG4PIndices       (const size_t& itrk,    vector<UInt_t>& ig4ps  ) const {
-	std::cout << "filling given track to g4p vec with " << fTrackG4PIndices->at(itrk).size() << " entries" << std::endl;
+	//std::cout << "filling given track to g4p vec with " << fTrackG4PIndices->at(itrk).size() << " entries" << std::endl;
 	ig4ps = fTrackG4PIndices->at(itrk);
 }
 
@@ -24,5 +24,9 @@ void RecoTree::GetVeeTrackIndices       (const size_t& ivee,    vector<UInt_t>& 
 }
 
 void RecoTree::GetCalClusterTrackIndices(const size_t& iclust,  vector<UInt_t>& itracks) const {
-	itracks = fCalTrackIndices->at(iclust);
+	itracks = fCalClusterTrackIndices->at(iclust);
+}
+
+void RecoTree::GetCalClusterG4Indices(const size_t& iclust,  vector<UInt_t>& ig4ps) const {
+	ig4ps = fCalClusterG4Indices->at(iclust);
 }

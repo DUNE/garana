@@ -188,7 +188,10 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
 		fTreeIn->SetBranchAddress("TrackG4PIndices ",    &fTrackG4PIndices,     &b_TrackG4PIndices    );
 		fTreeIn->SetBranchAddress("VertTrackIndices",    &fVertTrackIndices,    &b_VertTrackIndices   );
 		fTreeIn->SetBranchAddress("VeeTrackIndices ",    &fVeeTrackIndices,     &b_VeeTrackIndices    );
-		fTreeIn->SetBranchAddress("CalTrackIndices ",    &fCalTrackIndices,     &b_CalTrackIndices    );
+		//fTreeIn->SetBranchAddress("CalTrackIndices ",    &fCalTrackIndices,     &b_CalTrackIndices    );
+	    fTreeIn->SetBranchAddress("CalTrackIndices",  &fCalClusterTrackIndices , &b_CalClusterTrackIndices );
+	    //fTreeIn->SetBranchAddress("CalTrackEnds",     &fCalTrackEnds    , &b_CalTrackEnds    );
+	    fTreeIn->SetBranchAddress("CalG4Indices",     &fCalClusterG4Indices ,    &b_CalClusterG4Indices    );
 
 		fTreeIn->SetBranchAddress("VertTrackEnds",       &fVertTrackEnds,       &b_VertTrackEnds      );
 		fTreeIn->SetBranchAddress("VeeTrackEnds",        &fVeeTrackEnds,        &b_VeeTrackEnds       );
@@ -340,7 +343,10 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
 		fTreeIn->Branch("TrackG4PIndices ",    "vector<vector<UInt_t>>", &fTrackG4PIndices    );
 		fTreeIn->Branch("VertTrackIndices",    "vector<vector<UInt_t>>", &fVertTrackIndices   );
 		fTreeIn->Branch("VeeTrackIndices ",    "vector<vector<UInt_t>>", &fVeeTrackIndices    );
-		fTreeIn->Branch("CalTrackIndices ",    "vector<vector<UInt_t>>", &fCalTrackIndices    );
+		//fTreeIn->Branch("CalTrackIndices ",    "vector<vector<UInt_t>>", &fCalTrackIndices    );
+	    fTreeIn->Branch("CalTrackIndices", "vector<vector<UInt_t>>", &fCalClusterTrackIndices );
+	    //fTreeIn->Branch("CalTrackEnds",     &fCalTrackEnds    , &b_CalTrackEnds    );
+	    fTreeIn->Branch("CalG4Indices",    "vector<vector<UInt_t>>", &fCalClusterG4Indices );
 
 		fTreeIn->Branch("VertTrackEnds",       "vector<vector<Int_t>>",  &fVertTrackEnds      );
 		fTreeIn->Branch("VeeTrackEnds",        "vector<vector<Int_t>>",  &fVeeTrackEnds       );

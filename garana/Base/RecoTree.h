@@ -81,19 +81,22 @@ namespace garana {
       void GetVertexTrackIndices    (const size_t& ivtx,    vector<UInt_t>& itracks) const; ///< given a vertex index, fill a given vector with matched track indices
       void GetVeeTrackIndices       (const size_t& ivee,    vector<UInt_t>& itracks) const; ///< given a vee index, fill a given vector with matched G4 particle indices
       void GetCalClusterTrackIndices(const size_t& iclust,  vector<UInt_t>& itracks) const; ///< given a calocluster index, fill a given vector with matched track indices
+      void GetCalClusterG4Indices   (const size_t& iclust,  vector<UInt_t>& ig4ps)   const; ///< given a calocluster index, fill a given vector with matched G4Particle indices
 
     protected:
 
       //associations
- 	  vector<vector<UInt_t>>* fTrackG4PIndices  = nullptr;
- 	  vector<vector<UInt_t>>* fVertTrackIndices = nullptr;
- 	  vector<vector<UInt_t>>* fVeeTrackIndices  = nullptr;
- 	  vector<vector<UInt_t>>* fCalTrackIndices  = nullptr;
+ 	  vector<vector<UInt_t>>* fTrackG4PIndices        = nullptr;
+ 	  vector<vector<UInt_t>>* fVertTrackIndices       = nullptr;
+ 	  vector<vector<UInt_t>>* fVeeTrackIndices        = nullptr;
+ 	  vector<vector<UInt_t>>* fCalClusterTrackIndices = nullptr;
+ 	  vector<vector<UInt_t>>* fCalClusterG4Indices    = nullptr;
 
-      TBranch*            b_TrackG4PIndices  = nullptr;
-      TBranch*            b_VertTrackIndices = nullptr;
-      TBranch*            b_VeeTrackIndices  = nullptr;
-      TBranch*            b_CalTrackIndices  = nullptr;
+      TBranch*  b_TrackG4PIndices        = nullptr;
+      TBranch*  b_VertTrackIndices       = nullptr;
+      TBranch*  b_VeeTrackIndices        = nullptr;
+      TBranch*  b_CalClusterTrackIndices = nullptr;
+      TBranch*  b_CalClusterG4Indices    = nullptr;
 
   };//class
 }//namespace

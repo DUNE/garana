@@ -170,15 +170,34 @@ const vector<UInt_t>*  Backtracker::TrackToCalClusters(const UInt_t& itrk) const
 	}
 }
 
-const vector<UInt_t>*  Backtracker::CalClusterToTracks(const UInt_t& itrk) const {
-	if(CheckRange(fCaloClusterToTracks, itrk)) {
-		return &fCaloClusterToTracks.at(itrk);
+const vector<UInt_t>*  Backtracker::CalClusterToTracks(const UInt_t& icluster) const {
+	if(CheckRange(fCaloClusterToTracks, icluster)) {
+		return &fCaloClusterToTracks.at(icluster);
 	}
 	else {
 		return new vector<UInt_t>();
 	}
-}
+}//
 
+const vector<UInt_t>* Backtracker::G4PToCalClusters(const UInt_t& ig4p) const {
+	if(CheckRange(fG4PToCaloClusters, ig4p)) {
+		return &fG4PToCaloClusters.at(ig4p);
+	}
+	else {
+		return new vector<UInt_t>();
+	}
+}//
+
+const vector<UInt_t>* Backtracker::CalClusterToG4Ps(const UInt_t& icluster) const {
+	if(CheckRange(fCaloClusterToG4Ps, icluster)) {
+		return &fCaloClusterToG4Ps.at(icluster);
+	}
+	else {
+		return new vector<UInt_t>();
+	}
+}//
+
+//=======================================
 void Backtracker::FillMaps() {
 
 	Clear();
@@ -202,17 +221,17 @@ void Backtracker::FillMaps() {
 
 			for(UInt_t itrk = 0; itrk<rec->NTrack(); itrk++ ) {
 				rec->GetTrackG4PIndices(itrk, fTrackToG4Particles[itrk]);
-				cout << "track matched to " << fTrackToG4Particles[itrk].size() << " G4 particle(s)" << endl;
+				//cout << "track matched to " << fTrackToG4Particles[itrk].size() << " G4 particle(s)" << endl;
 				for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[itrk].size(); ig4p++){
 					if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) == fG4ParticleToTracks.end())
-						cout << "unexpected G4particle index found in fTrackToG4Particles ("
-						     << fTrackToG4Particles[itrk][ig4p] << ")" << endl;
+						//cout << "unexpected G4particle index found in fTrackToG4Particles ("
+						 //    << fTrackToG4Particles[itrk][ig4p] << ")" << endl;
 				    fG4ParticleToTracks[fTrackToG4Particles[itrk][ig4p]].push_back(itrk);
 				}
 				for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
 					if(fG4ParticleToTracks[ig4p].size() == 0) continue;
-					cout << "G4particle " << ig4p << " matched to " << fG4ParticleToTracks[ig4p].size()
-					     << " reco track(s)" << endl;
+					//cout << "G4particle " << ig4p << " matched to " << fG4ParticleToTracks[ig4p].size()
+					//     << " reco track(s)" << endl;
 				}
 			}
 		}
@@ -285,6 +304,12 @@ void Backtracker::FillMaps() {
             	for(UInt_t itrk=0; itrk<fCaloClusterToTracks[iclust].size(); itrk++){
             		fTrackToCaloClusters[ fCaloClusterToTracks[iclust][itrk] ].push_back(iclust);
             	}
+
+            	rec->GetCalClusterG4Indices(iclust,fCaloClusterToG4Ps[iclust]);
+
+            	for(UInt_t ig4p=0; ig4p<fCaloClusterToG4Ps[iclust].size(); ig4p++){
+            		fG4PToCaloClusters[ fCaloClusterToG4Ps[iclust][ig4p] ].push_back(iclust);
+            	}
             }
 
 		}//endif recotree
@@ -333,4 +358,6 @@ void Backtracker::Clear() {
     fTrackToVees.clear();
     fCaloClusterToTracks.clear();
     fTrackToCaloClusters.clear();
+    fCaloClusterToG4Ps.clear();
+    fG4PToCaloClusters.clear();
 }

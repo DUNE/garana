@@ -60,6 +60,9 @@ namespace garana {
    	  const vector<UInt_t>*  TrackToCalClusters(const UInt_t& itrk)     const;
    	  const vector<UInt_t>*  CalClusterToTracks(const UInt_t& itrk)     const;
 
+   	  const vector<UInt_t>*  G4PToCalClusters(const UInt_t& itrk)     const;
+   	  const vector<UInt_t>*  CalClusterToG4Ps(const UInt_t& itrk)     const;
+
     private:
 
    	  const TreeManager* fTM = nullptr;
@@ -75,6 +78,7 @@ namespace garana {
       map< UInt_t, vector<UInt_t> > fG4ParticleToTracks;  // g4   -> reco
       //map< UInt_t, vector<UInt_t> > fFSParticleToG4Particles;
       //map< UInt_t, UInt_t >         fG4ParticleToFSParticle; //TODO are these really necessary?
+
       map< UInt_t, vector<UInt_t> > fG4ParticleToVertices;// g4   -> reco
       map< UInt_t, vector<UInt_t> > fVertexToG4Particles; // reco -> g4
       map< UInt_t, UInt_t >         fVertexToGTruth;      // reco -> gen
@@ -83,12 +87,15 @@ namespace garana {
       map< UInt_t, UInt_t >         fG4ParticleToVee;     // g4   -> reco
       map< UInt_t, UInt_t>          fVeeToGTruth;         // reco -> gen
       map< UInt_t, UInt_t >         fGTruthToVee;         // gen  -> reco
+
       map< UInt_t, vector<UInt_t> > fTrackToVertices;     // reco -> reco
       map< UInt_t, vector<UInt_t> > fVertexToTracks;      // reco -> reco
       map< UInt_t, vector<UInt_t> > fVeeToTracks;         // reco -> reco
       map< UInt_t, vector<UInt_t> > fTrackToVees;         // reco -> reco
       map< UInt_t, vector<UInt_t> > fCaloClusterToTracks; // reco -> reco
       map< UInt_t, vector<UInt_t> > fTrackToCaloClusters; // reco -> reco
+      map< UInt_t, vector<UInt_t> > fCaloClusterToG4Ps; // reco -> reco
+      map< UInt_t, vector<UInt_t> > fG4PToCaloClusters; // reco -> reco
 
   }; //class
 }//namespace
