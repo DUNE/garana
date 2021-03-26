@@ -27,7 +27,7 @@ namespace garana {
       G4Particle(const int& npts, const int& pdg, const int& parentPdg, const int& progenitorPdg, const int& trackId,
     		     const int& parentTrackId, const int& progenitorTrackId, const int& processI,
     		     const int& processF, const vector<pair<TLorentzVector,TLorentzVector>>& positions,
-    		     const vector<pair<TLorentzVector,TLorentzVector>>& momenta, const vector<int>& regions ):
+    		     const vector<pair<TLorentzVector,TLorentzVector>>& momenta, const vector<int>& regions, const vector<size_t>& nptsPerRegion ):
                   fNpts(npts),
                   fPdg(pdg),
                   fParentPdg(parentPdg),
@@ -39,7 +39,8 @@ namespace garana {
                   fProcessF(processF),
                   fR(positions),
                   fP(momenta),
-                  fRegions(regions)
+                  fRegions(regions),
+                  fNptsPerRegion(nptsPerRegion)
                   {}
       //default dest'or
 
@@ -52,12 +53,13 @@ namespace garana {
       int const&            ProgenitorTrackID() const { return fProgenitorTrackId; }
       int const&            ProcessI()          const { return fProcessI;          }
       int const&            ProcessF()          const { return fProcessF;          }
-      const TLorentzVector* PositionEnter(const size_t& iregion)  const { return &fR.at(iregion).first ; }
-      const TLorentzVector* PositionExit(const size_t& iregion)   const { return &fR.at(iregion).second ; }
-      const TLorentzVector* MomentumEnter(const size_t& iregion)  const { return &fP.at(iregion).first ; }
-      const TLorentzVector* MomentumExit(const size_t& iregion)   const { return &fP.at(iregion).second ; }
-      const int             Region(const size_t& iregion)         const { return fRegions.at(iregion); }
-      const size_t          NRegions()                            const { return fRegions.size(); }
+      const TLorentzVector* PositionEnter(const size_t& iregion)    const { return &fR.at(iregion).first ; }
+      const TLorentzVector* PositionExit(const size_t& iregion)     const { return &fR.at(iregion).second ; }
+      const TLorentzVector* MomentumEnter(const size_t& iregion)    const { return &fP.at(iregion).first ; }
+      const TLorentzVector* MomentumExit(const size_t& iregion)     const { return &fP.at(iregion).second ; }
+      const int             Region(const size_t& iregion)           const { return fRegions.at(iregion); }
+      const size_t          NPointsPerRegion(const size_t& iregion) const { return fNptsPerRegion.at(iregion); }
+      const size_t          NRegions()                              const { return fRegions.size(); }
 
 
     private:
@@ -74,6 +76,7 @@ namespace garana {
       vector<pair<TLorentzVector,TLorentzVector>> fR;                            ///< particle 4-position at entry (first) and exit (second) points for selected geometric regions
       vector<pair<TLorentzVector,TLorentzVector>> fP;                            ///< particle 4-momentum at entry (first) and exit (second) points for selected geometric regions
       vector<int>                                 fRegions;                      ///< region numbers (e.g. tpc inactive (2), tpc active (1), tpcFiducial(0), eCal (3))
+      vector<size_t>                              fNptsPerRegion;                ///< number of trajectory points (G4 steps) per region of interest
 
   };//class
 }//namepsace
