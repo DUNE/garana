@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo inside garana build script
+
 #parameters
 PROJECT_NAME=garana
 
@@ -23,6 +25,7 @@ Usage: $(basename ${0}) [-h]
 EOF
 }
 
+echo params set
 
 while getopts :h OPT; do
   case ${OPT} in
@@ -78,7 +81,7 @@ case ${build_type} in
     exit 1
 esac
 
-
+echo quals set
 
 # Find platform flavor.
 OS=$(uname)
