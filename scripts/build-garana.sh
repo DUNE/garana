@@ -4,7 +4,7 @@
 PROJECT_NAME=garana
 
 PROJECT_SOURCE_GIT_PREFIX=${PROJECT_SOURCE_GIT_PREFIX:-'https://github.com/DUNE'}
-PRODUCTS=${PRODUCTS:-'/cvmfs/fermilab.opensciencegrid.org/products/root'}
+PRODUCTS=${PRODUCTS:-'/cvmfs/larsoft.opensciencegrid.org/products/root'}
 
 ROOT_VERSION=${ROOT_VERSION:-"v6_22_06"}
 
