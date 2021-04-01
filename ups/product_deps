@@ -1,6 +1,6 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	garana	v00_00_01
+parent	garana	v.0.1-beta
 defaultqual	e19
 
 # These optional lines define the installed directories where
@@ -20,6 +20,7 @@ bindir  fq_dir       bin
 
 product         version
 root           v6_22_06a
+cetbuildtools   v7_17_01        -       only_for_build
 end_product_list
 
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
