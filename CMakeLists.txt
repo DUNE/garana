@@ -14,7 +14,7 @@ project(garana VERSION 00.00.01
 # and it contains cmake modules
 option(BUILD_W_CET "Build with cetbuildtools" ON )
 
-IF( NOT BUILD_W_CET)
+#IF( NOT BUILD_W_CET)
 # Defines the CMAKE_INSTALL_LIBDIR, CMAKE_INSTALL_BINDIR and many other useful macros.
 # See https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html
 include(GNUInstallDirs)
@@ -29,7 +29,7 @@ include(GNUInstallDirs)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-ENDIF()
+#ENDIF()
 
 IF( BUILD_W_CET )
 
@@ -59,11 +59,10 @@ IF( BUILD_W_CET )
     add_subdirectory(ups)
     include(UseCPack)
 
-#ENDIF()
-
+ENDIF()
 
 # Only do these if this is the main project, and not if it is included through add_subdirectory
-ELSEIF(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+IF(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
   # Under MSVC, we set CMAKE_DEBUG_POSTFIX to "d" to add a trailing "d" to library
   # built in debug mode. In this Windows user can compile, build and install the
@@ -80,11 +79,14 @@ ELSEIF(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   
   set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+#ENDIF() # new
+
   if(UNIX)
     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:\$ORIGIN/../bin:\$ORIGIN")
   endif()
 
 
+#IF(NOT BUILD_W_CET) #new
 
   # Let's ensure -std=c++xx instead of -std=g++xx
   set(CMAKE_C_EXTENSIONS OFF)
@@ -125,7 +127,7 @@ ELSEIF(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   endif()
 ENDIF() #end if top level project directory
 
-IF(NOT BUILD_W_CET)
+IF(NOT BUILD_W_CET) #not it
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
@@ -136,7 +138,7 @@ add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
                           USE_LINK_PATH)
 
 # find required package: ROOT
-ENDIF()
+ENDIF() #not it
 
 list(APPEND CMAKE_PREFIX_PATH "$ENV{ROOTSYS}")
 find_package(ROOT 6.16 CONFIG REQUIRED)
@@ -151,7 +153,7 @@ set(BASEPATH "${CMAKE_SOURCE_DIR}")
 include_directories("${BASEPATH}")
 
 include(${ROOT_USE_FILE})
-IF(NOT BUILD_W_CET)
+#IF(NOT BUILD_W_CET)
 # The compiled library code is here
 #add_subdirectory(src)
 
@@ -160,26 +162,46 @@ IF(NOT BUILD_W_CET)
 
 # Note that if your library depends from other libraries, you are probably
 # required to used the install_basic_package_files() DEPENDENCIES option.
-include(InstallBasicPackageFiles)
-install_basic_package_files(${PROJECT_NAME}
-                            VERSION ${${PROJECT_NAME}_VERSION}
-                            COMPATIBILITY AnyNewerVersion
-                            FIRST_TARGET GaranaDict
-                            VARS_PREFIX ${PROJECT_NAME}
-                            NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-# Add the uninstall target
-include(AddUninstallTarget)
+#include(InstallBasicPackageFiles)
+#install_basic_package_files(${PROJECT_NAME}
+#                            VERSION ${${PROJECT_NAME}_VERSION}
+#                            COMPATIBILITY AnyNewerVersion
+#                            FIRST_TARGET GaranaDict
+#                            VARS_PREFIX ${PROJECT_NAME}
+#                            NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+## Add the uninstall target
+#include(AddUninstallTarget)
+#
+## Add integration tests (unit tests for each library should be in each sublibrary directory).
+#if(BUILD_TESTING)
+#    add_subdirectory(test)
+#endif()
+##ENDIF() #end if not using cetbuildtools
 
-# Add integration tests (unit tests for each library should be in each sublibrary directory).
-if(BUILD_TESTING)
-    add_subdirectory(test)
-endif()
-ENDIF() #end if not using cetbuildtools
-
-
+#ELSE
 # The compiled library code is here
 add_subdirectory(src)
 
 # The executable code is here
 add_subdirectory(apps)
+
+IF(NOT BUILD_W_CET)
+
+    # Note that if your library depends from other libraries, you are probably
+    # required to used the install_basic_package_files() DEPENDENCIES option.
+    include(InstallBasicPackageFiles)
+    install_basic_package_files(${PROJECT_NAME}
+                                VERSION ${${PROJECT_NAME}_VERSION}
+                                COMPATIBILITY AnyNewerVersion
+                                FIRST_TARGET GaranaDict
+                                VARS_PREFIX ${PROJECT_NAME}
+                                NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+    # Add the uninstall target
+    include(AddUninstallTarget)
+    
+    # Add integration tests (unit tests for each library should be in each sublibrary directory).
+    if(BUILD_TESTING)
+        add_subdirectory(test)
+    endif()
+ENDIF() #end if not using cetbuildtools
 
