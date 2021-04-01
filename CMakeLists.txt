@@ -2,35 +2,68 @@
 ##               garana top-level CMake file                                                ##
 ##############################################################################################
 
-cmake_minimum_required(VERSION 3.8...3.19)
+cmake_minimum_required(VERSION 3.12...3.19)
 
 project(garana VERSION 0.0.1 
                 DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
                 LANGUAGES CXX
 )
 
+# cetbuildtools is used by mrb
+option(BUILD_W_CET "Build with cetbuildtools" ON )
+
+
 # Defines the CMAKE_INSTALL_LIBDIR, CMAKE_INSTALL_BINDIR and many other useful macros.
 # See https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html
 include(GNUInstallDirs)
 
+# Control where libraries and executables are placed during the build.
+# With the following settings executables are placed in <the top level of the
+# build tree>/bin and libraries/archives in <top level of the build tree>/lib.
+# This is particularly useful to run ctests on libraries built on Windows
+# machines: tests, which are executables, are placed in the same folders of
+# dlls, which are treated as executables as well, so that they can properly
+# find the libraries to run. This is a because of missing RPATH on Windows.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 
+# cetbuildtools is used by mrb
+# and it contains cmake modules
+option(BUILD_W_CET "Build with cetbuildtools" ON )
+if( BUILD_W_CET )
+
+    SET ( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
+    IF (NOT CETBUILDTOOLS_VERSION)
+        MESSAGE (FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules")
+    ENDIF()
+
+    set( CMAKE_MODULE_PATH $ENV{CETBUILDTOOLS_DIR}/Modules ${CMAKE_MODULE_PATH})
+
+    include(CetCMakeEnv)
+    cet_cmake_env()
+    
+    # -D_GLIBCXX_USE_NANOSLEEP is needed to make std::this_thread::sleep_for available.
+    cet_set_compiler_flags(DIAGS CAUTIOUS 
+                           WERROR
+                           NO_UNDEFINED
+                           EXTRA_FLAGS -pedantic -Wno-unused-local-typedefs
+                           EXTRA_CXX_FLAGS -D_GLIBCXX_USE_NANOSLEEP -Wno-variadic-macros -fPIC)
+    cet_report_compiler_flags()
+
+    find_ups_product( root )
+    message(STATUS "ROOTSYS is ${ROOTSYS}")
+    cet_find_library( ROOTPHYSICS NAMES Physics PATHS ENV ${ROOTSYS}/lib )
+
+    add_subdirectory(ups)
+    include(UseCPack)
+
+endif()
+
+
 # Only do these if this is the main project, and not if it is included through add_subdirectory
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
-  # Control where libraries and executables are placed during the build.
-  # With the following settings executables are placed in <the top level of the
-  # build tree>/bin and libraries/archives in <top level of the build tree>/lib.
-  # This is particularly useful to run ctests on libraries built on Windows
-  # machines: tests, which are executables, are placed in the same folders of
-  # dlls, which are treated as executables as well, so that they can properly
-  # find the libraries to run. This is a because of missing RPATH on Windows.
-  #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
-  #set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-  #set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-  
   # Under MSVC, we set CMAKE_DEBUG_POSTFIX to "d" to add a trailing "d" to library
   # built in debug mode. In this Windows user can compile, build and install the
   # library in both Release and Debug configuration avoiding naming clashes in the
@@ -50,12 +83,13 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:\$ORIGIN/../bin:\$ORIGIN")
   endif()
 
+
+
   # Let's ensure -std=c++xx instead of -std=g++xx
   set(CMAKE_C_EXTENSIONS OFF)
   set(CMAKE_CXX_EXTENSIONS OFF)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra -pedantic -Wno-ignored-qualifiers -Wno-inline -fPIC")
 
-  #list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
   set(BUILD_SHARED_LIBS ON)
 
@@ -63,13 +97,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   if(BUILD_TESTING)
       enable_testing()
   endif()
-
-  # Enable RPATH support for installed binaries and libraries
-  #include(AddInstallRPATHSupport)
-  #add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
-  #                          LIB_DIRS "${CMAKE_INSTALL_FULL_LIBDIR}"
-  #                          INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}"
-  #                         USE_LINK_PATH)
 
   # Encourage user to specify a build type (e.g. Release, Debug, etc.), otherwise set it to Release.
   if(NOT CMAKE_CONFIGURATION_TYPES)
@@ -142,34 +169,3 @@ if(BUILD_TESTING)
     add_subdirectory(test)
 endif()
 
-
-#install(TARGETS ${LIBRARY_TARGET_NAME}
-#        EXPORT  ${PROJECT_NAME}
-#        LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT shlib
-#        ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT lib
-#        RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
-#        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_TARGET_NAME}" COMPONENT dev)
-
-
-#message(STATUS "Created target ${LIBRARY_TARGET_NAME} for export ${PROJECT_NAME}.")
-
-
-#export(TARGETS GaranaAccessors GaranaBase GaranaProcessors GaranaProducts GaranaDict NAMESPACE garana:: FILE garana.cmake)
-#set(CMAKE_EXPORT_PACKAGE_REGISTRY ON)
-#export(PACKAGE garana)
-##
-### Packaging support
-#set(CPACK_PACKAGE_VENDOR "Chris Hilgenberg")
-#set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "tools for garsoft analysis")
-#set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-#set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-#set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-##set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENCE")
-##set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
-#
-#set(CPACK_SOURCE_GENERATOR "TGZ;ZIP")
-#set(CPACK_SOURCE_IGNORE_FILES
-#    /.git
-#    /.gitignore
-#)
-#include(CPack)

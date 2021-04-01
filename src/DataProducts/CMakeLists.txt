@@ -35,7 +35,7 @@ add_library(${DICTIONARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_
 set_target_properties(${DICTIONARY_TARGET_NAME} PROPERTIES VERSION       ${${PROJECT_NAME}_VERSION}
                                                         PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
 
-target_link_libraries(${DICTIONARY_TARGET_NAME} PUBLIC ROOT::Core)
+target_link_libraries(${DICTIONARY_TARGET_NAME} PUBLIC ROOT::Core ROOT::Physics)
 
 add_library( ${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
 
