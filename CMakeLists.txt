@@ -146,12 +146,12 @@ else()
   message(STATUS "ROOT not found!")
 endif()
 
-IF(NOT BUILD_W_CET)
+#IF(NOT BUILD_W_CET)
 set(BASEPATH "${CMAKE_SOURCE_DIR}")
 include_directories("${BASEPATH}")
 
 include(${ROOT_USE_FILE})
-
+IF(NOT BUILD_W_CET)
 # The compiled library code is here
 #add_subdirectory(src)
 
