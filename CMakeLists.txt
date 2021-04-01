@@ -5,14 +5,16 @@
 cmake_minimum_required(VERSION 3.12...3.19)
 
 project(garana VERSION 00.00.01
-                DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
-                LANGUAGES CXX
+               DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
+               LANGUAGES CXX
 )
 
+
 # cetbuildtools is used by mrb
+# and it contains cmake modules
 option(BUILD_W_CET "Build with cetbuildtools" ON )
 
-
+IF( NOT BUILD_W_CET)
 # Defines the CMAKE_INSTALL_LIBDIR, CMAKE_INSTALL_BINDIR and many other useful macros.
 # See https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html
 include(GNUInstallDirs)
@@ -27,11 +29,9 @@ include(GNUInstallDirs)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
+ENDIF()
 
-# cetbuildtools is used by mrb
-# and it contains cmake modules
-option(BUILD_W_CET "Build with cetbuildtools" ON )
-if( BUILD_W_CET )
+IF( BUILD_W_CET )
 
     SET ( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
     IF (NOT CETBUILDTOOLS_VERSION)
@@ -52,17 +52,18 @@ if( BUILD_W_CET )
     cet_report_compiler_flags()
 
     find_ups_product( root )
-    message(STATUS "ROOTSYS is ${ROOTSYS}")
+    #message(STATUS "ROOTSYS is ${ROOTSYS}")
     cet_find_library( ROOTPHYSICS NAMES Physics PATHS ENV ${ROOTSYS}/lib )
+    cet_find_library( ROOTIO NAMES IO PATHS ENV ${ROOTSYS}/lib )
 
     add_subdirectory(ups)
     include(UseCPack)
 
-endif()
+#ENDIF()
 
 
 # Only do these if this is the main project, and not if it is included through add_subdirectory
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+ELSEIF(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
   # Under MSVC, we set CMAKE_DEBUG_POSTFIX to "d" to add a trailing "d" to library
   # built in debug mode. In this Windows user can compile, build and install the
@@ -122,7 +123,9 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   else()
     message(STATUS "Doxygen not found, not building docs")
   endif()
-endif() #end if top level project directory
+ENDIF() #end if top level project directory
+
+IF(NOT BUILD_W_CET)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
@@ -133,6 +136,8 @@ add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
                           USE_LINK_PATH)
 
 # find required package: ROOT
+ENDIF()
+
 list(APPEND CMAKE_PREFIX_PATH "$ENV{ROOTSYS}")
 find_package(ROOT 6.16 CONFIG REQUIRED)
 if(ROOT_FOUND)
@@ -141,16 +146,17 @@ else()
   message(STATUS "ROOT not found!")
 endif()
 
+IF(NOT BUILD_W_CET)
 set(BASEPATH "${CMAKE_SOURCE_DIR}")
 include_directories("${BASEPATH}")
 
 include(${ROOT_USE_FILE})
 
 # The compiled library code is here
-add_subdirectory(src)
+#add_subdirectory(src)
 
 # The executable code is here
-add_subdirectory(apps)
+#add_subdirectory(apps)
 
 # Note that if your library depends from other libraries, you are probably
 # required to used the install_basic_package_files() DEPENDENCIES option.
@@ -168,4 +174,12 @@ include(AddUninstallTarget)
 if(BUILD_TESTING)
     add_subdirectory(test)
 endif()
+ENDIF() #end if not using cetbuildtools
+
+
+# The compiled library code is here
+add_subdirectory(src)
+
+# The executable code is here
+add_subdirectory(apps)
 
