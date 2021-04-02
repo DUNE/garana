@@ -57,7 +57,7 @@ IF( BUILD_W_CET )
     cet_find_library( ROOTIO NAMES IO PATHS ENV ${ROOTSYS}/lib )
 
     add_subdirectory(ups)
-    include(UseCPack)
+    #include(UseCPack)
 
 ENDIF()
 
@@ -75,7 +75,7 @@ IF(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   # To build shared libraries in Windows, we set CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS to TRUE.
   # See https://cmake.org/cmake/help/v3.4/variable/CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS.html
   # See https://blog.kitware.com/create-dlls-on-windows-without-declspec-using-new-cmake-export-all-feature/
-  set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+  set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
   
   set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -128,18 +128,19 @@ IF(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 ENDIF() #end if top level project directory
 
 IF(NOT BUILD_W_CET) #not it
-
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-
-include(AddInstallRPATHSupport)
-add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
-                          LIB_DIRS "${CMAKE_INSTALL_FULL_LIBDIR}"
-                          INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}"
-                          USE_LINK_PATH)
-
+    
+    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+    
+    include(AddInstallRPATHSupport)
+    add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
+                              LIB_DIRS "${CMAKE_INSTALL_FULL_LIBDIR}"
+                              INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}"
+                              USE_LINK_PATH)
+    
 # find required package: ROOT
 ENDIF() #not it
 
+# find required package: ROOT (needed to make dictionary during build)
 list(APPEND CMAKE_PREFIX_PATH "$ENV{ROOTSYS}")
 find_package(ROOT 6.16 CONFIG REQUIRED)
 if(ROOT_FOUND)
@@ -149,36 +150,11 @@ else()
 endif()
 
 #IF(NOT BUILD_W_CET)
-set(BASEPATH "${CMAKE_SOURCE_DIR}")
-include_directories("${BASEPATH}")
+#set(BASEPATH "${CMAKE_SOURCE_DIR}")
+#include_directories("${BASEPATH}")
 
-include(${ROOT_USE_FILE})
-#IF(NOT BUILD_W_CET)
-# The compiled library code is here
-#add_subdirectory(src)
+#include(${ROOT_USE_FILE})
 
-# The executable code is here
-#add_subdirectory(apps)
-
-# Note that if your library depends from other libraries, you are probably
-# required to used the install_basic_package_files() DEPENDENCIES option.
-#include(InstallBasicPackageFiles)
-#install_basic_package_files(${PROJECT_NAME}
-#                            VERSION ${${PROJECT_NAME}_VERSION}
-#                            COMPATIBILITY AnyNewerVersion
-#                            FIRST_TARGET GaranaDict
-#                            VARS_PREFIX ${PROJECT_NAME}
-#                            NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-## Add the uninstall target
-#include(AddUninstallTarget)
-#
-## Add integration tests (unit tests for each library should be in each sublibrary directory).
-#if(BUILD_TESTING)
-#    add_subdirectory(test)
-#endif()
-##ENDIF() #end if not using cetbuildtools
-
-#ELSE
 # The compiled library code is here
 add_subdirectory(src)
 
@@ -186,6 +162,11 @@ add_subdirectory(src)
 add_subdirectory(apps)
 
 IF(NOT BUILD_W_CET)
+
+    set(BASEPATH "${CMAKE_SOURCE_DIR}")
+    include_directories("${BASEPATH}")
+
+    include(${ROOT_USE_FILE})
 
     # Note that if your library depends from other libraries, you are probably
     # required to used the install_basic_package_files() DEPENDENCIES option.
@@ -203,5 +184,10 @@ IF(NOT BUILD_W_CET)
     if(BUILD_TESTING)
         add_subdirectory(test)
     endif()
+
+ELSE()
+
+    include(UseCPack)
+
 ENDIF() #end if not using cetbuildtools
 
