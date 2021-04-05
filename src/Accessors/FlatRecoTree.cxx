@@ -33,14 +33,6 @@ FlatRecoTree::FlatRecoTree(TTree* tree, char opt)
 
 }
 
-//TODO check if this is actually needed
-/*void FlatRecoTree::GetEntry(UInt_t entry) {
-	this->fRecoToFSLimits.clear();
-	fTreeIn->GetEntry(entry);
-    this->FindFSLimits();
-}*/
-
-
 bool FlatRecoTree::SetBranchAddresses(){
 
 std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;

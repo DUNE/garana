@@ -92,8 +92,6 @@ IF(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(CMAKE_C_EXTENSIONS OFF)
   set(CMAKE_CXX_EXTENSIONS OFF)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra -pedantic -Wno-ignored-qualifiers -Wno-inline -fPIC")
-
-
   set(BUILD_SHARED_LIBS ON)
 
   option(BUILD_TESTING "Create tests using CMake" OFF)

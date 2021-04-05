@@ -72,7 +72,7 @@ Track::Track(const float& lenFw, const float& lenBk, const float& pBeg, const fl
 			fPidBac(pidb)
 {
 
-	std::cout << "about to fill fTrackPar" << std::endl;
+	//std::cout << "about to fill fTrackPar" << std::endl;
 
 	//fTrackParBeg = new float[5];
 	//fTrackParEnd = new float[5];

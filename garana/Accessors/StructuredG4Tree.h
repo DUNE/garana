@@ -31,6 +31,10 @@ namespace garana {
 	 const vector<const TLorentzVector*>* SimMomExit(const UInt_t& iparticle)                    const override;
 	 const vector<const TLorentzVector*>* SimPosEnter(const UInt_t& iparticle)                   const override;
 	 const vector<const TLorentzVector*>* SimPosExit(const UInt_t& iparticle)                    const override;
+	 const TLorentzVector*                SimMomEnter(const UInt_t& iparticle, const UInt_t& iregion)const override;
+	 const TLorentzVector*                SimMomExit(const UInt_t& iparticle, const UInt_t& iregion) const override;
+	 const TLorentzVector*                SimPosEnter(const UInt_t& iparticle, const UInt_t& iregion)const override;
+	 const TLorentzVector*                SimPosExit(const UInt_t& iparticle, const UInt_t& iregion) const override;
 	 const bool                           IsPrimary(const UInt_t& iparticle)                     const override;
 	 const Int_t                          PDG(const UInt_t& iparticle)                           const override;
 	 const int                            ParentPDG(const UInt_t& iparticle)                     const override;

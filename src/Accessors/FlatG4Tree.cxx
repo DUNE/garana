@@ -246,6 +246,25 @@ const vector<const TLorentzVector*>*  FlatG4Tree::SimPosExit(const UInt_t& ipart
 	return v;
 }
 
+const TLorentzVector* FlatG4Tree::SimMomEnter(const UInt_t& iparticle, const UInt_t& iregion) const {
+	UInt_t index = LocalToGlobalIndex(iparticle) + iregion;
+	return new TLorentzVector(fPx->at(index), fPy->at(index), fPz->at(index), fE->at(index));
+}
+
+const TLorentzVector* FlatG4Tree::SimMomExit(const UInt_t& iparticle, const UInt_t& iregion) const {
+	UInt_t index = LocalToGlobalIndex(iparticle) + 1 + iregion;
+	return new TLorentzVector(fPx->at(index), fPy->at(index), fPz->at(index), fE->at(index));
+}
+
+const TLorentzVector* FlatG4Tree::SimPosEnter(const UInt_t& iparticle, const UInt_t& iregion) const {
+	UInt_t index = LocalToGlobalIndex(iparticle) + iregion;
+	return new TLorentzVector(fX->at(index), fY->at(index), fZ->at(index), fT->at(index));
+}
+const TLorentzVector* FlatG4Tree::SimPosExit(const UInt_t& iparticle, const UInt_t& iregion) const {
+	UInt_t index = LocalToGlobalIndex(iparticle) + 1 + iregion;
+	return new TLorentzVector(fX->at(index), fY->at(index), fZ->at(index), fT->at(index));
+}
+
 const int FlatG4Tree::ParentPDG(const UInt_t& iparticle)         const {
 	return fParentPdg->at(LocalToGlobalIndex(iparticle));
 }

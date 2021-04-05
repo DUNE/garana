@@ -43,8 +43,8 @@ const G4Particle* StructuredG4Tree::GetParticle(const UInt_t& iparticle) const {
 			throw iparticle;
 	}
 	catch(UInt_t iparticle){
-		std::cerr << "ERROR(StructuredG4Tree::GetParticle: index out of bounds ("
-				  << NSim() << " vs. " << iparticle << ")" << std::endl;
+		std::cerr << "ERROR(StructuredG4Tree::GetParticle): index out of bounds (NSim ="
+				  << NSim() << " vs. requested index = " << iparticle << ")" << std::endl;
 	}
 	return nullptr;
 
@@ -105,6 +105,21 @@ const vector<const TLorentzVector*>* StructuredG4Tree::SimPosExit(const UInt_t& 
 	}
 
 	return v;
+}
+
+const TLorentzVector* StructuredG4Tree::SimMomEnter(const UInt_t& iparticle, const UInt_t& iregion) const {
+	return GetParticle(iparticle)->MomentumEnter(iregion);
+}
+
+const TLorentzVector* StructuredG4Tree::SimMomExit(const UInt_t& iparticle, const UInt_t& iregion) const {
+	return GetParticle(iparticle)->MomentumExit(iregion);
+}
+
+const TLorentzVector* StructuredG4Tree::SimPosEnter(const UInt_t& iparticle, const UInt_t& iregion) const {
+	return GetParticle(iparticle)->PositionEnter(iregion);
+}
+const TLorentzVector* StructuredG4Tree::SimPosExit(const UInt_t& iparticle, const UInt_t& iregion) const {
+	return GetParticle(iparticle)->PositionExit(iregion);
 }
 
 const int StructuredG4Tree::ParentPDG(const UInt_t& iparticle)         const {

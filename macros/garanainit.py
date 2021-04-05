@@ -10,7 +10,7 @@ def init():
 
     ROOT.gInterpreter.ProcessLine('R__ADD_LIBRARY_PATH(/usr/local/lib)')
     ROOT.gInterpreter.ProcessLine('R__LOAD_LIBRARY(libGaranaAccessors.so)')
-    ROOT.gInterpreter.ProcessLine('R__ADD_INCLUDE_PATH(/home/chilgenb/garana/include)')
+    ROOT.gInterpreter.ProcessLine('R__ADD_INCLUDE_PATH(/home/chilgenb/garana/garana)')
     ROOT.gInterpreter.Declare('#include "TreeManager.h"')
     ROOT.gInterpreter.ProcessLine('using namespace garana;')
 

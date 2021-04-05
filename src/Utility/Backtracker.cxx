@@ -223,16 +223,16 @@ void Backtracker::FillMaps() {
 				rec->GetTrackG4PIndices(itrk, fTrackToG4Particles[itrk]);
 				//cout << "track matched to " << fTrackToG4Particles[itrk].size() << " G4 particle(s)" << endl;
 				for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[itrk].size(); ig4p++){
-					if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) == fG4ParticleToTracks.end())
-						//cout << "unexpected G4particle index found in fTrackToG4Particles ("
-						 //    << fTrackToG4Particles[itrk][ig4p] << ")" << endl;
-				    fG4ParticleToTracks[fTrackToG4Particles[itrk][ig4p]].push_back(itrk);
+
+					if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) != fG4ParticleToTracks.end())
+
+						fG4ParticleToTracks[fTrackToG4Particles[itrk][ig4p]].push_back(itrk);
 				}
-				for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
-					if(fG4ParticleToTracks[ig4p].size() == 0) continue;
+				//for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
+				//	if(fG4ParticleToTracks[ig4p].size() == 0) continue;
 					//cout << "G4particle " << ig4p << " matched to " << fG4ParticleToTracks[ig4p].size()
 					//     << " reco track(s)" << endl;
-				}
+				//}
 			}
 		}
 	}
