@@ -1,0 +1,44 @@
+<!--                                                                                  -->
+<!--  $Id: classes_def.xml,v 1.10 2010/04/12 18:12:28  Exp $                          -->
+<!--  $Author:  $                                                                     -->
+<!--  $Date: 2010/04/12 18:12:28 $                                                    -->
+<!--                                                                                  -->
+<!--  Include ::art::Wrapper lines for objects that we would like to put into the event -->
+<!--  Include the non-wrapper lines for all objects on the ::art::Wrapper lines and     -->
+<!--  for all objects that are data members of those objects.                         -->
+
+<lcgdict>
+
+  <class name="garana::GTruth"       ClassVersion="10"  />
+  <class name="garana::FSParticle"   ClassVersion="10"  />
+  <class name="garana::G4Particle"   ClassVersion="10"  />
+  <class name="garana::Track"        ClassVersion="10"  />
+  <class name="garana::CaloCluster"  ClassVersion="10"  />
+  <class name="garana::Vertex"       ClassVersion="10"  />
+  <class name="garana::Vee"          ClassVersion="10"  />
+
+  <class name="std::vector<garana::GTruth>"     />
+  <class name="std::vector<garana::FSParticle>" />
+  <class name="std::vector<garana::G4Particle>" />
+  <class name="std::vector<garana::Track>"      />
+  <class name="std::vector<garana::CaloCluster>"/>
+  <class name="std::vector<garana::Vertex>"     />
+  <class name="std::vector<garana::Vee>"        />
+
+  <class name="art::Wrapper<garana::GTruth>"     />
+  <class name="art::Wrapper<garana::FSParticle>" />
+  <class name="art::Wrapper<garana::G4Particle>" />
+  <class name="art::Wrapper<garana::Track>"      />
+  <class name="art::Wrapper<garana::CaloCluster>"/>
+  <class name="art::Wrapper<garana::Vertex>"     />
+  <class name="art::Wrapper<garana::Vee>"        />
+
+  <class name="art::Wrapper<std::vector<garana::GTruth>>"     />
+  <class name="art::Wrapper<std::vector<garana::FSParticle>>" />
+  <class name="art::Wrapper<std::vector<garana::G4Particle>>" />
+  <class name="art::Wrapper<std::vector<garana::Track>>"      />
+  <class name="art::Wrapper<std::vector<garana::CaloCluster>>"/>
+  <class name="art::Wrapper<std::vector<garana::Vertex>>"     />
+  <class name="art::Wrapper<std::vector<garana::Vee>>"        /> 
+
+</lcgdict>
