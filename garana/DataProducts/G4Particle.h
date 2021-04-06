@@ -24,6 +24,9 @@ namespace garana {
 
     public:
 	  G4Particle() {}
+
+	  #ifndef __GCCXML__
+
       G4Particle(const int& npts, const int& pdg, const int& parentPdg, const int& progenitorPdg, const int& trackId,
     		     const int& parentTrackId, const int& progenitorTrackId, const int& processI,
     		     const int& processF, const vector<pair<TLorentzVector,TLorentzVector>>& positions,
@@ -61,6 +64,7 @@ namespace garana {
       const size_t          NPointsPerRegion(const size_t& iregion) const { return fNptsPerRegion.at(iregion); }
       const size_t          NRegions()                              const { return fRegions.size(); }
 
+	  #endif
 
     private:
 

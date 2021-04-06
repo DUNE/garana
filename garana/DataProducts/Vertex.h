@@ -19,11 +19,15 @@ namespace garana {
     public:
 
 	  Vertex();
+
+	#ifndef __GCCXML__
+
 	  Vertex(const TLorentzVector& position, const float* covar);
 
 	  TLorentzVector* GetVertex();
 	  void            GetCovar( float covar[][3]);
 
+	#endif
     protected:
 
 	  TLorentzVector fPosition;    ///< 4-position of vertex [cm,ns]

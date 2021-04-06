@@ -76,6 +76,7 @@ namespace garana {
     int            fResNum;       ///< resonance number
     int            fDecayMode;                                  // added version 13
 
+	#ifndef __GCCXML__
     // Flag for values that might not have been set
     static constexpr double kUndefinedValue = -99999;
 
@@ -83,6 +84,7 @@ namespace garana {
 
     bool IsFilled();
 
+	#endif
   }; //class GTruth
 } // end garana namespace
 

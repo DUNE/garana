@@ -12,6 +12,8 @@ namespace garana {
 
     //constructors
     FSParticle() {}
+
+	#ifndef __GCCXML__
     FSParticle(const int& trackid, const int& pdg, const float& x, const float& y, const float& z, const float& t,
                   const float& px, const float& py, const float& pz, const float& e);
     FSParticle(const int& trackid, const int& pdg, const TLorentzVector& r, const TLorentzVector& p);
@@ -31,6 +33,8 @@ namespace garana {
     float                 P()       const;    ///< return magnitude of particle momentum [GeV/c]
     float                 E()       const;    ///< return total energy [GeV]
     float                 KE()      const;
+
+	#endif
 
   protected:
 

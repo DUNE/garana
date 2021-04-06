@@ -23,6 +23,9 @@ namespace garana {
     public: 
 
 	  CaloCluster();
+
+	#ifndef __GCCXML__
+
 	  CaloCluster(const TLorentzVector& pos, const float& energy, const float& energyErr, const float& timeDiff,
 			      const float* shape, const float& theta, const float& phi, const std::vector<TVector3>& eigenVecs );
 
@@ -34,6 +37,8 @@ namespace garana {
 	  float             Theta();
 	  float             Phi();
 	  vector<TVector3>* EigenVecs();
+
+	#endif
 
     private:
 

@@ -24,12 +24,16 @@ namespace garana {
     public: 
 
 	  Track();
+
+	#ifndef __GCCXML__
+
 	  Track(const float& lenFw, const float& lenBk, const float& pBeg, const float& pEnd,
 			const TLorentzVector& vtx, const TLorentzVector& end, const TVector3& vtxDir, const TVector3& endDir,
 			const float& chiFwd, const float& chiBac, const size_t& nHit,
 			const float* trkParBeg, const float* trkParEnd, const float* covarBeg, const float* covarEnd,
 			const int& chargeFwd, const int& chargeBac, const vector<pair<int,float>>& pidf, const vector<pair<int,float>>& pidb,
 			const float& ionf, const float& ionb );
+	#endif
 
     //private:
 

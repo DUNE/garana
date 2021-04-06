@@ -21,12 +21,14 @@ namespace garana {
 	  typedef enum { Kshort=0, Lambda1=1, Lambda2=2 } hypothesis_t;
 
 	  Vee();
+	#ifndef __GCCXML__
 	  Vee(const TLorentzVector& vertex, const vector<TLorentzVector>& moms, const float& chisqr, const float* covar);
 
 	  float const&                  GetChiSqr()                 const;
       const vector<TLorentzVector>* GetMomentaPerHypothesis()   const;
       // GetCovar inherited from Vertex
 
+	#endif
     private:
 
 	  vector<TLorentzVector> fMomPerHypoth; ///< four-momentum of vee, one per hypothesis [GeV]
