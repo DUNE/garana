@@ -47,20 +47,25 @@ void MillRecoTree::MillTrees() {
     	ClearVecs(); //clear previous entry's data (if any)
     	fRecoIn->GetEntry(ientry);
 
-    	if(branchToDrawOpt[kTracks])
+    	if(branchToDrawOpt[kTracks]) {
     		fEvent = fRecoIn->Event();
+    	}
 
-		if(branchToDrawOpt[kTracks])
+		if(branchToDrawOpt[kTracks]) {
 			FillTrack();
+		}
 
-		if(branchToDrawOpt[kVertices])
+		if(branchToDrawOpt[kVertices]) {
 			FillVertex();
+		}
 
-		if(branchToDrawOpt[kVees])
+		if(branchToDrawOpt[kVees]) {
 			FillVee();
+		}
 
-		if(branchToDrawOpt[kCalClusters])
+		if(branchToDrawOpt[kCalClusters]) {
 			FillCaloCluster();
+		}
 
     	fTreeIn->Fill(); //actually our fTreeOut, but it's called fTreeIn in FlatRecoTree.h, fill once per event
     }//for genTree entries
@@ -225,10 +230,10 @@ void MillRecoTree::FillTrack() {
 void MillRecoTree::FillVertex() {
 
 	for(size_t ivtx=0; ivtx<fRecoIn->NVertex(); ivtx++) {
-		fVtxX = fRecoIn->GetVertex(ivtx)->X();
-		fVtxY = fRecoIn->GetVertex(ivtx)->Y();
-		fVtxZ = fRecoIn->GetVertex(ivtx)->Z();
-		fVtxT = fRecoIn->GetVertex(ivtx)->T();
+		fVtxX->push_back(fRecoIn->GetVertex(ivtx)->X());
+		fVtxY->push_back(fRecoIn->GetVertex(ivtx)->Y());
+		fVtxZ->push_back(fRecoIn->GetVertex(ivtx)->Z());
+		fVtxT->push_back(fRecoIn->GetVertex(ivtx)->T());
 
 		float covar[3][3];
 		fRecoIn->VertexCovariance(ivtx,covar);
