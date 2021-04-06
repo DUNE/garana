@@ -4,15 +4,15 @@
 
 cmake_minimum_required(VERSION 3.12...3.19)
 
-project(garana) # VERSION 00.00.01
-               #DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
-               #LANGUAGES CXX
-#)
+project(garana VERSION 00.00.01
+               DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
+               LANGUAGES CXX
+)
 
 
 # cetbuildtools is used by mrb
 # and it contains cmake modules
-option(BUILD_W_CET "Build with cetbuildtools" ON )
+option(BUILD_W_CET "Build with cetbuildtools" OFF )
 
 IF( BUILD_W_CET )
 
@@ -71,7 +71,7 @@ ELSE()
     # machines: tests, which are executables, are placed in the same folders of
     # dlls, which are treated as executables as well, so that they can properly
     # find the libraries to run. This is a because of missing RPATH on Windows.
-    include(${ROOT_USE_FILE})
+    #include(${ROOT_USE_FILE})
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
@@ -90,23 +90,22 @@ ELSE()
       # To build shared libraries in Windows, we set CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS to TRUE.
       # See https://cmake.org/cmake/help/v3.4/variable/CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS.html
       # See https://blog.kitware.com/create-dlls-on-windows-without-declspec-using-new-cmake-export-all-feature/
-      set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
+      set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
       
       set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-    
-    #ENDIF() # new
     
       if(UNIX)
         set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:\$ORIGIN/../bin:\$ORIGIN")
       endif()
     
-    
-    #IF(NOT BUILD_W_CET) #new
-    
       # Let's ensure -std=c++xx instead of -std=g++xx
       set(CMAKE_C_EXTENSIONS OFF)
       set(CMAKE_CXX_EXTENSIONS OFF)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra -pedantic -Wno-ignored-qualifiers -Wno-inline -fPIC")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Werror -Wall -Wextra -pedantic -Wno-undefined -Wno-unused-local-typedefs -Wno-ignored-qualifiers -Wno-inline -Wno-variadic-macros -fPIC")
+
+                           #DIAGS CAUTIOUS
+                           #EXTRA_FLAGS
+                           #EXTRA_CXX_FLAGS -D_GLIBCXX_USE_NANOSLEEP
     
     
       set(BUILD_SHARED_LIBS ON)
@@ -160,6 +159,13 @@ ELSE()
     else()
       message(STATUS "ROOT not found!")
     endif()
+
+    message(STATUS "Base path is ${CMAKE_SOURCE_DIR}")
+    set(BASEPATH "${CMAKE_SOURCE_DIR}")
+    include_directories("${BASEPATH}")
+
+    include(${ROOT_USE_FILE})
+
 ENDIF()
 
 # The compiled library code is here
@@ -169,11 +175,6 @@ add_subdirectory(src)
 add_subdirectory(apps)
 
 IF(NOT BUILD_W_CET)
-
-    set(BASEPATH "${CMAKE_SOURCE_DIR}")
-    include_directories("${BASEPATH}")
-
-    include(${ROOT_USE_FILE})
 
     # Note that if your library depends from other libraries, you are probably
     # required to used the install_basic_package_files() DEPENDENCIES option.
