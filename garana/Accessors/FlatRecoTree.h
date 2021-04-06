@@ -18,7 +18,7 @@ namespace garana {
 
   public:
 
-	FlatRecoTree();
+	FlatRecoTree() {}
 	FlatRecoTree(TTree* tree);
 	FlatRecoTree(TTree* tree, char opt);
 
