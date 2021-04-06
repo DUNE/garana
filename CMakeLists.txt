@@ -101,12 +101,8 @@ ELSE()
       # Let's ensure -std=c++xx instead of -std=g++xx
       set(CMAKE_C_EXTENSIONS OFF)
       set(CMAKE_CXX_EXTENSIONS OFF)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Werror -Wall -Wextra -pedantic -Wno-undefined -Wno-unused-local-typedefs -Wno-ignored-qualifiers -Wno-inline -Wno-variadic-macros -fPIC")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -gdwarf-4 -O3 -fno-omit-frame-pointer -std=c++17 -Werror -Wall -Wextra -pedantic -Wunused-variable -Wunused-parameter -Wno-unused-local-typedefs -Wno-ignored-qualifiers -Wno-inline -Wno-variadic-macros -fPIC -D_GLIBCXX_USE_NANOSLEEP -Werror=return-type")
 
-                           #DIAGS CAUTIOUS
-                           #EXTRA_FLAGS
-                           #EXTRA_CXX_FLAGS -D_GLIBCXX_USE_NANOSLEEP
-    
     
       set(BUILD_SHARED_LIBS ON)
     

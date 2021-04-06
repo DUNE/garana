@@ -60,23 +60,44 @@ void MillG4Tree::MillTrees() {
 	    	std::cout << "MillG4Tree: loop over " << fG4In->NSim() << " isim" <<std::endl;
 			for(size_t isim=0; isim<fG4In->NSim(); isim++){
 
-			    fNPts              ->push_back(fG4In->NPoints(isim));
-			    fTrkID             ->push_back(fG4In->TrackID(isim));
-			    fPDG               ->push_back(fG4In->PDG(isim));
-			    fParentPdg         ->push_back(fG4In->ParentPDG(isim));
-			    fProgenitorPdg     ->push_back(fG4In->ProgenitorPDG(isim));
-			    fParentTrackId     ->push_back(fG4In->ParentTrackID(isim));
-			    fProgenitorTrackId ->push_back(fG4In->ProgenitorTrackID(isim));
-			    fProcessI          ->push_back(fG4In->ProcessI(isim));
-			    fProcessF          ->push_back(fG4In->ProcessF(isim));
-			    fX                 ->push_back(fG4In->SimPos(isim)->at(0).X());
-			    fY                 ->push_back(fG4In->SimPos(isim)->at(0).Y());
-			    fZ                 ->push_back(fG4In->SimPos(isim)->at(0).Z());
-			    fT                 ->push_back(fG4In->SimPos(isim)->at(0).T());
-			    fPx                ->push_back(fG4In->SimPos(isim)->at(0).Px()); //FIXME only get initial value!
-			    fPy                ->push_back(fG4In->SimPos(isim)->at(0).Py());
-			    fPz                ->push_back(fG4In->SimPos(isim)->at(0).Pz());
-			    fE                 ->push_back(fG4In->SimPos(isim)->at(0).E());
+				auto posenter = fG4In->SimPosEnter(isim); // 4-position for particle at entry, all regions
+				auto momenter = fG4In->SimMomEnter(isim); // 4-momentum for particle at entry, all regions
+				auto posexit  = fG4In->SimPosExit(isim); // 4-position for particle at exit/end, all regions
+				auto momexit = fG4In->SimMomExit(isim); // 4-momentum for particle at exit, all regions
+
+				for(size_t ireg=0; ireg<fG4In->NRegions(isim); ireg++){
+					for(size_t i=0; i<2; i++){
+						fNPts              ->push_back(fG4In->NPoints(isim));
+						fTrkID             ->push_back(fG4In->TrackID(isim));
+						fPDG               ->push_back(fG4In->PDG(isim));
+						fParentPdg         ->push_back(fG4In->ParentPDG(isim));
+						fProgenitorPdg     ->push_back(fG4In->ProgenitorPDG(isim));
+						fParentTrackId     ->push_back(fG4In->ParentTrackID(isim));
+						fProgenitorTrackId ->push_back(fG4In->ProgenitorTrackID(isim));
+						fProcessI          ->push_back(fG4In->ProcessI(isim));
+						fProcessF          ->push_back(fG4In->ProcessF(isim));
+						if(i==0) {
+							fX                 ->push_back(posenter->at(ireg)->X());
+							fY                 ->push_back(posenter->at(ireg)->Y());
+							fZ                 ->push_back(posenter->at(ireg)->Z());
+							fT                 ->push_back(posenter->at(ireg)->T());
+							fPx                ->push_back(momenter->at(ireg)->Px());
+							fPy                ->push_back(momenter->at(ireg)->Py());
+							fPz                ->push_back(momenter->at(ireg)->Pz());
+							fE                 ->push_back(momenter->at(ireg)->E());
+						}
+						else {
+							fX                 ->push_back(posexit->at(ireg)->X());
+							fY                 ->push_back(posexit->at(ireg)->Y());
+							fZ                 ->push_back(posexit->at(ireg)->Z());
+							fT                 ->push_back(posexit->at(ireg)->T());
+							fPx                ->push_back(momexit->at(ireg)->Px());
+							fPy                ->push_back(momexit->at(ireg)->Py());
+							fPz                ->push_back(momexit->at(ireg)->Pz());
+							fE                 ->push_back(momexit->at(ireg)->E());
+						}
+					}
+				}// for regions
 
 			    if(branchToDrawOpt[kG4TruthIndex]) {
 			    	fG4TruthIndex->push_back(fG4In->GetTruthIndex(isim));
