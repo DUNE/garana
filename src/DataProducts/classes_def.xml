@@ -9,13 +9,27 @@
 
 <lcgdict>
 
-  <class name="garana::GTruth"       ClassVersion="10"  />
-  <class name="garana::FSParticle"   ClassVersion="10"  />
-  <class name="garana::G4Particle"   ClassVersion="10"  />
-  <class name="garana::Track"        ClassVersion="10"  />
-  <class name="garana::CaloCluster"  ClassVersion="10"  />
-  <class name="garana::Vertex"       ClassVersion="10"  />
-  <class name="garana::Vee"          ClassVersion="10"  />
+  <class name="garana::GTruth"       ClassVersion="10"  >
+   <version ClassVersion="10" checksum="3300117337"/>
+  </class>
+  <class name="garana::FSParticle"   ClassVersion="10"  >
+   <version ClassVersion="10" checksum="840508570"/>
+  </class>
+  <class name="garana::G4Particle"   ClassVersion="10"  >
+   <version ClassVersion="10" checksum="2275924112"/>
+  </class>
+  <class name="garana::Track"        ClassVersion="10"  >
+   <version ClassVersion="10" checksum="1245166726"/>
+  </class>
+  <class name="garana::CaloCluster"  ClassVersion="10"  >
+   <version ClassVersion="10" checksum="3447307553"/>
+  </class>
+  <class name="garana::Vertex"       ClassVersion="10"  >
+   <version ClassVersion="10" checksum="530458719"/>
+  </class>
+  <class name="garana::Vee"          ClassVersion="10"  >
+   <version ClassVersion="10" checksum="4080837542"/>
+  </class>
 
   <class name="std::vector<garana::GTruth>"     />
   <class name="std::vector<garana::FSParticle>" />

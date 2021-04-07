@@ -1,14 +1,29 @@
 
 IF( BUILD_W_CET )
 
-  cet_make( LIBRARIES
+  cet_make( LIBRARY_NAME GaranaProducts
+            LIBRARIES
                      canvas
                      ${ROOT_BASIC_LIB_LIST}
             NO_DICTIONARY )
 
 
-  art_dictionary(  DICTIONARY_LIBRARIES GaranaProducts) 
-                           
+  art_dictionary( DICT_NAME_VAR GaranaDict DICTIONARY_LIBRARIES GaranaProducts ) 
+
+  #root_generate_dictionary(G__GaranaDict ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDict.h 
+  #                         LINKDEF ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDict_LinkDef.h
+  #                         ) #MODULE GaranaDict )
+
+  #art_make_library(LIBRARY_NAME GaranaDict 
+  #                 SOURCE 
+  #      		GaranaDict.h
+  #      		GaranaDict_LinkDef.h
+  #      		G__GaranaDict.cxx )
+  #                         
+  #art_make(BASENAME_ONLY
+  #         EXCLUDE G__GaranaDict.cxx
+  #         LIBRARY_NAME GaranaProducts
+  #         LIB_LIBRARIES ${ROOT_BASIC_LIB_LIST} GaranaDict)
 
   install_headers()
   install_source()

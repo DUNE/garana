@@ -14,8 +14,9 @@ target_link_libraries(gar# PRIVATE
                         GaranaUtility
                         GaranaAccessors
                         GaranaBase
-                        GaranaProducts
-                        GaranaDict
+                        src_DataProducts
+                        #GaranaProducts
+                        #GaranaDict
 
 )
 
@@ -33,8 +34,9 @@ target_link_libraries(paulbunyan# PRIVATE
                         #ROOT::Gpad,
                         GaranaAccessors
                         GaranaBase
-                        GaranaProducts
-                        GaranaDict
+                        src_DataProducts
+                        #GaranaProducts
+                        #GaranaDict
                         GaranaProcessors
 
 )
@@ -53,8 +55,9 @@ target_link_libraries(test_derived_flat_tree# PRIVATE
                         #ROOT::Gpad,
                         GaranaAccessors
                         GaranaBase
-                        GaranaProducts
-                        GaranaDict
+                        src_DataProducts
+                        #GaranaProducts
+                        #GaranaDict
                         GaranaProcessors
 )
 

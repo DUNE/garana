@@ -3,9 +3,8 @@ IF(BUILD_W_CET)
 
     art_make(BASENAME_ONLY
          LIBRARY_NAME GaranaBase
-         LIB_LIBRARIES src_DataProducts
-                       #src_DataProducts_dict
-                       #GaranaProducts
+         LIB_LIBRARIES #src_DataProducts
+                       GaranaProducts
                        ${ROOT_BASIC_LIB_LIST}
         )
 

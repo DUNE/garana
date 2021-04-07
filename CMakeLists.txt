@@ -12,7 +12,7 @@ project(garana VERSION 00.00.01
 
 # cetbuildtools is used by mrb
 # and it contains cmake modules
-option(BUILD_W_CET "Build with cetbuildtools" OFF )
+option(BUILD_W_CET "Build with cetbuildtools" ON )
 
 IF( BUILD_W_CET )
 
@@ -36,21 +36,18 @@ IF( BUILD_W_CET )
                            EXTRA_CXX_FLAGS -D_GLIBCXX_USE_NANOSLEEP ${ARTDFLAG} -Wno-variadic-macros -fPIC)
     cet_report_compiler_flags()
 
-    find_ups_product( art ) # v1_09_00          )
-    #find_ups_product( art_root_io   )
-    #find_ups_product( canvas        )
+    find_ups_product( art v1_09_00          )
+    find_ups_product( canvas        )
     find_ups_product( cetbuildtools v3_10_00 )
     find_ups_root()
 
     message(STATUS "ROOTSYS is ${ROOTSYS}")
-    #cet_find_library( ROOTPHYSICS NAMES Physics PATHS ENV ${ROOTSYS}/lib )
-    #cet_find_library( ROOTIO NAMES IO PATHS ENV ${ROOTSYS}/lib )
 
     # macros
     include(ArtMake)
     include(ArtDictionary)
     include(BuildPlugins)
-    #include(CetRootCint)
+    include(CetRootCint)
 
     # ups - table and config files
     add_subdirectory(ups)
@@ -168,7 +165,7 @@ ENDIF()
 add_subdirectory(src)
 
 # The executable code is here
-add_subdirectory(apps)
+#add_subdirectory(apps)
 
 IF(NOT BUILD_W_CET)
 

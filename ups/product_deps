@@ -20,7 +20,8 @@ fwdir   product_dir  fw
 bindir  fq_dir       bin
 
 product         version
-#art             v3_06_03
+art             v3_06_03
+canvas_root_io  v1_07_02
 root            v6_22_06a
 cetbuildtools   v7_17_01        -       only_for_build
 end_product_list
@@ -28,22 +29,19 @@ end_product_list
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # e15  - with gcc 6.4.0 and -std=c++14
 
-#qualifier   root            comment
-#e19:prof    e19:p383b:prof
-#e19:debug   e19:p383b:debug
-#qualifier art        root        
-#e19:debug e19:debug  e19:p383b:debug
-#e19:prof  e19:prof   e19:p383b:prof
-#c7:debug  c7:debug   c7:p383b:debug
-#c7:prof   c7:prof    c7:p383b:prof 
-#end_qualifier_list
-
-qualifier root
-e19:debug e19:p383b:debug
-e19:prof  e19:p383b:prof
-c7:debug  c7:p383b:debug
-c7:prof   c7:p383b:prof
+qualifier art       canvas_root_io  root        
+e19:debug e19:debug e19:debug    e19:p383b:debug
+e19:prof  e19:prof  e19:prof     e19:p383b:prof
+c7:debug  c7:debug  c7:debug     c7:p383b:debug
+c7:prof   c7:prof   c7:prof      c7:p383b:prof 
 end_qualifier_list
+
+#qualifier root
+#e19:debug e19:p383b:debug
+#e19:prof  e19:p383b:prof
+#c7:debug  c7:p383b:debug
+#c7:prof   c7:p383b:prof
+#end_qualifier_list
 
 # table fragment to set FW_SEARCH_PATH needed
 # to find gdml files:
