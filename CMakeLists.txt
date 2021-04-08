@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.12...3.19)
 
-project(garana VERSION 00.00.01
+project(garana VERSION 00.00.04
                DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
                LANGUAGES CXX
 )
@@ -165,7 +165,7 @@ ENDIF()
 add_subdirectory(src)
 
 # The executable code is here
-#add_subdirectory(apps)
+add_subdirectory(apps)
 
 IF(NOT BUILD_W_CET)
 
