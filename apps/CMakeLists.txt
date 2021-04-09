@@ -6,8 +6,8 @@
                    LIBRARIES GaranaUtility
                              GaranaAccessors
                              GaranaBase
-                             GaranaProducts 
-                   NO_INSTALL)
+                             GaranaProducts )
+                   #NO_INSTALL)
 
     art_make_exec( NAME paulbunyan
                    SOURCE paulbunyan.cxx
@@ -15,8 +15,8 @@
                              GaranaAccessors
                              GaranaProcessors
                              GaranaBase
-                             GaranaProducts 
-                   NO_INSTALL)
+                             GaranaProducts )
+                   #NO_INSTALL)
 
     art_make_exec( NAME test_derived_flat_tree
                    SOURCE test_derived_flat_tree.cxx
@@ -24,9 +24,10 @@
                              GaranaAccessors
                              GaranaProcessors
                              GaranaBase
-                             GaranaProducts 
-                   NO_INSTALL)
+                             GaranaProducts )
+                   #NO_INSTALL)
 
+    install_scripts()
 
  ELSE()
     #### setup for gar ####
