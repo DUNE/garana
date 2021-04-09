@@ -9,7 +9,7 @@
 
 using namespace garana;
 
-StructuredDisplayTree::StructuredDisplayTree(TTree* tree=0) {
+StructuredDisplayTree::StructuredDisplayTree(TTree* tree) {
 	SetupRead(tree); //initialize tree pointer in TreeReader instance and set branch address
 }
 

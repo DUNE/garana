@@ -45,7 +45,7 @@ namespace garana {
       virtual const Int_t                   ProcessF(const UInt_t& iparticle)          const = 0; ///< code for process that killed this one
 
       // truth matching
-	  UInt_t const&                         GetTruthIndex(UInt_t iparticle) const; ///< index in gen tree subentry to truth match to this
+	  UInt_t const                         GetTruthIndex(UInt_t iparticle) const; ///< index in gen tree subentry to truth match to this
 
     protected:
 

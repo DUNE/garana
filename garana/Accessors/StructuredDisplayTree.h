@@ -18,8 +18,8 @@ namespace garana {
 
    public:
 
-	 StructuredDisplayTree() {}
-	 StructuredDisplayTree(TTree* tree);
+	 //StructuredDisplayTree() {}
+	 StructuredDisplayTree(TTree* tree=0);
 
    private:
 

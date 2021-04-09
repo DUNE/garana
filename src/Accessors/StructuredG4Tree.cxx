@@ -10,7 +10,7 @@
 using namespace garana;
 using std::vector;
 
-StructuredG4Tree::StructuredG4Tree(TTree* tree=0) {
+StructuredG4Tree::StructuredG4Tree(TTree* tree) {
 
 	SetupRead(tree); //initialize tree pointer in TreeReader instance and set branch address
 }//

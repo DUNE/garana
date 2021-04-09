@@ -29,8 +29,8 @@ namespace garana {
 	 HeaderTree* fHeaderIn = nullptr;
 	 HeaderTree* fHeaderOut = nullptr;
 
-	 Int_t       fRun      = -1;
-	 Int_t       fSubRun   = -1;
+	 //Int_t       fRun      = -1;
+	 //Int_t       fSubRun   = -1;
 	 std::string fTreeType = "";
 
  };//class

@@ -35,22 +35,22 @@ namespace garana {
 
 	  const vector<UInt_t>* GTruthToG4Particles(const UInt_t& itruth) const;
 	  const vector<UInt_t>* GTruthToTracks(const UInt_t& itruth)      const;
-	  UInt_t const&         G4ParticleToGTruth(const UInt_t& ig4p)    const;
+	  UInt_t const         G4ParticleToGTruth(const UInt_t& ig4p)    const;
 	  const vector<UInt_t>* G4ParticleToTracks(const UInt_t& ig4p)    const;
-	  UInt_t const&         TrackToGTruth(const UInt_t& itrk)         const;
+	  UInt_t const         TrackToGTruth(const UInt_t& itrk)         const;
    	  const vector<UInt_t>* TrackToG4Particles(const UInt_t& itrk)    const;
    	  //const vector<UInt_t>* FSParticleToG4Particles(const UInt_t& ifsp) const;
    	  //UInt_t      G4ParticleToFSParticle(const UInt_t& ig4p) const;
 
-	  UInt_t const&         VertexToGTruth(const UInt_t& ivtx)       const;
-	  UInt_t const&         GTruthToVertex(const UInt_t& ivtx)       const;
+	  UInt_t const         VertexToGTruth(const UInt_t& ivtx)       const;
+	  UInt_t const         GTruthToVertex(const UInt_t& ivtx)       const;
 	  const vector<UInt_t>* VertexToG4Particles(const UInt_t& ivtx)  const;
 	  const vector<UInt_t>* G4ParticleToVertices(const UInt_t& ig4p) const;
 
-	  UInt_t const&         VeeToGTruth(const UInt_t& ivee)      const;
-	  UInt_t const&         GTruthToVee(const UInt_t& ivee)      const;
+	  UInt_t const         VeeToGTruth(const UInt_t& ivee)      const;
+	  UInt_t const         GTruthToVee(const UInt_t& ivee)      const;
 	  const vector<UInt_t>* VeeToG4Particles(const UInt_t& ivee) const;
-   	  UInt_t const&         G4ParticleToVee(const UInt_t& ig4p)  const;
+   	  UInt_t const         G4ParticleToVee(const UInt_t& ig4p)  const;
 
    	  const vector<UInt_t>*  TrackToVertices(const UInt_t& itrk) const;
    	  const vector<UInt_t>*  VertexToTracks(const UInt_t& ivtx)  const;

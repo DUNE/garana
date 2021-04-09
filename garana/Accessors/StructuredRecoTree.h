@@ -18,8 +18,8 @@ namespace garana {
 
    public:
 
-	 StructuredRecoTree() {}
-	 StructuredRecoTree(TTree* tree);
+	 //StructuredRecoTree() {}
+	 StructuredRecoTree(TTree* tree=0);
 
 	 // sizes
 	 const size_t NTrack()      const override;

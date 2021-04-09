@@ -32,7 +32,7 @@ const vector<UInt_t>* Backtracker::GTruthToTracks(const UInt_t& itruth) const {
 /*void   Backtracker::FSParticleToG4Particles(const UInt_t& ifsp, vector<UInt_t>& ig4ps){
 	ig4ps.push_back(ifsp); //FIXME - this is just a dummy placeholder
 }*/
-UInt_t const& Backtracker::G4ParticleToGTruth(const UInt_t& ig4p) const {
+UInt_t const Backtracker::G4ParticleToGTruth(const UInt_t& ig4p) const {
 
 	if(CheckRange(fG4ParticleToGTruth, ig4p)) {
 		return fG4ParticleToGTruth.at(ig4p);
@@ -55,7 +55,7 @@ const vector<UInt_t>* Backtracker::G4ParticleToTracks(const UInt_t& ig4p) const 
 /*UInt_t Backtracker::G4ParticleToFSParticle(const UInt_t& ig4p){
 	return ig4p; //FIXME - this is just a dummy placeholder
 }*/
-UInt_t const& Backtracker::TrackToGTruth(const UInt_t& itrk) const {
+UInt_t const Backtracker::TrackToGTruth(const UInt_t& itrk) const {
 
 	if(CheckRange(fTrackToGTruth, itrk)) {
 		return fTrackToGTruth.at(itrk);
@@ -74,7 +74,7 @@ const vector<UInt_t>* Backtracker::TrackToG4Particles(const UInt_t& itrk) const 
 	}
 }
 
-UInt_t const& Backtracker::VertexToGTruth(const UInt_t& ivtx) const {
+UInt_t const Backtracker::VertexToGTruth(const UInt_t& ivtx) const {
 	if(CheckRange(fVertexToGTruth, ivtx)) {
 		return fVertexToGTruth.at(ivtx);
 	}
@@ -83,7 +83,7 @@ UInt_t const& Backtracker::VertexToGTruth(const UInt_t& ivtx) const {
 	}
 }
 
-UInt_t const& Backtracker::GTruthToVertex(const UInt_t& itruth) const {
+UInt_t const Backtracker::GTruthToVertex(const UInt_t& itruth) const {
 	if(CheckRange(fGTruthToVertex, itruth)) {
 		return fGTruthToVertex.at(itruth);
 	}
@@ -110,10 +110,10 @@ const vector<UInt_t>*  Backtracker::G4ParticleToVertices(const UInt_t& ig4p) con
 	}
 }
 
-UInt_t const& Backtracker::VeeToGTruth(const UInt_t& ivee) const {
+UInt_t const Backtracker::VeeToGTruth(const UInt_t& ivee) const {
 	return fVeeToGTruth.at(ivee);
 }
-UInt_t const& Backtracker::GTruthToVee(const UInt_t& itruth) const {
+UInt_t const Backtracker::GTruthToVee(const UInt_t& itruth) const {
 	return fGTruthToVee.at(itruth);
 }
 const vector<UInt_t>* Backtracker::VeeToG4Particles(const UInt_t& ivee) const {
@@ -124,7 +124,7 @@ const vector<UInt_t>* Backtracker::VeeToG4Particles(const UInt_t& ivee) const {
 		return new vector<UInt_t>();
 	}
 }
-UInt_t const& Backtracker::G4ParticleToVee(const UInt_t& ig4p) const {
+UInt_t const Backtracker::G4ParticleToVee(const UInt_t& ig4p) const {
 	return fG4ParticleToVee.at(ig4p);
 }
 

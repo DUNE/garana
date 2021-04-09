@@ -22,8 +22,8 @@ namespace garana {
 
    public:
 
-	 StructuredDetTree() {}
-	 StructuredDetTree(TTree* tree);
+	 //StructuredDetTree() {}
+	 StructuredDetTree(TTree* tree=0);
 
    private:
 

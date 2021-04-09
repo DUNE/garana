@@ -19,8 +19,8 @@ namespace garana {
 
    public:
 
-	 StructuredG4Tree() {};
-	 StructuredG4Tree(TTree* tree);
+	 //StructuredG4Tree() {};
+	 StructuredG4Tree(TTree* tree=0);
 	// ~StructuredG4Tree(){}
 
 	 const UInt_t                         NSim()                                                 const override;

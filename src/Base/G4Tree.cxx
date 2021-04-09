@@ -9,21 +9,17 @@
 
 using namespace garana;
 
-UInt_t const& G4Tree::GetTruthIndex(UInt_t iparticle) const {
-
-	UInt_t index = UINT_MAX;
+const UInt_t G4Tree::GetTruthIndex(UInt_t iparticle) const {
 	try {
-		if(iparticle < fG4TruthIndex->size()) {
-			throw(iparticle);
-		}
+		if(iparticle < fG4TruthIndex->size())
+	        return fG4TruthIndex->at(iparticle);
 
-		index = fG4TruthIndex->at(iparticle);
+		throw(iparticle);
 	}
 	catch(UInt_t index){
 		std::cerr << "G4TruthIndex out of range ("
 				  << iparticle << " vs. " << fG4TruthIndex->size()
 				  << std::endl;
+		return UINT_MAX;
 	}
-
-	return index;
 }

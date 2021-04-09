@@ -10,7 +10,7 @@
 using std::vector;
 using namespace garana;
 
-StructuredRecoTree::StructuredRecoTree(TTree* tree=0) {
+StructuredRecoTree::StructuredRecoTree(TTree* tree) {
 	SetupRead(tree); //initialize tree pointer in TreeReader instance and set branch addresses
 }
 

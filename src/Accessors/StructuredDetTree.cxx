@@ -9,7 +9,7 @@
 
 using namespace garana;
 
-StructuredDetTree::StructuredDetTree(TTree* tree=0) {
+StructuredDetTree::StructuredDetTree(TTree* tree) {
 	SetupRead(tree); //initialize tree pointer in TreeReader instance and set branch address
 }
 

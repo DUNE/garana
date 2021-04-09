@@ -13,6 +13,7 @@
 #include <string>
 #include <map>
 #include <climits>
+#include <limits.h>
 
 using std::cout;
 using std::cerr;
