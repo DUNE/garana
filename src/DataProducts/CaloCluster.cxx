@@ -43,36 +43,64 @@ CaloCluster::CaloCluster(const TLorentzVector& pos, const float& energy, const f
 
 }
 
- TLorentzVector* CaloCluster::Position(){
+const TLorentzVector* CaloCluster::Position() const{
 	 return &fPosition;
  }
 
- float  CaloCluster::Energy(){
+ float const&  CaloCluster::Energy() const {
 	 return fEnergy;
  }
 
- float  CaloCluster::EnergyError() {
+ float const& CaloCluster::EnergyError() const {
 	 return fEnergyError;
  }
 
- float  CaloCluster::TimeDifference() {
+ float const& CaloCluster::TimeDifference() const {
 	 return fTimeDiffFirstLast;
  }
 
- float* CaloCluster::Shape() {
+ const float* CaloCluster::Shape() const {
 	 return fShape;
  }
 
- float  CaloCluster::Theta() {
+ float const& CaloCluster::Theta() const {
 	 return fTheta;
  }
 
- float  CaloCluster::Phi() {
+ float const& CaloCluster::Phi() const {
 	 return fPhi;
  }
 
- std::vector<TVector3>* CaloCluster::EigenVecs(){
+ const std::vector<TVector3>* CaloCluster::EigenVecs() const {
 	 return &fEigenVecs;
  }
 
- //ClassImp(CaloCluster)
+ const size_t CaloCluster::NIdes() const {
+	 return fTrueEnergy.size();
+ }
+
+ const std::pair<int,float>* CaloCluster::GetTrackIdEdep(const size_t& iide) const {
+	 return &fTrueEnergy.at(iide);
+ }
+
+ const float CaloCluster::TotalTrueEnergy() const {
+	 float edep = 0.;
+	 for(auto const& trkdep : fTrueEnergy)
+		 edep += trkdep.second;
+	 return edep;
+ }
+
+ int const& CaloCluster::TrackIdMaxDep() const {
+	 float maxdep = 0.;
+	 int imaxdep = 0;
+	 for(size_t idep=0; idep<NIdes(); idep++ ) {
+		 auto const& trkdep = GetTrackIdEdep(idep);
+		 if( trkdep->second > maxdep ) {
+			 imaxdep = idep;
+			 maxdep = trkdep->second;
+		 }
+	 }
+
+	 return (GetTrackIdEdep(imaxdep))->first;
+ }
+
