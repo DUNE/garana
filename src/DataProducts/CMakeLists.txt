@@ -60,7 +60,7 @@ ELSE()
     )
     
     # need to generate CINT dictionary so ROOT can understand whats in our trees
-    root_generate_dictionary(G__GaranaDict ${CMAKE_CURRENT_SOURCE_DIR}/classes.h LINKDEF ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDictLinkDef.h)
+    root_generate_dictionary(G__GaranaDict ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDict.h LINKDEF ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDictLinkDef.h)
     add_library(${DICTIONARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR} G__GaranaDict.cxx)
     
     set_target_properties(${DICTIONARY_TARGET_NAME} PROPERTIES VERSION       ${${PROJECT_NAME}_VERSION}
