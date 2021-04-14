@@ -28,13 +28,15 @@ CaloCluster::CaloCluster() :
 }
 
 CaloCluster::CaloCluster(const TLorentzVector& pos, const float& energy, const float& energyErr, const float& timeDiff,
-	      const float* shape, const float& theta, const float& phi, const std::vector<TVector3>& eigenVecs ) :
+	      const float* shape, const float& theta, const float& phi, const std::vector<TVector3>& eigenVecs,
+		  const std::vector<std::pair<int,float>>& edeps ) :
 	    	  fEnergy(energy),
 	    	  fEnergyError(energyErr),
 	    	  fTimeDiffFirstLast(timeDiff),
 	    	  fTheta(theta),
 	    	  fPhi(phi),
-	    	  fEigenVecs(eigenVecs)
+	    	  fEigenVecs(eigenVecs),
+			  fTrueEnergy(eigenVecs)
 {
 	fPosition = pos;
 

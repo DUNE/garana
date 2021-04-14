@@ -27,7 +27,8 @@ namespace garana {
 	#ifndef __GCCXML__
 
 	  CaloCluster(const TLorentzVector& pos, const float& energy, const float& energyErr, const float& timeDiff,
-			      const float* shape, const float& theta, const float& phi, const std::vector<TVector3>& eigenVecs );
+			      const float* shape, const float& theta, const float& phi, const std::vector<TVector3>& eigenVecs,
+				  const std::vector<std::pair<int,float>>& edeps);
 
 	  const TLorentzVector*   Position() const;
 	  float const&      Energy() const;
