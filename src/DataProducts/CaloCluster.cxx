@@ -36,7 +36,7 @@ CaloCluster::CaloCluster(const TLorentzVector& pos, const float& energy, const f
 	    	  fTheta(theta),
 	    	  fPhi(phi),
 	    	  fEigenVecs(eigenVecs),
-			  fTrueEnergy(eigenVecs)
+			  fTrueEnergy(edeps)
 {
 	fPosition = pos;
 
