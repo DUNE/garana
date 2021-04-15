@@ -106,3 +106,16 @@ const TLorentzVector* CaloCluster::Position() const{
 	 return (GetTrackIdEdep(imaxdep))->first;
  }
 
+ float const& CaloCluster::MaxDeposit() const {
+	 float maxdep = 0.;
+	 int imaxdep = 0;
+	 for(size_t idep=0; idep<NIdes(); idep++ ) {
+		 auto const& trkdep = GetTrackIdEdep(idep);
+		 if( trkdep->second > maxdep ) {
+			 imaxdep = idep;
+			 maxdep = trkdep->second;
+		 }
+	 }
+
+	 return (GetTrackIdEdep(imaxdep))->second;
+ }
