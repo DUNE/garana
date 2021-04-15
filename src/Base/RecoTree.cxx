@@ -10,6 +10,10 @@
 using namespace garana;
 using std::vector;
 
+const float RecoTree::CalClustMaxDepositFrac(const size_t& icluster) const{
+	return CalClustMaxDeposit(icluster)/CalClustTrueEnergy(icluster);
+}
+
 void RecoTree::GetTrackG4PIndices       (const size_t& itrk,    vector<UInt_t>& ig4ps  ) const {
 	//std::cout << "filling given track to g4p vec with " << fTrackG4PIndices->at(itrk).size() << " entries" << std::endl;
 	ig4ps = fTrackG4PIndices->at(itrk);

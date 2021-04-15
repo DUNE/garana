@@ -67,14 +67,20 @@ namespace garana {
       virtual const float                   VeeChiSquared(const size_t& ivee)                   const = 0;
 
       //calo cluster
-	  virtual const TLorentzVector*   CalClustPosition(const size_t& ivee)       const = 0;
-	  virtual const float             CalClustEnergy(const size_t& ivee)         const = 0;
-	  virtual const float             CalClustEnergyError(const size_t& ivee)    const = 0;
-	  virtual const float             CalClustTimeDifference(const size_t& ivee) const = 0;
-	  virtual const float*            CalClustShape(const size_t& ivee)          const = 0;
-	  virtual const float             CalClustTheta(const size_t& ivee)          const = 0;
-	  virtual const float             CalClustPhi(const size_t& ivee)            const = 0;
-	  virtual const vector<TVector3>* CalClustEigenVecs(const size_t& ivee)      const = 0;
+	  virtual const TLorentzVector*   CalClustPosition(const size_t& icluster)       const = 0;
+	  virtual const float             CalClustEnergy(const size_t& icluster)         const = 0;
+	  virtual const float             CalClustEnergyError(const size_t& icluster)    const = 0;
+	  virtual const float             CalClustTrueEnergy(const size_t& icluster)     const = 0;
+	  virtual const size_t            CalClustNTrueTrack(const size_t& icluster)     const = 0;
+	  virtual const int               CalClustTrkIdMaxDeposit(const size_t& icluster)const = 0;
+	  virtual const float             CalClustMaxDeposit(const size_t& icluster)     const = 0;
+	          const float             CalClustMaxDepositFrac(const size_t& icluster) const;
+	  virtual const std::pair<int,float>* CalClustTrueDeposit(const size_t& icluster, const size_t& itrack) const = 0;
+	  virtual const float             CalClustTimeDifference(const size_t& icluster) const = 0;
+	  virtual const float*            CalClustShape(const size_t& icluster)          const = 0;
+	  virtual const float             CalClustTheta(const size_t& icluster)          const = 0;
+	  virtual const float             CalClustPhi(const size_t& icluster)            const = 0;
+	  virtual const vector<TVector3>* CalClustEigenVecs(const size_t& icluster)      const = 0;
 
       // truth matching
       void GetTrackG4PIndices       (const size_t& itrk,    vector<UInt_t>& ig4ps  ) const; ///< given a track index, fill a given vector with matched G4 particle indices

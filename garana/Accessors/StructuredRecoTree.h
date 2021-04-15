@@ -63,14 +63,20 @@ namespace garana {
      const float                   VeeChiSquared(const size_t& ivee)                   const override;
 
      //ECal cluster
-     const TLorentzVector*   CalClustPosition(const size_t& ivee)       const override;
-     const float             CalClustEnergy(const size_t& ivee)         const override;
-     const float             CalClustEnergyError(const size_t& ivee)    const override;
-     const float             CalClustTimeDifference(const size_t& ivee) const override;
-     const float*            CalClustShape(const size_t& ivee)          const override;
-     const float             CalClustTheta(const size_t& ivee)          const override;
-     const float             CalClustPhi(const size_t& ivee)            const override;
-     const vector<TVector3>* CalClustEigenVecs(const size_t& ivee)      const override;
+     const CaloCluster*      GetCalCluster(const size_t& icluster)          const;
+     const TLorentzVector*   CalClustPosition(const size_t& icluster)       const override;
+     const float             CalClustEnergy(const size_t& icluster)         const override;
+     const float             CalClustEnergyError(const size_t& icluster)    const override;
+	 const float             CalClustTrueEnergy(const size_t& icluster)     const override;
+	 const size_t            CalClustNTrueTrack(const size_t& icluster)     const override;
+	 const int               CalClustTrkIdMaxDeposit(const size_t& icluster)const override;
+	 const float             CalClustMaxDeposit(const size_t& ivee)         const override;
+	 const std::pair<int,float>* CalClustTrueDeposit(const size_t& icluster, const size_t& itrack) const override;
+     const float             CalClustTimeDifference(const size_t& icluster) const override;
+     const float*            CalClustShape(const size_t& icluster)          const override;
+     const float             CalClustTheta(const size_t& icluster)          const override;
+     const float             CalClustPhi(const size_t& icluster)            const override;
+     const vector<TVector3>* CalClustEigenVecs(const size_t& icluster)      const override;
 
    private:
 

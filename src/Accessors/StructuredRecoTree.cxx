@@ -188,18 +188,36 @@ const float StructuredRecoTree::VeeChiSquared(const size_t& ivee) const {
 }
 
 /// ================ ECal cluster ======================
+const CaloCluster* StructuredRecoTree::GetCalCluster(const size_t& icluster) const {
+	return &(fCalClusters->at(icluster));
+}
 const TLorentzVector*   StructuredRecoTree::CalClustPosition(const size_t& icluster) const {
-	return fCalClusters->at(icluster).Position();
+	return GetCalCluster(icluster)->Position();
 }
 
 const float  StructuredRecoTree::CalClustEnergy(const size_t& icluster) const {
-	return fCalClusters->at(icluster).Energy();
+	return GetCalCluster(icluster)->Energy();
 }
 
 const float  StructuredRecoTree::CalClustEnergyError(const size_t& icluster) const {
-	return fCalClusters->at(icluster).EnergyError();
+	return GetCalCluster(icluster)->EnergyError();
 }
 
+const float  StructuredRecoTree::CalClustTrueEnergy(const size_t& icluster)     const{
+	return GetCalCluster(icluster)->TotalTrueEnergy();
+}
+const size_t StructuredRecoTree::CalClustNTrueTrack(const size_t& icluster)     const{
+	return GetCalCluster(icluster)->NIdes();
+}
+const int    StructuredRecoTree::CalClustTrkIdMaxDeposit(const size_t& icluster)const{
+	return GetCalCluster(icluster)->TrackIdMaxDep();
+}
+const float  StructuredRecoTree::CalClustMaxDeposit(const size_t& icluster)const{
+	return GetCalCluster(icluster)->MaxDeposit();
+}
+const std::pair<int,float>* StructuredRecoTree::CalClustTrueDeposit(const size_t& icluster, const size_t& itrack) const {
+	return GetCalCluster(icluster)->GetTrackIdEdep(itrack);
+}
 const float  StructuredRecoTree::CalClustTimeDifference(const size_t& icluster) const {
 	return fCalClusters->at(icluster).TimeDifference();
 }
