@@ -71,6 +71,7 @@ std::cout << "FlatGenTree SetBranchAddresses()" << std::endl;
 		fTreeIn->SetBranchAddress("GNuY",              &fNuY,              &b_NuY             );
 		fTreeIn->SetBranchAddress("GNuZ",              &fNuZ,              &b_NuZ             );
 		fTreeIn->SetBranchAddress("GNuT",              &fNuT,              &b_NuT             );
+		fTreeIn->SetBranchAddress("GNuRegion",         &fNuRegion,         &b_NuRegion        );
 
 		fTreeIn->SetBranchAddress("GWeight",           &fWeight,	       &b_Weight          );
 		fTreeIn->SetBranchAddress("GProbability",      &fProbability,      &b_Probability     );
@@ -159,6 +160,7 @@ std::cout << "FlatGenTree SetBranchAddresses()" << std::endl;
 		fTreeIn->Branch("GNuY",              &fNuYObj             );
 		fTreeIn->Branch("GNuZ",              &fNuZObj             );
 		fTreeIn->Branch("GNuT",              &fNuTObj             );
+		fTreeIn->Branch("GNuRegion",         &fNuVertex           ); //TODO check if need obj
 
 		fTreeIn->Branch("GWeight",           &fWeightObj 	       );
 		fTreeIn->Branch("GProbability",      &fProbabilityObj     );
@@ -248,6 +250,10 @@ const Bool_t FlatGenTree::IsCC(const UInt_t& igen ) const {
         return fGint->at(igen) == 2;
 
     return kFALSE;
+}
+
+const int FlatGenTree::NuRegion(const UInt_t& igen ) const {
+	return fNuRegion->at(igen);
 }
 
 const Int_t FlatGenTree::NuPDG(const UInt_t& igen ) const {

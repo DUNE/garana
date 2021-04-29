@@ -30,6 +30,7 @@ namespace garana {
     const UInt_t          NFSParticles(const UInt_t& igen ) const override;
     const Bool_t          IsGenie(const UInt_t& igen )      const override;
 
+    const int             NuRegion(const UInt_t& igen )     const override;
     const Bool_t          IsCC(const UInt_t& igen )         const override;
     const Int_t           NuPDG(const UInt_t& igen )        const override;
     const TLorentzVector* NuP(const UInt_t& igen)                 override;
@@ -188,6 +189,7 @@ namespace garana {
     vector<double>*  fNuY              = nullptr; ///<
     vector<double>*  fNuZ              = nullptr; ///<
     vector<double>*  fNuT              = nullptr; ///<
+    vector<int>*     fNuRegion         = nullptr;
 
     vector<double>*  fWeight           = nullptr; ///<
     vector<double>*  fProbability      = nullptr; ///<
@@ -270,6 +272,7 @@ namespace garana {
     TBranch*         b_NuY = nullptr; ///<
     TBranch*         b_NuZ = nullptr; ///<
     TBranch*         b_NuT = nullptr; ///<
+    TBranch*         b_NuRegion = nullptr;
 
     TBranch*         b_Weight      = nullptr; ///<
     TBranch*         b_Probability = nullptr; ///<

@@ -26,6 +26,7 @@ namespace garana {
     const UInt_t          NFSParticles(const UInt_t& igen ) const override;
     const Bool_t          IsGenie(const UInt_t& igen )      const override;
 
+    const int             NuRegion(const UInt_t& igen )     const override;
     const Int_t           NuPDG(const UInt_t& igen )        const override;
     const TLorentzVector* NuP(const UInt_t& igen)                 override;
     const TLorentzVector* NuVertex(const UInt_t& igen)            override;
