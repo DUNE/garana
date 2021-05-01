@@ -52,7 +52,9 @@ Track::Track(const float& lenFw, const float& lenBk, const float& pBeg, const fl
 		const float& chiFwd, const float& chiBac, const size_t& nHit,
 		const float* trkParBeg, const float* trkParEnd, const float* covarBeg, const float* covarEnd,
 		const int& chargeFwd, const int& chargeBac, const vector<pair<int,float>>& pidf,
-		const vector<pair<int,float>>& pidb, const float& ionf, const float& ionb ) :
+		const vector<pair<int,float>>& pidb, const float& ionf, const float& ionb, const vector<pair<UInt_t,TLorentzVector>>& truePosVtx,
+		const vector<pair<UInt_t,TLorentzVector>>& truePosEnd, const vector<pair<UInt_t,TLorentzVector>>& trueMomVtx,
+		const vector<pair<UInt_t,TLorentzVector>>& trueMomEnd ) :
 			fLenFwd(lenFw),
 			fLenBac(lenBk),
 			fMomBeg(pBeg),
@@ -69,7 +71,11 @@ Track::Track(const float& lenFw, const float& lenBk, const float& pBeg, const fl
 			fIonFwd(ionf),
 			fIonBac(ionb),
 			fPidFwd(pidf),
-			fPidBac(pidb)
+			fPidBac(pidb),
+			fTruePosVtx(truePosVtx),
+			fTruePosEnd(truePosEnd),
+			fTrueMomVtx(trueMomVtx),
+			fTrueMomEnd(trueMomEnd)
 {
 
 	//std::cout << "about to fill fTrackPar" << std::endl;

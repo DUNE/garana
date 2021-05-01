@@ -32,7 +32,9 @@ namespace garana {
 			const float& chiFwd, const float& chiBac, const size_t& nHit,
 			const float* trkParBeg, const float* trkParEnd, const float* covarBeg, const float* covarEnd,
 			const int& chargeFwd, const int& chargeBac, const vector<pair<int,float>>& pidf, const vector<pair<int,float>>& pidb,
-			const float& ionf, const float& ionb );
+			const float& ionf, const float& ionb, const vector<pair<UInt_t,TLorentzVector>>& truePosVtx,
+			const vector<pair<UInt_t,TLorentzVector>>& truePosEnd, const vector<pair<UInt_t,TLorentzVector>>& trueMomVtx,
+			const vector<pair<UInt_t,TLorentzVector>>& trueMomEnd);
 	#endif
 
     //private:
@@ -60,6 +62,11 @@ namespace garana {
       float          fIonBac;
       vector<pair<int,float>> fPidFwd;
       vector<pair<int,float>> fPidBac;
+
+      vector<pair<UInt_t,TLorentzVector>> fTruePosVtx; ///< 4-position for each assc'd MCParticle at track vertex
+      vector<pair<UInt_t,TLorentzVector>> fTruePosEnd; ///< 4-position for each assc'd MCParticle at track end
+      vector<pair<UInt_t,TLorentzVector>> fTrueMomVtx; ///< 4-momentum for each assc'd MCParticle at track vertex
+      vector<pair<UInt_t,TLorentzVector>> fTrueMomEnd; ///< 4-momentum for each assc'd MCParticle at track end
 
   }; //class
 }//namespace
