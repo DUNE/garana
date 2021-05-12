@@ -49,6 +49,7 @@ namespace garana {
     private:
 
 	  TLorentzVector fPosition;    ///< 4-position of the cluster [cm,ns]
+	  int   fRegion;               ///< what ECal region is it in, barrel or endcap; could add more. e.g, forward vs. backward barrel
       float fEnergy;               ///< energy of the ECal cluster [GeV]
       float fEnergyError;          ///< uncertainty of the cluster energy [GeV]
       float fTimeDiffFirstLast;    ///< time difference between the first and last layer of the cluster [ns]

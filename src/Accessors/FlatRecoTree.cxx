@@ -818,6 +818,27 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
 	covar[14] = fTrkCovMat15End->at(itrack);
  }
 
+ // FIXME implement methods
+ const TLorentzVector* FlatRecoTree::TrackTruePosBeg(const size_t& itrack) const {
+	 if(itrack)return 0;
+	 else return 0;
+ }
+
+ const TLorentzVector* FlatRecoTree::TrackTruePosEnd(const size_t& itrack) const {
+	 if(itrack)return 0;
+	 else return 0;
+ }
+
+ const TLorentzVector* FlatRecoTree::TrackTrueMomBeg(const size_t& itrack) const {
+	 if(itrack)return 0;
+	 else return 0;
+ }
+
+ const TLorentzVector* FlatRecoTree::TrackTrueMomEnd(const size_t& itrack) const {
+	 if(itrack)return 0;
+	 else return 0;
+ }
+
  /// ================ vertex ==========================
  const TLorentzVector* FlatRecoTree::GetVertex(const size_t& ivertex) const {
 

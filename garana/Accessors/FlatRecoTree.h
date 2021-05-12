@@ -55,6 +55,10 @@ namespace garana {
     void                  TrackParEnd(const size_t& itrack, float pars[5]) const override;
     void                  TrackCovarBeg(const size_t& itrack, float pars[15]) const override;
     void                  TrackCovarEnd(const size_t& itrack, float pars[15]) const override;
+    const TLorentzVector* TrackTruePosBeg(const size_t& itrack)            const override;
+    const TLorentzVector* TrackTruePosEnd(const size_t& itrack)            const override;
+    const TLorentzVector* TrackTrueMomBeg(const size_t& itrack)            const override;
+    const TLorentzVector* TrackTrueMomEnd(const size_t& itrack)            const override;
 
 	 //vertex
     const TLorentzVector* GetVertex(const size_t& ivertex)                          const override;
