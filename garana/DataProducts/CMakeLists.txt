@@ -47,7 +47,7 @@ ELSE()
     set(${DICTIONARY_TARGET_NAME}_HDR
           "${${LIBRARY_TARGET_NAME}_HDR}"
           "classes.h"
-          "GaranaDictLinkDef.h"
+          #"GaranaDictLinkDef.h"
     )
     set(${LIBRARY_TARGET_NAME}_SRC 
           "GTruth.cxx"
@@ -61,10 +61,13 @@ ELSE()
     
     # need to generate CINT dictionary so ROOT can understand whats in our trees
     root_generate_dictionary(G__GaranaDict ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDict.h LINKDEF ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDictLinkDef.h)
-    add_library(${DICTIONARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR} G__GaranaDict.cxx)
+    #REFLEX_GENERATE_DICTIONARY(G__${DICTIONARY_TARGET_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/classes.h 
+    #    SELECTION ${CMAKE_CURRENT_SOURCE_DIR}/classes_def.xml)
+
+    add_library(${DICTIONARY_TARGET_NAME} SHARED ${${DICTIONARY_TARGET_NAME}_HDR} G__${DICTIONARY_TARGET_NAME}.cxx)
     
     set_target_properties(${DICTIONARY_TARGET_NAME} PROPERTIES VERSION       ${${PROJECT_NAME}_VERSION}
-                                                            PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
+                                                            PUBLIC_HEADER "${${DICTIONARY_TARGET_NAME}_HDR}")
     
     target_link_libraries(${DICTIONARY_TARGET_NAME} PUBLIC ROOT::Core ROOT::Physics)
     
@@ -73,7 +76,16 @@ ELSE()
     # We need this directory, and users of our library will need it too
     set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES VERSION       ${${PROJECT_NAME}_VERSION}
                                                             PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
-    
+    #target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC ROOT::Core ROOT::Physics ${DICTIONARY_TARGET_NAME})    
+
+    #include(BuildDictionary)
+    #build_dictionary( DICT_NAME_VAR GaranaDict DICTIONARY_LIBRARIES GaranaProducts )
+    #genreflex garana/src/DataProducts/classes.h -s classes_def.xml -l ${LIBRARY_TARGET_NAME} -o GaranaDict
+    #REFLEX_GENERATE_DICTIONARY(${DICTIONARY_TARGET_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/classes.h 
+    #    SELECTION ${CMAKE_CURRENT_SOURCE_DIR}/classes_def.xml )
+    #add_library(${DICTIONARY_TARGET_NAME} ${DICTIONARY_TARGET_NAME}.cxx)
+    #add_library(${DICTIONARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR} ${DICTIONARY_TARGET_NAME}.cxx)
+
     # We need this directory, and users of our library will need it too 
     target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -81,7 +93,7 @@ ELSE()
     )
     
     # This depends on (header only)
-    target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC ROOT::Physics ${DICTIONARY_TARGET_NAME})
+    #target_link_libraries(${DICTIONARY_TARGET_NAME} PUBLIC ROOT::Physics ${LIBRARY_TARGET_NAME}  )
     
     # IDEs should put the headers in a nice place
     source_group(
@@ -92,14 +104,21 @@ ELSE()
     
     #move some products from dictionary generation to lib dir in build area
     install(FILES 
-              "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGaranaDict_rdict.pcm"
-              "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGaranaDict.rootmap"
+              #"${CMAKE_INSTALL_LIBDIR}/G__${DICTIONARY_TARGET_NAME}_rdict.pcm"
+              #"${CMAKE_INSTALL_LIBDIR}/G__${DICTIONARY_TARGET_NAME}Dict.rootmap"
+              "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/lib${DICTIONARY_TARGET_NAME}_rdict.pcm"
+              "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/lib${DICTIONARY_TARGET_NAME}.rootmap"             
               DESTINATION lib
     )
     
-    message(STATUS "installed files libGaranaDict_rdict.pcm and libGaranaDict.rootmap. move on to installing targets")
+    #message(STATUS "attempting to install files G__GaranaDict_rdict.pcm and G__GaranaDictDict.rootmap 
+    #                  in directory, ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
     
-    install(TARGETS ${DICTIONARY_TARGET_NAME} ${LIBRARY_TARGET_NAME}
+    message(STATUS "Cmake install libdir:  ${CMAKE_INSTALL_LIBDIR}")
+    message(STATUS "Cmake install bindir:  ${CMAKE_INSTALL_BINDIR}")
+    message(STATUS "Cmake install include dir: ${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_TARGET_NAME}")  
+    message(STATUS "Cmake install src dir: ${CMAKE_INSTALL_SRCDIR}")  
+    install(TARGETS  ${DICTIONARY_TARGET_NAME} ${LIBRARY_TARGET_NAME}
             EXPORT  ${PROJECT_NAME}
             LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT shlib
             ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT lib
