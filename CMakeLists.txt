@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.14...3.19)
 
-project(garana VERSION 00.00.10
+project(garana VERSION 00.00.12
                DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
                LANGUAGES CXX
 )
@@ -12,7 +12,7 @@ project(garana VERSION 00.00.10
 
 # cetbuildtools is used by mrb
 # and it contains cmake modules
-option(BUILD_W_CET "Build with cetbuildtools" OFF )
+option(BUILD_W_CET "Build with cetbuildtools" ON )
 
 IF( BUILD_W_CET )
 
