@@ -10,12 +10,12 @@
 using namespace garana;
 
 CaloCluster::CaloCluster() :
+		      fRegion(INT_MAX),
 	    	  fEnergy(FLT_MAX),
 	    	  fEnergyError(FLT_MAX),
 	    	  fTimeDiffFirstLast(FLT_MAX),
 	    	  fTheta(FLT_MAX),
-	    	  fPhi(FLT_MAX),
-			  fRegion(INT_MAX)
+	    	  fPhi(FLT_MAX)
 {
 
 	for(size_t i=0; i<6; i++) {
