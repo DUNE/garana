@@ -14,7 +14,8 @@ CaloCluster::CaloCluster() :
 	    	  fEnergyError(FLT_MAX),
 	    	  fTimeDiffFirstLast(FLT_MAX),
 	    	  fTheta(FLT_MAX),
-	    	  fPhi(FLT_MAX)
+	    	  fPhi(FLT_MAX),
+			  fRegion(INT_MAX)
 {
 
 	for(size_t i=0; i<6; i++) {
@@ -27,9 +28,10 @@ CaloCluster::CaloCluster() :
 	}
 }
 
-CaloCluster::CaloCluster(const TLorentzVector& pos, const float& energy, const float& energyErr, const float& timeDiff,
+CaloCluster::CaloCluster(const TLorentzVector& pos, const int& region, const float& energy, const float& energyErr, const float& timeDiff,
 	      const float* shape, const float& theta, const float& phi, const std::vector<TVector3>& eigenVecs,
 		  const std::vector<std::pair<int,float>>& edeps ) :
+			  fRegion(region),
 	    	  fEnergy(energy),
 	    	  fEnergyError(energyErr),
 	    	  fTimeDiffFirstLast(timeDiff),
@@ -48,6 +50,10 @@ CaloCluster::CaloCluster(const TLorentzVector& pos, const float& energy, const f
 const TLorentzVector* CaloCluster::Position() const{
 	 return &fPosition;
  }
+
+int const& CaloCluster::Region() const {
+	return fRegion;
+}
 
  float const&  CaloCluster::Energy() const {
 	 return fEnergy;
