@@ -2,9 +2,9 @@
 ##               garana top-level CMake file                                                ##
 ##############################################################################################
 
-cmake_minimum_required(VERSION 3.12...3.19)
+cmake_minimum_required(VERSION 3.14...3.19)
 
-project(garana VERSION 00.00.09
+project(garana VERSION 00.00.10
                DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
                LANGUAGES CXX
 )
@@ -12,7 +12,7 @@ project(garana VERSION 00.00.09
 
 # cetbuildtools is used by mrb
 # and it contains cmake modules
-option(BUILD_W_CET "Build with cetbuildtools" ON )
+option(BUILD_W_CET "Build with cetbuildtools" OFF )
 
 IF( BUILD_W_CET )
 
@@ -145,15 +145,17 @@ ELSE()
     
 
     # find required package: ROOT (needed to make dictionary during build)
-    list(APPEND CMAKE_PREFIX_PATH "$ENV{ROOTSYS}")
-    find_package(ROOT 6.16 CONFIG REQUIRED)
+    list(APPEND CMAKE_PREFIX_PATH "$ENV{ROOTSYS}") # "$ENV{PYTHONPATH}")
+    #find_package(python 2.7 CONFIG REQUIRED)
+    #find_package(python 3.9 CONFIG REQUIRED)
+    find_package(ROOT 6.22 CONFIG REQUIRED)
     if(ROOT_FOUND)
       message(STATUS "FOUND ROOT :)")
     else()
       message(STATUS "ROOT not found!")
     endif()
 
-    message(STATUS "Base path is ${CMAKE_SOURCE_DIR}")
+    #message(STATUS "Base path is ${CMAKE_SOURCE_DIR}")
     set(BASEPATH "${CMAKE_SOURCE_DIR}")
     include_directories("${BASEPATH}")
 
@@ -162,7 +164,7 @@ ELSE()
 ENDIF()
 
 # The compiled library code is here
-add_subdirectory(src)
+add_subdirectory(garana)
 
 # The executable code is here
 add_subdirectory(apps)

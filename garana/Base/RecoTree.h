@@ -56,6 +56,11 @@ namespace garana {
       virtual void                  TrackCovarBeg(const size_t& itrack, float pars[15]) const = 0; ///< track fit covariance matrix (assume symmetry) at track's assumed start
       virtual void                  TrackCovarEnd(const size_t& itrack, float pars[15]) const = 0; ///< track fit covariance matrix (assume symmetry) at track's assumed end
 
+      virtual const TLorentzVector* TrackTruePosBeg(const size_t& itrack)    const = 0; ///< true 4-position at track vertex [cm,ns]
+      virtual const TLorentzVector* TrackTruePosEnd(const size_t& itrack)    const = 0; ///< true 4-position at track end [cm,ns]
+      virtual const TLorentzVector* TrackTrueMomBeg(const size_t& itrack)    const = 0; ///< true 4-momentum at track vertex [GeV/c,GeV]
+      virtual const TLorentzVector* TrackTrueMomEnd(const size_t& itrack)    const = 0; ///< true 4-momentum at track end [GeV/c,GeV]
+
 	  //vertex
       virtual const TLorentzVector* GetVertex(const size_t& ivertex)                          const = 0; ///< vertex 4-position for vertex with index ivertex
       virtual void                  VertexCovariance(const size_t& ivertex, float covar[][3]) const = 0; ///< given a vertex index, fill given position covariance matrix
@@ -67,14 +72,20 @@ namespace garana {
       virtual const float                   VeeChiSquared(const size_t& ivee)                   const = 0;
 
       //calo cluster
-	  virtual const TLorentzVector*   CalClustPosition(const size_t& ivee)       const = 0;
-	  virtual const float             CalClustEnergy(const size_t& ivee)         const = 0;
-	  virtual const float             CalClustEnergyError(const size_t& ivee)    const = 0;
-	  virtual const float             CalClustTimeDifference(const size_t& ivee) const = 0;
-	  virtual const float*            CalClustShape(const size_t& ivee)          const = 0;
-	  virtual const float             CalClustTheta(const size_t& ivee)          const = 0;
-	  virtual const float             CalClustPhi(const size_t& ivee)            const = 0;
-	  virtual const vector<TVector3>* CalClustEigenVecs(const size_t& ivee)      const = 0;
+	  virtual const TLorentzVector*   CalClustPosition(const size_t& icluster)       const = 0;
+	  virtual const float             CalClustEnergy(const size_t& icluster)         const = 0; ///< reconstructed ECal cluster energy
+	  virtual const float             CalClustEnergyError(const size_t& icluster)    const = 0;
+	  virtual const float             CalClustTrueEnergy(const size_t& icluster)     const = 0; ///< total associated true energy deposited with ith cluster
+	  virtual const size_t            CalClustNTrueTrack(const size_t& icluster)     const = 0; ///< number of MCParticles associated with ith cluster
+	  virtual const int               CalClustTrkIdMaxDeposit(const size_t& icluster)const = 0; ///< trackID of the MCParticle depositing the most energy in ith cluster
+	  virtual const float             CalClustMaxDeposit(const size_t& icluster)     const = 0; ///< maximum true deposited energy from a single MCParticle
+	          const float             CalClustMaxDepositFrac(const size_t& icluster) const;     ///< largest fraction of total energy contributed by single MCParticle
+	  virtual const std::pair<int,float>* CalClustTrueDeposit(const size_t& icluster, const size_t& itrack) const = 0; ///<
+	  virtual const float             CalClustTimeDifference(const size_t& icluster) const = 0;
+	  virtual const float*            CalClustShape(const size_t& icluster)          const = 0;
+	  virtual const float             CalClustTheta(const size_t& icluster)          const = 0;
+	  virtual const float             CalClustPhi(const size_t& icluster)            const = 0;
+	  virtual const vector<TVector3>* CalClustEigenVecs(const size_t& icluster)      const = 0;
 
       // truth matching
       void GetTrackG4PIndices       (const size_t& itrk,    vector<UInt_t>& ig4ps  ) const; ///< given a track index, fill a given vector with matched G4 particle indices

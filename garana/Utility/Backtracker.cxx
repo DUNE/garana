@@ -327,7 +327,7 @@ bool Backtracker::CheckRange(const map<UInt_t,T>& m, const UInt_t& i) const {
 		return true;
 	}
 	catch(UInt_t i){
-		cerr << "ERROR Backtracker: map index not found" << endl;
+		//cerr << "ERROR Backtracker: map index not found" << endl;
 		return false;
 	}
 }

@@ -23,6 +23,8 @@ namespace garana {
   public:
     GTruth();
 
+    int            fVertexRegion; ///< region code where vertex is located
+
     // genie::GHepRecord info
     // holds a genie::Interaction
 

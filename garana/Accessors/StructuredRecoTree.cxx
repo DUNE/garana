@@ -160,6 +160,64 @@ void StructuredRecoTree::TrackCovarEnd(const size_t& itrack, float covar[15]) co
 		covar[i] = fTracks->at(itrack).fCovMatEnd[i];
 }
 
+const TLorentzVector* StructuredRecoTree::TrackTruePosBeg(const size_t& itrack) const {
+	TLorentzVector outvec(0,0,0,0);
+	float ptot = 0.;
+	for(size_t imctrk=0; imctrk<fTracks->at(itrack).fTruePosVtx.size(); imctrk++ ) {
+		TLorentzVector tmpvec = fTracks->at(itrack).fTruePosVtx[imctrk].second;
+		tmpvec *= fTracks->at(itrack).fTrueMomVtx[imctrk].second.P();
+		outvec += tmpvec;
+		ptot += fTracks->at(itrack).fTrueMomVtx[imctrk].second.P();
+	}
+
+	outvec *= 1.0/ptot;
+	return new TLorentzVector(outvec);
+}
+
+const TLorentzVector* StructuredRecoTree::TrackTruePosEnd(const size_t& itrack) const {
+	TLorentzVector outvec(0,0,0,0);
+	float ptot = 0.;
+	std::cout << "loop over -- " << fTracks->at(itrack).fTruePosEnd.size() << " -- true positions" << std::endl;
+	for(size_t imctrk=0; imctrk<fTracks->at(itrack).fTruePosEnd.size(); imctrk++) {
+		TLorentzVector tmpvec = fTracks->at(itrack).fTruePosEnd[imctrk].second;
+		std::cout << "  submomentum: " << fTracks->at(itrack).fTrueMomEnd[imctrk].second.P() << std::endl;
+		tmpvec *= fTracks->at(itrack).fTrueMomEnd[imctrk].second.P();
+		outvec += tmpvec;
+		ptot += fTracks->at(itrack).fTrueMomEnd[imctrk].second.P();
+	}
+    std::cout << "total true momentum: " << std::to_string(ptot) << std::endl;
+	outvec *= 1.0/ptot;
+	return new TLorentzVector(outvec);
+}
+
+const TLorentzVector* StructuredRecoTree::TrackTrueMomBeg(const size_t& itrack) const {
+	TLorentzVector outvec(0,0,0,0);
+	float ptot = 0.;
+	for(size_t imctrk=0; imctrk<fTracks->at(itrack).fTrueMomVtx.size(); imctrk++) {
+		TLorentzVector tmpvec = fTracks->at(itrack).fTrueMomVtx[imctrk].second;
+		tmpvec *= fTracks->at(itrack).fTrueMomVtx[imctrk].second.P();
+		outvec += tmpvec;
+		ptot += fTracks->at(itrack).fTrueMomVtx[imctrk].second.P();
+	}
+
+	outvec *= 1.0/ptot;
+	return new TLorentzVector(outvec);
+}
+
+const TLorentzVector* StructuredRecoTree::TrackTrueMomEnd(const size_t& itrack) const {
+	TLorentzVector outvec(0,0,0,0);
+	float ptot = 0.;
+	for(size_t imctrk=0; imctrk<fTracks->at(itrack).fTrueMomEnd.size(); imctrk++) {
+		TLorentzVector tmpvec = fTracks->at(itrack).fTrueMomEnd[imctrk].second;
+		tmpvec *= fTracks->at(itrack).fTrueMomEnd[imctrk].second.P();
+		outvec += tmpvec;
+		ptot += fTracks->at(itrack).fTrueMomEnd[imctrk].second.P();
+	}
+
+	outvec *= 1.0/ptot;
+	return new TLorentzVector(outvec);
+}
+
 //============== vertex ======================
 const TLorentzVector* StructuredRecoTree::GetVertex(const size_t& ivertex) const {
 	return fVertices->at(ivertex).GetVertex();
@@ -188,18 +246,42 @@ const float StructuredRecoTree::VeeChiSquared(const size_t& ivee) const {
 }
 
 /// ================ ECal cluster ======================
+const CaloCluster* StructuredRecoTree::GetCalCluster(const size_t& icluster) const {
+	if(fCalClusters->size()==0)
+		return nullptr;
+
+	return &(fCalClusters->at(icluster));
+}
 const TLorentzVector*   StructuredRecoTree::CalClustPosition(const size_t& icluster) const {
-	return fCalClusters->at(icluster).Position();
+	return GetCalCluster(icluster)->Position();
 }
 
 const float  StructuredRecoTree::CalClustEnergy(const size_t& icluster) const {
-	return fCalClusters->at(icluster).Energy();
+	return GetCalCluster(icluster)->Energy();
 }
 
 const float  StructuredRecoTree::CalClustEnergyError(const size_t& icluster) const {
-	return fCalClusters->at(icluster).EnergyError();
+	return GetCalCluster(icluster)->EnergyError();
 }
 
+const float  StructuredRecoTree::CalClustTrueEnergy(const size_t& icluster)     const{
+	return GetCalCluster(icluster)->TotalTrueEnergy();
+}
+const size_t StructuredRecoTree::CalClustNTrueTrack(const size_t& icluster)     const{
+	return GetCalCluster(icluster)->NIdes();
+}
+const int    StructuredRecoTree::CalClustTrkIdMaxDeposit(const size_t& icluster)const{
+	return GetCalCluster(icluster)->TrackIdMaxDep();
+}
+const float  StructuredRecoTree::CalClustMaxDeposit(const size_t& icluster)const{
+	if(GetCalCluster(icluster))
+		return GetCalCluster(icluster)->MaxDeposit();
+	else
+		return 0.;
+}
+const std::pair<int,float>* StructuredRecoTree::CalClustTrueDeposit(const size_t& icluster, const size_t& itrack) const {
+	return GetCalCluster(icluster)->GetTrackIdEdep(itrack);
+}
 const float  StructuredRecoTree::CalClustTimeDifference(const size_t& icluster) const {
 	return fCalClusters->at(icluster).TimeDifference();
 }

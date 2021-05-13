@@ -47,6 +47,25 @@ namespace garana {
       // truth matching
 	  UInt_t const                         GetTruthIndex(UInt_t iparticle) const; ///< index in gen tree subentry to truth match to this
 
+	  const UInt_t NPrimary() const;
+
+	  bool HasPassedTPC(const UInt_t& iparticle)    const; ///< did the G4Particle pass through any TPC drift volume(s)?
+	  bool HasPassedCalo(const UInt_t& iparticle)   const; ///< did the G4Particle pass through any active ECal volume(s)?
+	  bool IsStoppedTPC(const UInt_t& iparticle)    const; ///< did the G4Particle stop/decay in any TPC drift volume(s)?
+	  bool IsStoppedCalo(const UInt_t& iparticle)   const; ///< did the G4Particle stop/decay in any active ECal volume(s)?
+	  bool IsContainedTPC(const UInt_t& iparticle)  const; ///< if the G4Particle was produced in any TPC drift volume, does it remain in either drift volume?
+	  bool IsContainedCalo(const UInt_t& iparticle) const; ///< if the G4Particle was produced in any active ECal volume, does it remain there?
+	  bool IsCathodeCrosser(const UInt_t& iparticle) const; ///< did the G4Particle cross the TPC central cathode?
+	  bool IsContainedTPCEvent()                    const; ///< do all particles produced in any TPC drift volume in this event remain in either volume?
+	  bool IsContainedTPCPrimaries()                const; ///< do all primaries produced in any TPC drift volume in this event remain in either volume?
+	  bool IsContainedCaloEvent()                   const; ///< do all particles produced in any active ECal volume in this event remain there?
+	  bool IsContainedCaloPrimaries()               const; ///< do all primaries produced in any active ECal volume in this event remain there?
+
+	  const TLorentzVector* SimMomBegin(const UInt_t& iparticle) const;
+	  const TLorentzVector* SimMomEnd(const UInt_t& iparticle) const;
+	  const TLorentzVector* SimPosBegin(const UInt_t& iparticle) const;
+	  const TLorentzVector* SimPosEnd(const UInt_t& iparticle) const;
+
     protected:
 
 		 vector<UInt_t>*         fG4TruthIndex  = nullptr;

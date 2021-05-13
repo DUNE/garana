@@ -2,10 +2,12 @@
 // Build a dictionary.
 //
 
-#ifndef classes_h
-#define classes_h
+#ifndef CLASSES_H
+#define CLASSES_H
 
-#include "canvas/Persistency/Common/Wrapper.h"
+//#if BUILD_W_CET
+//#include "canvas/Persistency/Common/Wrapper.h"
+//#endif
 
 // garana
 #include "garana/DataProducts/GTruth.h"
@@ -21,5 +23,6 @@
 
 // c++
 #include <vector>
+#include <utility>
 
-#endif /* classes_h */
+#endif /* CLASSES_H */

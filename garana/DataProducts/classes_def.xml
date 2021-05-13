@@ -9,7 +9,8 @@
 
 <lcgdict>
 
-  <class name="garana::GTruth"       ClassVersion="10"  >
+  <class name="garana::GTruth"       ClassVersion="11"  >
+   <version ClassVersion="11" checksum="1175969456"/>
    <version ClassVersion="10" checksum="3300117337"/>
   </class>
   <class name="garana::FSParticle"   ClassVersion="10"  >
@@ -18,10 +19,13 @@
   <class name="garana::G4Particle"   ClassVersion="10"  >
    <version ClassVersion="10" checksum="2275924112"/>
   </class>
-  <class name="garana::Track"        ClassVersion="10"  >
+  <class name="garana::Track"        ClassVersion="11"  >
+   <version ClassVersion="11" checksum="2795746900"/>
    <version ClassVersion="10" checksum="1245166726"/>
   </class>
-  <class name="garana::CaloCluster"  ClassVersion="10"  >
+  <class name="garana::CaloCluster"  ClassVersion="12"  >
+   <version ClassVersion="12" checksum="2531832824"/>
+   <version ClassVersion="11" checksum="1334633593"/>
    <version ClassVersion="10" checksum="3447307553"/>
   </class>
   <class name="garana::Vertex"       ClassVersion="10"  >
@@ -31,15 +35,20 @@
    <version ClassVersion="10" checksum="4080837542"/>
   </class>
 
+  <class name="std::vector<std::vector<int>>" />
+  <class name="std::vector<std::vector<unsigned int>>" />  
+  <class name="std::vector<std::pair<UInt_t,TLorentzVector>>" />
+  
   <class name="std::vector<garana::GTruth>"     />
   <class name="std::vector<garana::FSParticle>" />
+  <class name="std::vector<std::vector<garana::FSParticle>>" />
   <class name="std::vector<garana::G4Particle>" />
   <class name="std::vector<garana::Track>"      />
   <class name="std::vector<garana::CaloCluster>"/>
   <class name="std::vector<garana::Vertex>"     />
   <class name="std::vector<garana::Vee>"        />
-
-  <class name="art::Wrapper<garana::GTruth>"     />
+  
+  <!-- <class name="art::Wrapper<garana::GTruth>"     />
   <class name="art::Wrapper<garana::FSParticle>" />
   <class name="art::Wrapper<garana::G4Particle>" />
   <class name="art::Wrapper<garana::Track>"      />
@@ -49,10 +58,11 @@
 
   <class name="art::Wrapper<std::vector<garana::GTruth>>"     />
   <class name="art::Wrapper<std::vector<garana::FSParticle>>" />
+  <class name="art::Wrapper<std::vector<std::vector<garana::FSParticle>>>" />
   <class name="art::Wrapper<std::vector<garana::G4Particle>>" />
   <class name="art::Wrapper<std::vector<garana::Track>>"      />
   <class name="art::Wrapper<std::vector<garana::CaloCluster>>"/>
   <class name="art::Wrapper<std::vector<garana::Vertex>>"     />
-  <class name="art::Wrapper<std::vector<garana::Vee>>"        /> 
+  <class name="art::Wrapper<std::vector<garana::Vee>>"        /> -->
 
 </lcgdict>

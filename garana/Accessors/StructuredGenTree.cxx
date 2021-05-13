@@ -81,6 +81,16 @@ const Bool_t StructuredGenTree::IsCC(const UInt_t& igen) const {
 
 }//
 
+// Get the region code for the neutrino vertex
+const int StructuredGenTree::NuRegion(const UInt_t& igen ) const {
+
+	if(IsGenie(igen))
+		return fGTruth->at(igen).fVertexRegion;
+	else
+		return INT_MAX;
+
+}//
+
 // Get the GENIE neutrino PDG code
 const Int_t StructuredGenTree::NuPDG(const UInt_t& igen) const {
 

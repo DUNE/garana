@@ -22,6 +22,7 @@ namespace garana{
 
    ///< GENIE specific
    ///< neutrino info
+   virtual const int             NuRegion(const UInt_t& igen )   const = 0; ///< region code where the vertex is located
    virtual const Int_t           NuPDG(const UInt_t& igen )      const = 0; ///< neutrino PDG code
    virtual const TLorentzVector* NuP(const UInt_t& igen)               = 0; ///< initial neutrino 4-momentum
    virtual const TLorentzVector* NuVertex(const UInt_t& igen)          = 0; ///< 4-position of neutrino vertex
@@ -55,6 +56,10 @@ namespace garana{
    virtual const int             NumNuPiMinus(const UInt_t& igen) const = 0;   ///< number of pi minuses after reaction, before FSI
 
    const std::vector<Int_t>* GetGIndex() const; ///< whether or not subentry is GENIE interaction, index of GENIE interaction
+
+   bool NuInAV(const UInt_t& igen) const;
+   bool NuInIV(const UInt_t& igen) const;
+   bool NuInCalo(const UInt_t& igen) const;
 
   protected:
 

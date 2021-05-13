@@ -6,6 +6,7 @@
  */
 
 #include "garana/Accessors/FlatRecoTree.h"
+#include <utility>
 
 using std::vector;
 using namespace garana;
@@ -817,6 +818,27 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
 	covar[14] = fTrkCovMat15End->at(itrack);
  }
 
+ // FIXME implement methods
+ const TLorentzVector* FlatRecoTree::TrackTruePosBeg(const size_t& itrack) const {
+	 if(itrack)return 0;
+	 else return 0;
+ }
+
+ const TLorentzVector* FlatRecoTree::TrackTruePosEnd(const size_t& itrack) const {
+	 if(itrack)return 0;
+	 else return 0;
+ }
+
+ const TLorentzVector* FlatRecoTree::TrackTrueMomBeg(const size_t& itrack) const {
+	 if(itrack)return 0;
+	 else return 0;
+ }
+
+ const TLorentzVector* FlatRecoTree::TrackTrueMomEnd(const size_t& itrack) const {
+	 if(itrack)return 0;
+	 else return 0;
+ }
+
  /// ================ vertex ==========================
  const TLorentzVector* FlatRecoTree::GetVertex(const size_t& ivertex) const {
 
@@ -864,7 +886,27 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
 	v->push_back(TLorentzVector(fVeePxLamb2->at(ivee),fVeePyLamb2->at(ivee),
 			fVeePzLamb2->at(ivee),fVeeELamb2->at(ivee)));
  	return v; } const float FlatRecoTree::VeeChiSquared(const size_t& ivee) const { 	return fVeeChisqr->at(ivee); } /// ================ ECal cluster ====================== const TLorentzVector*   FlatRecoTree::CalClustPosition(const size_t& icluster) const { 	return new TLorentzVector(fCalClustX->at(icluster),fCalClustY->at(icluster),
- 			            fCalClustZ->at(icluster),fCalClustT->at(icluster)); } const float  FlatRecoTree::CalClustEnergy(const size_t& icluster) const { 	return fCalClustEnergy->at(icluster); } const float  FlatRecoTree::CalClustEnergyError(const size_t& icluster) const { 	return fCalClustEnergyError->at(icluster); } const float  FlatRecoTree::CalClustTimeDifference(const size_t& icluster) const { 	return fCalClustTdiff->at(icluster); } const float* FlatRecoTree::CalClustShape(const size_t& icluster) const {
+ 			            fCalClustZ->at(icluster),fCalClustT->at(icluster)); } const float  FlatRecoTree::CalClustEnergy(const size_t& icluster) const { 	return fCalClustEnergy->at(icluster); } const float  FlatRecoTree::CalClustEnergyError(const size_t& icluster) const { 	return fCalClustEnergyError->at(icluster); }
+const float   FlatRecoTree::CalClustTrueEnergy(const size_t& icluster)     const { //FIXME
+	return  icluster;
+}
+const size_t  FlatRecoTree::CalClustNTrueTrack(const size_t& icluster)     const {
+	return icluster;
+}
+const int     FlatRecoTree::CalClustTrkIdMaxDeposit(const size_t& icluster) const {
+	return icluster;
+}
+const float   FlatRecoTree::CalClustMaxDeposit(const size_t& icluster) const {
+	return  icluster;
+}
+const std::pair<int,float>* FlatRecoTree::CalClustTrueDeposit(const size_t& ivee, const size_t& itrack) const {
+	auto b=ivee;
+	auto c = itrack;
+	b++;
+	c++;
+	return nullptr;
+} //FIXME
+ const float  FlatRecoTree::CalClustTimeDifference(const size_t& icluster) const { 	return fCalClustTdiff->at(icluster); } const float* FlatRecoTree::CalClustShape(const size_t& icluster) const {
 
 	float* shape = new float[6];
 	shape[0] = fCalClustEllip->at(icluster);

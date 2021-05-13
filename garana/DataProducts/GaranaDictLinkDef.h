@@ -10,6 +10,7 @@
 #pragma link C++ class std::vector<std::vector<Double_t>>+;
 #pragma link C++ class std::vector<std::vector<std::vector<Double_t>>>+;
 #pragma link C++ class std::vector<TLorentzVector>+;
+#pragma link C++ class std::vector<pair<UInt_t,TLorentzVector>>+;
 
 #pragma link C++ class garana::GTruth+;
 #pragma link C++ class std::vector<garana::GTruth>+;

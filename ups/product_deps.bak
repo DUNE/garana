@@ -1,6 +1,6 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	garana	v00_00_09
+parent	garana	v00_00_10
 defaultqual	e19
 
 # These optional lines define the installed directories where
@@ -16,6 +16,7 @@ defaultqual	e19
 # libdir  fq_dir       lib
 # bindir  fq_dir       bin
 
+fwdir   product_dir  fw
 bindir  fq_dir       bin
 
 product         version
@@ -28,12 +29,19 @@ end_product_list
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # e15  - with gcc 6.4.0 and -std=c++14
 
-qualifier art         canvas_root_io root 
-e19:debug e19:debug   e19:debug      e19:p383b:debug
-e19:prof  e19:prof    e19:prof       e19:p383b:prof
-c7:debug  c7:debug    c7:debug       c7:p383b:debug
-c7:prof   c7:prof     c7:prof        c7:p383b:prof
+qualifier art       canvas_root_io  root        
+e19:debug e19:debug e19:debug    e19:p383b:debug
+e19:prof  e19:prof  e19:prof     e19:p383b:prof
+c7:debug  c7:debug  c7:debug     c7:p383b:debug
+c7:prof   c7:prof   c7:prof      c7:p383b:prof 
 end_qualifier_list
+
+#qualifier root
+#e19:debug e19:p383b:debug
+#e19:prof  e19:p383b:prof
+#c7:debug  c7:p383b:debug
+#c7:prof   c7:p383b:prof
+#end_qualifier_list
 
 # table fragment to set FW_SEARCH_PATH needed
 # to find gdml files:
