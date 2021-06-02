@@ -1,7 +1,7 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	garana	v00_00_12
-defaultqual	e19
+parent	garana	v00_00_13
+defaultqual	e20
 
 # These optional lines define the installed directories where
 # headers, libraries, and executables will be found
@@ -29,9 +29,11 @@ end_product_list
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # e15  - with gcc 6.4.0 and -std=c++14
 
-qualifier art       canvas_root_io  root        
+qualifier art       canvas_root_io  root
 e19:debug e19:debug e19:debug    e19:p383b:debug
-e19:prof  e19:prof  e19:prof     e19:p383b:prof
+e19:prof  e19:prof  e19:prof     e19:p383b:prof 
+e20:debug e20:debug e20:debug    e20:p383b:debug
+e20:prof  e20:prof  e20:prof     e20:p383b:prof
 c7:debug  c7:debug  c7:debug     c7:p383b:debug
 c7:prof   c7:prof   c7:prof      c7:p383b:prof 
 end_qualifier_list
