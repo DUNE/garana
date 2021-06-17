@@ -9,6 +9,7 @@
 #define GARANA_G4PARTICLE_H_
 
 #include <TLorentzVector.h>
+#include <TObject.h>
 #include <climits>
 #include <vector>
 #include <utility>
@@ -20,7 +21,7 @@ using std::string;
 
 namespace garana {
 
-  class G4Particle {
+  class G4Particle : public TObject {
 
     public:
 	  G4Particle() {}
@@ -81,6 +82,8 @@ namespace garana {
       vector<pair<TLorentzVector,TLorentzVector>> fP;                            ///< particle 4-momentum at entry (first) and exit (second) points for selected geometric regions
       vector<int>                                 fRegions;                      ///< region numbers (e.g. tpc inactive (2), tpc active (1), tpcFiducial(0), eCal (3))
       vector<size_t>                              fNptsPerRegion;                ///< number of trajectory points (G4 steps) per region of interest
+
+      ClassDef(G4Particle,10)
 
   };//class
 }//namepsace

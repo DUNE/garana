@@ -125,3 +125,6 @@ int const& CaloCluster::Region() const {
 
 	 return (GetTrackIdEdep(imaxdep))->second;
  }
+
+
+ ClassImp(CaloCluster)

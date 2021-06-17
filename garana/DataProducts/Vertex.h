@@ -9,12 +9,13 @@
 #define GARANA_VERTEX_H_
 
 #include <TLorentzVector.h>
+#include <TObject.h>
 //#include <TROOT.h>
 #include <climits>
 
 namespace garana {
 
-  class Vertex { //: public TObject {
+  class Vertex : public TObject {
 
     public:
 
@@ -34,7 +35,7 @@ namespace garana {
 	  float        fCovar[3][3]; ///< vertex 3-position fit uncertainties [cm]
 	  //TODO extend covar matrix to time?
 
-	//ClassDef(Vertex,2)
+	ClassDef(Vertex,11)
 
   }; //class
 }//namespace

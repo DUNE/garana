@@ -10,6 +10,7 @@
 
 #include <TLorentzVector.h>
 #include <TVector3.h>
+#include <TObject.h>
 
 #include <vector>
 #include <climits>
@@ -18,7 +19,7 @@ using std::vector;
 
 namespace garana {
 
-  class CaloCluster {
+  class CaloCluster : public TObject {
 
     public: 
 
@@ -59,6 +60,8 @@ namespace garana {
       float fPhi;                  ///< intrasic direction of the cluster phi
       vector<TVector3> fEigenVecs; ///< Eigenvectors of the cluster in ascending order (principal axis with smallest inertial mass) normalised to 1
       vector<std::pair<int,float>> fTrueEnergy; ///< true energy (second) [GeV] deposited by MCParticle with trackID (first)
+
+      ClassDef(CaloCluster,12)
 
   }; //class
 }//namespace

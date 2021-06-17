@@ -51,3 +51,5 @@ float const& Vee::GetChiSqr() const {
 const vector<TLorentzVector>* Vee::GetMomentaPerHypothesis() const {
 	return &fMomPerHypoth;
 }
+
+ClassImp(Vee)

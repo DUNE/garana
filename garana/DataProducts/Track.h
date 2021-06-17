@@ -10,6 +10,7 @@
 
 #include <TLorentzVector.h>
 #include <TVector3.h>
+#include <TObject.h>
 
 #include <climits>
 #include <vector>
@@ -19,7 +20,7 @@ using std::pair;
 using std::vector;
 
 namespace garana {
-  class Track {
+  class Track : public TObject {
 
     public: 
 
@@ -67,6 +68,8 @@ namespace garana {
       vector<pair<UInt_t,TLorentzVector>> fTruePosEnd; ///< 4-position for each assc'd MCParticle at track end
       vector<pair<UInt_t,TLorentzVector>> fTrueMomVtx; ///< 4-momentum for each assc'd MCParticle at track vertex
       vector<pair<UInt_t,TLorentzVector>> fTrueMomEnd; ///< 4-momentum for each assc'd MCParticle at track end
+
+      ClassDef(Track,11)
 
   }; //class
 }//namespace

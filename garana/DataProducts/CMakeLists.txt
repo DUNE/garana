@@ -61,10 +61,12 @@ ELSE()
     
     # need to generate CINT dictionary so ROOT can understand whats in our trees
     root_generate_dictionary(G__GaranaDict ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDict.h LINKDEF ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDictLinkDef.h)
+    #root_generate_dictionary(G__GaranaDict ${CMAKE_CURRENT_SOURCE_DIR}/classes.h LINKDEF ${CMAKE_CURRENT_SOURCE_DIR}/GaranaDictLinkDef.h)
     #REFLEX_GENERATE_DICTIONARY(G__${DICTIONARY_TARGET_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/classes.h 
     #    SELECTION ${CMAKE_CURRENT_SOURCE_DIR}/classes_def.xml)
 
     add_library(${DICTIONARY_TARGET_NAME} SHARED ${${DICTIONARY_TARGET_NAME}_HDR} G__${DICTIONARY_TARGET_NAME}.cxx)
+    #add_library(${DICTIONARY_TARGET_NAME} SHARED G__${DICTIONARY_TARGET_NAME}.cxx)
     
     set_target_properties(${DICTIONARY_TARGET_NAME} PROPERTIES VERSION       ${${PROJECT_NAME}_VERSION}
                                                             PUBLIC_HEADER "${${DICTIONARY_TARGET_NAME}_HDR}")
@@ -88,7 +90,7 @@ ELSE()
 
     # We need this directory, and users of our library will need it too 
     target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> #/garana>
     $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>
     )
     
@@ -97,7 +99,7 @@ ELSE()
     
     # IDEs should put the headers in a nice place
     source_group(
-      TREE "${PROJECT_SOURCE_DIR}/garana"
+      TREE "${PROJECT_SOURCE_DIR}" #/garana"
       PREFIX "Header Files"
       FILES ${${LIBRARY_TARGET_NAME}_HDR}
     )

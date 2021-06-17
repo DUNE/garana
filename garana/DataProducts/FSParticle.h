@@ -2,11 +2,12 @@
 #define GARANA_DATAPRODUCTS_FSPARTICLE_H
 
 #include <TLorentzVector.h>
+#include <TObject.h>
 #include <climits>
 //#include <TROOT.h>
 
 namespace garana {
- class FSParticle { //: public TObject {
+ class FSParticle : public TObject {
 
   public:
 
@@ -45,7 +46,7 @@ namespace garana {
     TLorentzVector fP;    ///< final particle 4-momentum in lab frame [GeV/c,GeV]
 
 
-  //ClassDef(FSParticle,2)
+  ClassDef(FSParticle,11)
 
  };//class
 }//namespace

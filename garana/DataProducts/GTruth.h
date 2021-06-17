@@ -15,10 +15,11 @@
 
 #include <iostream>
 #include <TLorentzVector.h>
+#include <TObject.h>
 
 namespace garana {
 
-  class GTruth {
+  class GTruth : public TObject{
 
   public:
     GTruth();
@@ -87,6 +88,8 @@ namespace garana {
     bool IsFilled();
 
 	#endif
+
+    ClassDef(GTruth,11)
   }; //class GTruth
 } // end garana namespace
 

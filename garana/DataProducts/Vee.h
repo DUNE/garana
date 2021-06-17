@@ -9,6 +9,7 @@
 #define GARANA_VEE_H_
 
 #include "garana/DataProducts/Vertex.h"
+#include <TObject.h>
 
 using std::vector;
 
@@ -34,6 +35,8 @@ namespace garana {
 	  vector<TLorentzVector> fMomPerHypoth; ///< four-momentum of vee, one per hypothesis [GeV]
 	  float fChisqr;                        // TODO chi-squared of something ?? CHECK ME!
 	  float fCovar[3][3];
+
+	ClassDef(Vee,10)
 
   }; //class
 }//namespace
