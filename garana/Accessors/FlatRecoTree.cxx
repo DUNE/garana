@@ -840,11 +840,11 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
  }
 
  //TODO implement methods
- const float                 FlatRecoTree::TrackTrueEnergy(const size_t& icluster)     const { return FLT_MAX;}
- const size_t                FlatRecoTree::TrackNTrueTrack(const size_t& icluster)     const {return UINT_MAX;}
- const int                   FlatRecoTree::TrackTrkIdMaxDeposit(const size_t& icluster)const { return INT_MAX;}
- const float                 FlatRecoTree::TrackMaxDeposit(const size_t& icluster)     const { return FLT_MAX;}
- const std::pair<int,float>* FlatRecoTree::TrackTrueDeposit(const size_t& icluster, const size_t& itrack) const { return nullptr;}
+ const float                 FlatRecoTree::TrackTrueEnergy(const size_t& itrack)     const { return itrack*0+FLT_MAX;}
+ const size_t                FlatRecoTree::TrackNTrueTrack(const size_t& itrack)     const {return itrack*0+UINT_MAX;}
+ const int                   FlatRecoTree::TrackTrkIdMaxDeposit(const size_t& itrack)const { return itrack*0+INT_MAX;}
+ const float                 FlatRecoTree::TrackMaxDeposit(const size_t& itrack)     const { return itrack*0+FLT_MAX;}
+ const std::pair<int,float>* FlatRecoTree::TrackTrueDeposit(const size_t& itrack) const { if(itrack) return nullptr; else return nullptr;}
 
  /// ================ vertex ==========================
  const TLorentzVector* FlatRecoTree::GetVertex(const size_t& ivertex) const {

@@ -65,7 +65,7 @@ namespace garana {
 	  virtual const int                   TrackTrkIdMaxDeposit(const size_t& icluster)const = 0; ///< trackID of the MCParticle depositing the most energy in ith cluster
 	  virtual const float                 TrackMaxDeposit(const size_t& icluster)     const = 0; ///< maximum true deposited energy from a single MCParticle
 	          const float                 TrackMaxDepositFrac(const size_t& icluster) const;     ///< largest fraction of total energy contributed by single MCParticle
-	  virtual const std::pair<int,float>* TrackTrueDeposit(const size_t& icluster, const size_t& itrack) const = 0; ///<
+	  virtual const std::pair<int,float>* TrackTrueDeposit(const size_t& itrack) const = 0; ///<
 
 
 	  //vertex

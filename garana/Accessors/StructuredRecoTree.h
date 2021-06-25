@@ -59,7 +59,7 @@ namespace garana {
      const size_t                TrackNTrueTrack(const size_t& icluster)     const override;
      const int                   TrackTrkIdMaxDeposit(const size_t& icluster)const override;
      const float                 TrackMaxDeposit(const size_t& icluster)     const override;
-     const std::pair<int,float>* TrackTrueDeposit(const size_t& icluster, const size_t& itrack) const override;
+     const std::pair<int,float>* TrackTrueDeposit(const size_t& itrack) const override;
 
 	 //vertex
      const TLorentzVector* GetVertex(const size_t& ivertex)                          const override;

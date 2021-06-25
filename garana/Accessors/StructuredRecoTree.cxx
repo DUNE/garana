@@ -218,23 +218,40 @@ const TLorentzVector* StructuredRecoTree::TrackTrueMomEnd(const size_t& itrack) 
 	return new TLorentzVector(outvec);
 }
 
-const float  StructuredRecoTree::TrackTrueEnergy(const size_t& itrack)     const {
-
+const float  StructuredRecoTree::TrackTrueEnergy(const size_t& itrack) const {
+	return FLT_MAX-itrack*0;
 }
 
 const size_t StructuredRecoTree::TrackNTrueTrack(const size_t& itrack)     const {
-
+	return fTracks->at(itrack).fTrueEnergy.size();
 }
 
 const int    StructuredRecoTree::TrackTrkIdMaxDeposit(const size_t& itrack) const {
+	int imax=-1;
+	float emax = -1.;
+	for(size_t i=0; i<fTracks->at(itrack).fTrueEnergy.size(); i++) {
 
+		if(fTracks->at(itrack).fTrueEnergy.at(i).second > emax){
+			emax = fTracks->at(itrack).fTrueEnergy.at(i).second;
+			imax = i;
+		}
+	}
+
+	return fTracks->at(itrack).fTrueEnergy.at(imax).first;
 }
 
 const float  StructuredRecoTree::TrackMaxDeposit(const size_t& itrack)     const {
-
+	return fTracks->at(itrack).fTrueEnergy.at(TrackTrkIdMaxDeposit(itrack)).second;
 }
 
-const std::pair<int,float>* StructuredRecoTree::TrackTrueDeposit(const size_t& icluster, const size_t& itrack) const {
+const std::pair<int,float>* StructuredRecoTree::TrackTrueDeposit(const size_t& itrack) const {
+	int id = TrackTrkIdMaxDeposit(itrack);
+	for(auto const& pair : fTracks->at(itrack).fTrueEnergy) {
+		if(id==pair.first)
+			return &pair;
+	}
+
+	return nullptr;
 
 }
 
