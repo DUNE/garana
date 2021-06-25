@@ -34,7 +34,7 @@ namespace garana {
 			const int& chargeFwd, const int& chargeBac, const vector<pair<int,float>>& pidf, const vector<pair<int,float>>& pidb,
 			const float& ionf, const float& ionb, const vector<pair<UInt_t,TLorentzVector>>& truePosVtx,
 			const vector<pair<UInt_t,TLorentzVector>>& truePosEnd, const vector<pair<UInt_t,TLorentzVector>>& trueMomVtx,
-			const vector<pair<UInt_t,TLorentzVector>>& trueMomEnd);
+			const vector<pair<UInt_t,TLorentzVector>>& trueMomEnd, const vector<std::pair<int,float>>& trueEnergy);
 	#endif
 
     //private:
@@ -67,6 +67,7 @@ namespace garana {
       vector<pair<UInt_t,TLorentzVector>> fTruePosEnd; ///< 4-position for each assc'd MCParticle at track end
       vector<pair<UInt_t,TLorentzVector>> fTrueMomVtx; ///< 4-momentum for each assc'd MCParticle at track vertex
       vector<pair<UInt_t,TLorentzVector>> fTrueMomEnd; ///< 4-momentum for each assc'd MCParticle at track end
+      vector<std::pair<int,float>>        fTrueEnergy; ///< true energy (second) [GeV] deposited by MCParticle with trackID (first)
 
   }; //class
 }//namespace

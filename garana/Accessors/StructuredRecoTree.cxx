@@ -218,6 +218,26 @@ const TLorentzVector* StructuredRecoTree::TrackTrueMomEnd(const size_t& itrack) 
 	return new TLorentzVector(outvec);
 }
 
+const float  StructuredRecoTree::TrackTrueEnergy(const size_t& itrack)     const {
+
+}
+
+const size_t StructuredRecoTree::TrackNTrueTrack(const size_t& itrack)     const {
+
+}
+
+const int    StructuredRecoTree::TrackTrkIdMaxDeposit(const size_t& itrack) const {
+
+}
+
+const float  StructuredRecoTree::TrackMaxDeposit(const size_t& itrack)     const {
+
+}
+
+const std::pair<int,float>* StructuredRecoTree::TrackTrueDeposit(const size_t& icluster, const size_t& itrack) const {
+
+}
+
 //============== vertex ======================
 const TLorentzVector* StructuredRecoTree::GetVertex(const size_t& ivertex) const {
 	return fVertices->at(ivertex).GetVertex();
