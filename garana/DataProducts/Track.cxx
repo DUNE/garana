@@ -95,3 +95,28 @@ Track::Track(const float& lenFw, const float& lenBk, const float& pBeg, const fl
 		fCovMatEnd[i] =  covarEnd[i];
 	}
 }//constructor
+
+/*int   Track::TruthMatchID() {
+	auto it = std::max_element(fTrueEnergy.begin(),fTrueEnergy.end(),
+			      [](const std::pair<int,float>& lhs,const std::pair<int,float>& rhs) -> bool {return lhs.second > rhs.second; }
+				  );
+	return (*it).first;
+}
+
+float Track::TruthMatchEDep() { //TODO check if we actually want total EDep rather than just from the leading contributor
+	auto it = std::max_element(fTrueEnergy.begin(),fTrueEnergy.end(),
+			      [](const std::pair<int,float>& lhs,const std::pair<int,float>& rhs) -> bool {return lhs.second > rhs.second; }
+				  );
+	return (*it).second;
+}
+
+float Track::TruthMatchEDepFrac() {
+	float tot = 0.;
+	for(auto const& pair : fTrueEnergy) {
+		tot += pair.second;
+
+	}
+
+	return TruthMatchEDep()/tot;
+}*/
+

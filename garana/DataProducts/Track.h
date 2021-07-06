@@ -37,6 +37,10 @@ namespace garana {
 			const vector<pair<UInt_t,TLorentzVector>>& trueMomEnd, const vector<std::pair<int,float>>& trueEnergy);
 	#endif
 
+	  /*int   TruthMatchID(); ///< returns the G4 track ID for the particle contributing the most energy to this track
+	  float TruthMatchEDep(); ///< returns the total energy deposited by the particle contributing the most energy to this track
+	  float TruthMatchEDepFrac();*/ ///< returns the fraction of the total energy contributed to this track that was deposited by the particle contributing the most energy to this track
+
     //private:
 
 	  float          fLenFwd;         ///< length of the track in cm from forwards fit
