@@ -56,16 +56,16 @@ namespace garana {
       virtual void                  TrackCovarBeg(const size_t& itrack, float pars[15]) const = 0; ///< track fit covariance matrix (assume symmetry) at track's assumed start
       virtual void                  TrackCovarEnd(const size_t& itrack, float pars[15]) const = 0; ///< track fit covariance matrix (assume symmetry) at track's assumed end
 
-      virtual const TLorentzVector*       TrackTruePosBeg(const size_t& itrack)       const = 0; ///< true 4-position at track vertex [cm,ns]
-      virtual const TLorentzVector*       TrackTruePosEnd(const size_t& itrack)       const = 0; ///< true 4-position at track end [cm,ns]
-      virtual const TLorentzVector*       TrackTrueMomBeg(const size_t& itrack)       const = 0; ///< true 4-momentum at track vertex [GeV/c,GeV]
-      virtual const TLorentzVector*       TrackTrueMomEnd(const size_t& itrack)       const = 0; ///< true 4-momentum at track end [GeV/c,GeV]
-	  virtual const float                 TrackTrueEnergy(const size_t& icluster)     const = 0; ///< total associated true energy deposited with ith cluster
-	  virtual const size_t                TrackNTrueTrack(const size_t& icluster)     const = 0; ///< number of MCParticles associated with ith cluster
-	  virtual const int                   TrackTrkIdMaxDeposit(const size_t& icluster)const = 0; ///< trackID of the MCParticle depositing the most energy in ith cluster
-	  virtual const float                 TrackMaxDeposit(const size_t& icluster)     const = 0; ///< maximum true deposited energy from a single MCParticle
-	          const float                 TrackMaxDepositFrac(const size_t& icluster) const;     ///< largest fraction of total energy contributed by single MCParticle
-	  virtual const std::pair<int,float>* TrackTrueDeposit(const size_t& itrack) const = 0; ///<
+      virtual const TLorentzVector*       TrackTruePosBeg(const size_t& itrack)     const = 0; ///< true 4-position at track vertex [cm,ns]
+      virtual const TLorentzVector*       TrackTruePosEnd(const size_t& itrack)     const = 0; ///< true 4-position at track end [cm,ns]
+      virtual const TLorentzVector*       TrackTrueMomBeg(const size_t& itrack)     const = 0; ///< true 4-momentum at track vertex [GeV/c,GeV]
+      virtual const TLorentzVector*       TrackTrueMomEnd(const size_t& itrack)     const = 0; ///< true 4-momentum at track end [GeV/c,GeV]
+	  virtual const float                 TrackTrueEnergy(const size_t& itrack)     const = 0; ///< total associated true energy deposited with ith cluster
+	  virtual const size_t                TrackNTrueTrack(const size_t& itrack)     const = 0; ///< number of MCParticles associated with ith cluster
+	  virtual const int                   TrackTrkIdMaxDeposit(const size_t& itrack)const = 0; ///< trackID of the MCParticle depositing the most energy in ith cluster
+	  virtual const float                 TrackMaxDeposit(const size_t& itrack)     const = 0; ///< maximum true deposited energy from a single MCParticle
+	          const float                 TrackMaxDepositFrac(const size_t& itrack) const;     ///< largest fraction of total energy contributed by single MCParticle
+	  virtual const std::pair<int,float>* TrackTrueDeposit(const size_t& itrack)    const = 0; ///<
 
 
 	  //vertex

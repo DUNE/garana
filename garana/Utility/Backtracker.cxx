@@ -8,10 +8,7 @@
 #include "garana/Utility/Backtracker.h"
 
 using namespace garana;
-using std::vector;
-using std::cerr;
-using std::cout;
-using std::endl;
+using namespace std;
 
 const vector<UInt_t>* Backtracker::GTruthToG4Particles(const UInt_t& itruth) const {
 	if(CheckRange(fGTruthToG4Particles, itruth)) {
@@ -71,6 +68,15 @@ const vector<UInt_t>* Backtracker::TrackToG4Particles(const UInt_t& itrk) const 
 	}
 	else {
 		return new vector<UInt_t>();
+	}
+}
+
+UInt_t const Backtracker::TrackToG4Particle(const UInt_t& itrk) const {
+	if(CheckRange(fTrackToG4Particle, itrk)) {
+		return fTrackToG4Particle.at(itrk);
+	}
+	else {
+		return UINT_MAX;
 	}
 }
 
@@ -220,13 +226,28 @@ void Backtracker::FillMaps() {
 		if(fTM->IsActiveRecTree()){
 
 			for(UInt_t itrk = 0; itrk<rec->NTrack(); itrk++ ) {
-				rec->GetTrackG4PIndices(itrk, fTrackToG4Particles[itrk]);
+
+				if(rec->TrackMaxDepositFrac(itrk)>ASSN_THRESHOLD) continue;
+
+				vector<UInt_t> tmpindices;
+				rec->GetTrackG4PIndices(itrk, tmpindices); //fTrackToG4Particles[itrk]);
+				int matchid = rec->TrackTrkIdMaxDeposit(itrk);
 				//cout << "track matched to " << fTrackToG4Particles[itrk].size() << " G4 particle(s)" << endl;
-				for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[itrk].size(); ig4p++){
 
-					if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) != fG4ParticleToTracks.end())
+				//for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[itrk].size(); ig4p++){
+				for(UInt_t ig4p=0; ig4p<tmpindices.size(); ig4p++){
 
-						fG4ParticleToTracks[fTrackToG4Particles[itrk][ig4p]].push_back(itrk);
+
+					if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) != fG4ParticleToTracks.end()) {
+						fTrackToG4Particles[itrk][ig4p] = tmpindices[ig4p];
+					//if(fG4ParticleToTracks.find(tmpindices[ig4p]) != fG4ParticleToTracks.end() &&  //){
+						if(	g4->TrackID(tmpindices[ig4p]) == matchid ) {
+
+							fTrackToG4Particle[itrk] = ig4p;
+							fG4ParticleToTracks[ig4p].push_back(itrk);
+							break;
+						}
+					}
 				}
 				//for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
 				//	if(fG4ParticleToTracks[ig4p].size() == 0) continue;
@@ -339,6 +360,7 @@ void Backtracker::Clear() {
     fGTruthToTracks.clear();
     fTrackToGTruth.clear();
     fTrackToG4Particles.clear();
+    fTrackToG4Particle.clear();
     fG4ParticleToTracks.clear();
     //fFSParticleToG4Particles.clear();
     //fG4ParticleToFSParticle.clear();
