@@ -206,116 +206,145 @@ const vector<UInt_t>* Backtracker::CalClusterToG4Ps(const UInt_t& icluster) cons
 //=======================================
 void Backtracker::FillMaps() {
 
-	Clear();
+    //cout << "In FillMaps..." << endl;
+    Clear();
     //GenTree*  gen = nullptr;
     G4Tree*   g4  = nullptr;
     //DetTree*  det = nullptr;
     RecoTree* rec = nullptr;
 
+    //cout << "get trees" << endl;
     //if(fTM->IsActiveGenTree())  gen = fTM->GetGenTree();
     if(fTM->IsActiveG4Tree())   g4  = fTM->GetG4Tree();
     //if(fTM->IsActiveDetTree())  det = fTM->GetDetTree();
     if(fTM->IsActiveRecTree())  rec = fTM->GetRecoTree();
 
-	if(fTM->IsActiveG4Tree()){
+    //cout << "checking which are active..." << endl;
+    if(fTM->IsActiveG4Tree()){
+        //cout << "g4Tree is active" << endl;
 
-		for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
-			fG4ParticleToTracks[ig4p] = {};
-		}
+        for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
+	    fG4ParticleToTracks[ig4p] = {};
+        }
 
-		if(fTM->IsActiveRecTree()){
+	if(fTM->IsActiveRecTree()){
+            //cout << "recoTree is active" << endl;
 
-			for(UInt_t itrk = 0; itrk<rec->NTrack(); itrk++ ) {
+	    for(UInt_t itrk = 0; itrk<rec->NTrack(); itrk++ ) {
 
-				if(rec->TrackMaxDepositFrac(itrk)>ASSN_THRESHOLD) continue;
+	        //if(rec->TrackMaxDepositFrac(itrk)<ASSN_THRESHOLD) continue;
 
-				vector<UInt_t> tmpindices;
-				rec->GetTrackG4PIndices(itrk, tmpindices); //fTrackToG4Particles[itrk]);
-				int matchid = rec->TrackTrkIdMaxDeposit(itrk);
-				//cout << "track matched to " << fTrackToG4Particles[itrk].size() << " G4 particle(s)" << endl;
+	        //vector<UInt_t> tmpindices;
+	        rec->GetTrackG4PIndices(itrk, fTrackToG4Particles[itrk]);
+	        int matchid = rec->TrackTrkIdMaxDeposit(itrk);
+	        //cout << "track matched to " << fTrackToG4Particles[itrk].size() << " G4 particle(s)" << endl;
 
-				//for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[itrk].size(); ig4p++){
-				for(UInt_t ig4p=0; ig4p<tmpindices.size(); ig4p++){
+                if(rec->TrackMaxDepositFrac(itrk)<ASSN_THRESHOLD) {
+                    //cout << "track deposit fraction too low (" << rec->TrackMaxDepositFrac(itrk) 
+                    //     << ")...skipping to next track" << endl;
+                    continue;
+                }//should this be considered an association?
 
+	        for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[itrk].size(); ig4p++){
+	        //for(UInt_t ig4p=0; ig4p<tmpindices.size(); ig4p++){
 
-					if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) != fG4ParticleToTracks.end()) {
-						fTrackToG4Particles[itrk][ig4p] = tmpindices[ig4p];
-					//if(fG4ParticleToTracks.find(tmpindices[ig4p]) != fG4ParticleToTracks.end() &&  //){
-						if(	g4->TrackID(tmpindices[ig4p]) == matchid ) {
+	            if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) != fG4ParticleToTracks.end()) {
 
-							fTrackToG4Particle[itrk] = ig4p;
-							fG4ParticleToTracks[ig4p].push_back(itrk);
-							break;
-						}
-					}
-				}
-				//for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
-				//	if(fG4ParticleToTracks[ig4p].size() == 0) continue;
-					//cout << "G4particle " << ig4p << " matched to " << fG4ParticleToTracks[ig4p].size()
-					//     << " reco track(s)" << endl;
-				//}
-			}
-		}
-	}
+	        	//fTrackToG4Particles[itrk][ig4p] = tmpindices[ig4p];
+	        	//if(fG4ParticleToTracks.find(tmpindices[ig4p]) != fG4ParticleToTracks.end() &&  //){
+	        	//if(g4->TrackID(tmpindices[ig4p]) == matchid ) {
+                        if(g4->TrackID(fTrackToG4Particles[itrk][ig4p]) == matchid ) {
+	                    fTrackToG4Particle[itrk] = ig4p;
+	                    fG4ParticleToTracks[ig4p].push_back(itrk);
+	                    break;
+	                } //if match id matches g4particle ID
+	            }//if G4Particle index is in map
+	        }//for all matched particles to this track
 
+	       // for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
+	       //     if(fG4ParticleToTracks[ig4p].size() == 0) continue;
+	       //     cout << "G4particle " << ig4p << " matched to " << fG4ParticleToTracks[ig4p].size()
+	       //          << " reco track(s)" << endl;
+	       // }//for all g4Particles
+	    }//for tracks
+        }//if recoTree active
+    }//if g4Tree active
 
-	if(fTM->IsActiveGenTree()){
-		if(fTM->IsActiveG4Tree()){
+   // cout << "point 1" << endl;
 
-			//G4 particles
-			for(UInt_t ig4 = 0; ig4<g4->NSim(); ig4++ ) {
-				fG4ParticleToGTruth[ig4] = g4->GetTruthIndex(ig4);
-				fGTruthToG4Particles[ fG4ParticleToGTruth[ig4] ].push_back(ig4);
+    if(fTM->IsActiveGenTree()){
 
-				//fG4ParticleToFSParticle[ig4]  //map< UInt_t, UInt_t >
-				//fFSParticleToG4Particles //map< UInt_t, vector<UInt_t> >
+     //   cout << "genTree is active" << endl;
 
-			}//endfor g4 particles
+        if(fTM->IsActiveG4Tree()){
 
+            //G4 particles
+            for(UInt_t ig4 = 0; ig4<g4->NSim(); ig4++ ) {
+            	fG4ParticleToGTruth[ig4] = g4->GetTruthIndex(ig4);
+            	fGTruthToG4Particles[ fG4ParticleToGTruth[ig4] ].push_back(ig4);
+            
+            	//fG4ParticleToFSParticle[ig4]  //map< UInt_t, UInt_t >
+            	//fFSParticleToG4Particles //map< UInt_t, vector<UInt_t> >
+            
+            }//endfor g4 particles
+        }//endif g4tree
 
-		}//endif g4tree
+       // cout << "point 2" << endl;
 
-		if(fTM->IsActiveRecTree()){
+        if(fTM->IsActiveRecTree()){
 
-			//tracks
-			for(UInt_t itrk=0; itrk<rec->NTrack(); itrk++ ) {
-            	fTrackToGTruth[itrk] = fG4ParticleToGTruth[ fTrackToG4Particles[itrk][0] ]; //TODO select truth with most associated energy
-            	fGTruthToTracks[ fTrackToGTruth[itrk] ].push_back(itrk);
+            //tracks
+            for(UInt_t itrk=0; itrk<rec->NTrack(); itrk++ ) {
+         //       cout << "point 2i" << endl;
+                //cout << "fTrackToG4Particles[itrk][0] = " << fTrackToG4Particles[itrk][0] << endl;
+                //cout << "fG4ParticleToGTruth[ fTrackToG4Particles[itrk][0] ] = " << fG4ParticleToGTruth[ fTrackToG4Particles[itrk][0] ] << endl;
+                if(fTrackToG4Particles[itrk].size()==0) continue;
+                fTrackToGTruth[itrk] = fG4ParticleToGTruth[ fTrackToG4Particles[itrk][0] ]; //TODO select truth with most associated energy
+           //     cout << "point 2ii" << endl;
+                fGTruthToTracks[ fTrackToGTruth[itrk] ].push_back(itrk);
+             //   cout << "point 2iii" << endl;
             }//endfor tracks
 
-			//vertices
-            for(UInt_t ivtx=0; ivtx<rec->NVertex(); ivtx++ ) {
-            	rec->GetVertexTrackIndices(ivtx,fVertexToTracks[ivtx]);
-            	for(UInt_t itrk=0; itrk<fVertexToTracks[ivtx].size(); itrk++) {
-            	    fTrackToVertices[ fVertexToTracks[ivtx][itrk] ].push_back(ivtx);
+           // cout << "point 2a" << endl;
 
-            	    for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[fVertexToTracks[ivtx][itrk]].size(); ig4p++) {
-            	        fVertexToG4Particles[ivtx].push_back( fTrackToG4Particles[ fVertexToTracks[ivtx][itrk] ][ig4p] );
-            	        fG4ParticleToVertices[ fVertexToG4Particles[ivtx].back() ].push_back(ivtx);
-            	    }
-            	}
-        	    fVertexToGTruth[ivtx] = fTrackToGTruth[ fVertexToTracks[ivtx][0] ];//TODO you sure all tracks associated with vertex associated with same GTruth?
-        	    fGTruthToVertex[ fVertexToGTruth[ivtx] ] = ivtx;
+            //vertices
+            for(UInt_t ivtx=0; ivtx<rec->NVertex(); ivtx++ ) {
+                rec->GetVertexTrackIndices(ivtx,fVertexToTracks[ivtx]);
+                for(UInt_t itrk=0; itrk<fVertexToTracks[ivtx].size(); itrk++) {
+                    fTrackToVertices[ fVertexToTracks[ivtx][itrk] ].push_back(ivtx);
+
+                    for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[fVertexToTracks[ivtx][itrk]].size(); ig4p++) {
+                        fVertexToG4Particles[ivtx].push_back( fTrackToG4Particles[ fVertexToTracks[ivtx][itrk] ][ig4p] );
+                        fG4ParticleToVertices[ fVertexToG4Particles[ivtx].back() ].push_back(ivtx);
+                    }// for g4Particles
+                }// for tracks
+             //       cout << "point 2b" << endl;
+            	fVertexToGTruth[ivtx] = fTrackToGTruth[ fVertexToTracks[ivtx][0] ];//TODO you sure all tracks associated with vertex associated with same GTruth?
+            	fGTruthToVertex[ fVertexToGTruth[ivtx] ] = ivtx;
             }//endfor vertices
+
+            //cout << "point 3" << endl;
 
             //vees
             for(UInt_t ivee=0; ivee<rec->NVee(); ivee++){
-
-            	rec->GetVeeTrackIndices(ivee, fVeeToTracks[ivee]);
-
-            	for(UInt_t itrk=0; itrk<fVeeToTracks[ivee].size(); itrk++){
-
-            	    fTrackToVees[ fVeeToTracks[ivee][itrk] ].push_back(ivee);
-
-            	    for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[ fVeeToTracks[ivee][itrk] ].size(); ig4p++) {
-            	        fVeeToG4Particles[ivee].push_back(fTrackToG4Particles[ fVeeToTracks[ivee][itrk] ][ig4p]);
-            	        fG4ParticleToVee[fVeeToG4Particles[ivee].back()] = ivee;
-            	    }
+            
+                rec->GetVeeTrackIndices(ivee, fVeeToTracks[ivee]);
+            
+                for(UInt_t itrk=0; itrk<fVeeToTracks[ivee].size(); itrk++){
+            
+                    fTrackToVees[ fVeeToTracks[ivee][itrk] ].push_back(ivee);
+            
+            	for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[ fVeeToTracks[ivee][itrk] ].size(); ig4p++) {
+            	    fVeeToG4Particles[ivee].push_back(fTrackToG4Particles[ fVeeToTracks[ivee][itrk] ][ig4p]);
+            	    fG4ParticleToVee[fVeeToG4Particles[ivee].back()] = ivee;
             	}
-
-        	    fVeeToGTruth[ivee] = fTrackToGTruth[ fVeeToTracks[ivee][0] ];//TODO you sure all tracks associated with vee associated with same GTruth?
-        	    fGTruthToVee[ fVeeToGTruth[ivee] ] = ivee;
+                }// for tracks
+            
+                fVeeToGTruth[ivee] = fTrackToGTruth[ fVeeToTracks[ivee][0] ];//TODO you sure all tracks associated with vee associated with same GTruth?
+                fGTruthToVee[ fVeeToGTruth[ivee] ] = ivee;
             }//endfor vees
+
+            //cout << "point 4" << endl; 
 
             //ECal clusters
             for(UInt_t iclust=0; iclust<rec->NCalCluster(); iclust++){
@@ -323,19 +352,22 @@ void Backtracker::FillMaps() {
             	rec->GetCalClusterTrackIndices(iclust,fCaloClusterToTracks[iclust]);
 
             	for(UInt_t itrk=0; itrk<fCaloClusterToTracks[iclust].size(); itrk++){
-            		fTrackToCaloClusters[ fCaloClusterToTracks[iclust][itrk] ].push_back(iclust);
+            	    fTrackToCaloClusters[ fCaloClusterToTracks[iclust][itrk] ].push_back(iclust);
             	}
 
             	rec->GetCalClusterG4Indices(iclust,fCaloClusterToG4Ps[iclust]);
 
             	for(UInt_t ig4p=0; ig4p<fCaloClusterToG4Ps[iclust].size(); ig4p++){
-            		fG4PToCaloClusters[ fCaloClusterToG4Ps[iclust][ig4p] ].push_back(iclust);
+            	    fG4PToCaloClusters[ fCaloClusterToG4Ps[iclust][ig4p] ].push_back(iclust);
             	}
-            }
+            }//for clusters
 
-		}//endif recotree
+            //cout << "point 5" << endl;
 
-	}//if gentree
+        }//endif recotree
+    }//if gentree
+
+    //cout << "at end of FillMaps()" << endl;
 
 }//end FillMaps()
 

@@ -228,7 +228,12 @@ const TLorentzVector* StructuredRecoTree::TrackTrueMomEnd(const size_t& itrack) 
 }
 
 const float  StructuredRecoTree::TrackTrueEnergy(const size_t& itrack) const {
-	return FLT_MAX-itrack*0;
+	float etrue = 0.;
+        for(auto const& e : fTracks->at(itrack).fTrueEnergy)
+            etrue += e.second;
+
+	//return FLT_MAX-itrack*0;
+	return etrue;
 }
 
 const size_t StructuredRecoTree::TrackNTrueTrack(const size_t& itrack)     const {
