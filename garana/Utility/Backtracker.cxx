@@ -71,6 +71,26 @@ const vector<UInt_t>* Backtracker::TrackToG4Particles(const UInt_t& itrk) const 
 	}
 }
 
+const vector<pair<UInt_t,float>> Backtracker::TrackToG4ParticlesDeposits(const UInt_t& itrk)    const {
+
+	vector<pair<UInt_t,float>> outvec;
+	auto ig4ps =  TrackToG4Particles(itrk);
+	auto iddeps = rec->TrackTrueDeposits(itrk);
+
+	map<int,UInt_t> trackIdToig4; // Geant4 trackID to G4Particle index
+	for(auto const& ig4p : *ig4ps){
+		trackIdToig4[g4->TrackID(ig4p)] = ig4p;
+	}
+
+
+	for( auto const& iddep : *iddeps) {
+		outvec.push_back(make_pair(trackIdToig4[iddep.first],iddep.second));
+	}
+
+	return outvec;
+
+}
+
 UInt_t const Backtracker::TrackToG4Particle(const UInt_t& itrk) const {
 	if(CheckRange(fTrackToG4Particle, itrk)) {
 		return fTrackToG4Particle.at(itrk);
@@ -78,6 +98,21 @@ UInt_t const Backtracker::TrackToG4Particle(const UInt_t& itrk) const {
 	else {
 		return UINT_MAX;
 	}
+}
+
+const pair<UInt_t,float> Backtracker::TrackToG4ParticleDeposit(const UInt_t& itrk )    const {
+
+	int trkidMax = rec->TrackTrkIdMaxDeposit(itrk);
+	auto ig4ps =  TrackToG4Particles(itrk);
+	map<int,UInt_t> trackIdToig4; // Geant4 trackID to G4Particle index
+
+	for(auto const& ig4p : *ig4ps){
+		trackIdToig4[g4->TrackID(ig4p)] = ig4p;
+	}
+
+	const pair<UInt_t,float> outpair(trackIdToig4[trkidMax],rec->TrackMaxDeposit(itrk));
+	return outpair;
+
 }
 
 UInt_t const Backtracker::VertexToGTruth(const UInt_t& ivtx) const {
@@ -209,9 +244,9 @@ void Backtracker::FillMaps() {
     //cout << "In FillMaps..." << endl;
     Clear();
     //GenTree*  gen = nullptr;
-    G4Tree*   g4  = nullptr;
+    //g4  = nullptr;
     //DetTree*  det = nullptr;
-    RecoTree* rec = nullptr;
+    //rec = nullptr;
 
     //cout << "get trees" << endl;
     //if(fTM->IsActiveGenTree())  gen = fTM->GetGenTree();
@@ -386,6 +421,11 @@ bool Backtracker::CheckRange(const map<UInt_t,T>& m, const UInt_t& i) const {
 }
 
 void Backtracker::Clear() {
+
+    //gen = nullptr;
+    g4  = nullptr;
+    //det = nullptr;
+    rec = nullptr;
 
     fGTruthToG4Particles.clear();
     fG4ParticleToGTruth.clear();

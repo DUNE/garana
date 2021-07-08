@@ -21,8 +21,9 @@
 #include <map>
 #include <climits>
 
-using std::vector;
-using std::map;
+//using std::vector;
+//using std::map;
+using namespace std;
 
 namespace garana {
 
@@ -39,7 +40,9 @@ namespace garana {
 	  const vector<UInt_t>* G4ParticleToTracks(const UInt_t& ig4p)    const;
 	  UInt_t const          TrackToGTruth(const UInt_t& itrk)          const;
    	  const vector<UInt_t>* TrackToG4Particles(const UInt_t& itrk)    const;
+      const vector<pair<UInt_t,float>> TrackToG4ParticlesDeposits(const UInt_t& itrk)    const;
    	  UInt_t const          TrackToG4Particle(const UInt_t& itrk)     const;
+      const pair<UInt_t,float> TrackToG4ParticleDeposit(const UInt_t& itrk)    const;
    	  //const vector<UInt_t>* FSParticleToG4Particles(const UInt_t& ifsp) const;
    	  //UInt_t      G4ParticleToFSParticle(const UInt_t& ig4p) const;
 
@@ -69,6 +72,10 @@ namespace garana {
     private:
 
    	  const TreeManager* fTM = nullptr;
+      //GenTree*  gen = nullptr;
+      G4Tree*   g4  = nullptr;
+      //DetTree*  det = nullptr;
+      RecoTree* rec = nullptr;
    	  template <class T>
    	  bool CheckRange(const map<UInt_t,T>& m, const UInt_t& i) const;
    	  void Clear();
