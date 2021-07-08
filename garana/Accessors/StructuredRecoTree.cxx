@@ -7,7 +7,7 @@
 
 #include "garana/Accessors/StructuredRecoTree.h"
 
-using std::vector;
+using namespace std;//::vector;
 using namespace garana;
 
 StructuredRecoTree::StructuredRecoTree(TTree* tree) {
@@ -269,18 +269,16 @@ const float  StructuredRecoTree::TrackMaxDeposit(const size_t& itrack)     const
 	//return fTracks->at(itrack).fTrueEnergy.at(TrackTrkIdMaxDeposit(itrack)).second;
 }
 
-const std::pair<int,float>* StructuredRecoTree::TrackTrueDeposit(const size_t& itrack) const {
-	int id = TrackTrkIdMaxDeposit(itrack);
-	for(auto const& pair : fTracks->at(itrack).fTrueEnergy) {
-		if(id==pair.first)
-			return &pair;
-	}
+const pair<int,float>*      StructuredRecoTree::TrackTrueDeposit(const size_t& itrack, size_t& itrue) const {
 
-	return nullptr;
+	return &(fTracks->at(itrack).fTrueEnergy.at(itrue));
 
 }
 
+const vector<pair<int,float>>* StructuredRecoTree::TrackTrueDeposits(const size_t& itrack)            const {
 
+	return &(fTracks->at(itrack).fTrueEnergy);
+}
 
 //============== vertex ======================
 const TLorentzVector* StructuredRecoTree::GetVertex(const size_t& ivertex) const {

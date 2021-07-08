@@ -9,9 +9,7 @@
 #include <iostream>
 
 using namespace garana;
-using std::cerr;
-using std::endl;
-using std::vector;
+using namespace std;
 
 TreeManager::TreeManager(const string& infilename) : //, bool onGen=1, bool onG4=1, bool onDet=0, bool onReco=1, bool onDis=0) :
 	fInFileName(infilename),
@@ -53,6 +51,8 @@ void TreeManager::Init() {
     	          << '\n';
     }
 
+    cout << "found header Tree" << endl;
+
     fHeaderTree = new HeaderTree(header);
     fTreeType = *(fHeaderTree->TreeType());
     
@@ -76,6 +76,8 @@ void TreeManager::Init() {
         fFlatGenTree = new FlatGenTree(gen);
     }
 
+    cout << "found genTree" << endl;
+
     /// g4Tree ///
      TTree* g4 = nullptr;
      try{
@@ -95,6 +97,7 @@ void TreeManager::Init() {
      else { //flat tree
          fFlatG4Tree = new FlatG4Tree(g4);
      }
+     cout << "found g4Tree" << endl;
 
      /// recoTree ///
      TTree* reco = nullptr;
@@ -115,6 +118,10 @@ void TreeManager::Init() {
      else { //flat tree
          fFlatRecoTree = new FlatRecoTree(reco);
      }
+
+     cout << "found recoTree" << endl;
+
+     cout << "at end of Init()" << endl;
 
 }// Init()
 

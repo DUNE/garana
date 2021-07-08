@@ -14,6 +14,7 @@
 #include "garana/DataProducts/Vee.h"
 #include "garana/DataProducts/CaloCluster.h"
 
+using namespace std;
 
 namespace garana {
 
@@ -65,8 +66,8 @@ namespace garana {
 	  virtual const int                   TrackTrkIdMaxDeposit(const size_t& itrack)const = 0; ///< trackID of the MCParticle depositing the most energy in ith cluster
 	  virtual const float                 TrackMaxDeposit(const size_t& itrack)     const = 0; ///< maximum true deposited energy from a single MCParticle
 	          const float                 TrackMaxDepositFrac(const size_t& itrack) const;     ///< largest fraction of total energy contributed by single MCParticle
-	  virtual const std::pair<int,float>* TrackTrueDeposit(const size_t& itrack)    const = 0; ///<
-
+	  virtual const pair<int,float>* TrackTrueDeposit(const size_t& itrack, size_t& itrue)    const = 0; ///<
+	  virtual const vector<pair<int,float>>* TrackTrueDeposits(const size_t& itrack)    const = 0;
 
 	  //vertex
       virtual const TLorentzVector* GetVertex(const size_t& ivertex)                          const = 0; ///< vertex 4-position for vertex with index ivertex

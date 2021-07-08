@@ -10,7 +10,8 @@
 
 #include "garana/Base/RecoTree.h"
 
-using std::vector;
+//using std::vector;
+using namespace std;
 
 namespace garana {
 
@@ -63,7 +64,8 @@ namespace garana {
     const size_t                TrackNTrueTrack(const size_t& icluster)     const override;
     const int                   TrackTrkIdMaxDeposit(const size_t& icluster)const override;
     const float                 TrackMaxDeposit(const size_t& icluster)     const override;
-    const std::pair<int,float>* TrackTrueDeposit(const size_t& itrack) const override;
+	const pair<int,float>*      TrackTrueDeposit(const size_t& itrack, size_t& itrue) const override;
+	const vector<pair<int,float>>* TrackTrueDeposits(const size_t& itrack)            const override;
 
 	 //vertex
     const TLorentzVector* GetVertex(const size_t& ivertex)                          const override;

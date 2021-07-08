@@ -8,7 +8,7 @@
 #include "garana/Accessors/FlatRecoTree.h"
 #include <utility>
 
-using std::vector;
+using namespace std; //::vector;
 using namespace garana;
 
 FlatRecoTree::FlatRecoTree(TTree* tree)
@@ -844,8 +844,8 @@ std::cout << "FlatRecoTree SetBranchAddresses()" << std::endl;
  const size_t                FlatRecoTree::TrackNTrueTrack(const size_t& itrack)     const {return itrack*0+UINT_MAX;}
  const int                   FlatRecoTree::TrackTrkIdMaxDeposit(const size_t& itrack)const { return itrack*0+INT_MAX;}
  const float                 FlatRecoTree::TrackMaxDeposit(const size_t& itrack)     const { return itrack*0+FLT_MAX;}
- const std::pair<int,float>* FlatRecoTree::TrackTrueDeposit(const size_t& itrack) const { if(itrack) return nullptr; else return nullptr;}
-
+ const pair<int,float>*      FlatRecoTree::TrackTrueDeposit(const size_t& itrack, size_t& itrue) const { if(itrack&&itrue) return nullptr; else return nullptr;}
+ const vector<pair<int,float>>* FlatRecoTree::TrackTrueDeposits(const size_t& itrack)            const{ if(itrack) return nullptr; else return nullptr;}
  /// ================ vertex ==========================
  const TLorentzVector* FlatRecoTree::GetVertex(const size_t& ivertex) const {
 
