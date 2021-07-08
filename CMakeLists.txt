@@ -99,6 +99,7 @@ ELSE()
       set(CMAKE_C_EXTENSIONS OFF)
       set(CMAKE_CXX_EXTENSIONS OFF)
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -gdwarf-4 -O3 -fno-omit-frame-pointer -std=c++17 -Werror -Wall -Wextra -pedantic -Wunused-variable -Wunused-parameter -Wno-unused-local-typedefs -Wno-ignored-qualifiers -Wno-inline -Wno-variadic-macros -fPIC -D_GLIBCXX_USE_NANOSLEEP -Werror=return-type")
+      message(STATUS "Using CXX flags: ${CMAKE_CXX_FLAGS}")
 
     
       set(BUILD_SHARED_LIBS ON)
