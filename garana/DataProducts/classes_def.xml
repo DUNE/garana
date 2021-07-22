@@ -19,7 +19,8 @@
   <class name="garana::G4Particle"   ClassVersion="10"  >
    <version ClassVersion="10" checksum="2275924112"/>
   </class>
-  <class name="garana::Track"        ClassVersion="11"  >
+  <class name="garana::Track"        ClassVersion="12"  >
+   <version ClassVersion="12" checksum="2189679450"/>
    <version ClassVersion="11" checksum="2795746900"/>
    <version ClassVersion="10" checksum="1245166726"/>
   </class>
