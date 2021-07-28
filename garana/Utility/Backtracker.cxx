@@ -259,53 +259,58 @@ void Backtracker::FillMaps() {
         //cout << "g4Tree is active" << endl;
 
         for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
-	    fG4ParticleToTracks[ig4p] = {};
+        	fG4ParticleToTracks[ig4p] = {};
         }
 
-	if(fTM->IsActiveRecTree()){
+        if(fTM->IsActiveRecTree()){
             //cout << "recoTree is active" << endl;
+            for(UInt_t itrk = 0; itrk<rec->NTrack(); itrk++ ) {
 
-	    for(UInt_t itrk = 0; itrk<rec->NTrack(); itrk++ ) {
+            	//if(rec->TrackMaxDepositFrac(itrk)<ASSN_THRESHOLD) continue;
 
-	        //if(rec->TrackMaxDepositFrac(itrk)<ASSN_THRESHOLD) continue;
+            	//vector<UInt_t> tmpindices;
+            	//cout << "call GetTrackG4PIndices" << endl;
+            	rec->GetTrackG4PIndices(itrk, fTrackToG4Particles[itrk]);
+            	//cout << "get match ID" << endl;
+            	int matchid = rec->TrackTrkIdMaxDeposit(itrk);
+            	//cout << "track matched to " << fTrackToG4Particles[itrk].size() << " G4 particle(s)" << endl;
 
-	        //vector<UInt_t> tmpindices;
-	        rec->GetTrackG4PIndices(itrk, fTrackToG4Particles[itrk]);
-	        int matchid = rec->TrackTrkIdMaxDeposit(itrk);
-	        //cout << "track matched to " << fTrackToG4Particles[itrk].size() << " G4 particle(s)" << endl;
-
-                if(rec->TrackMaxDepositFrac(itrk)<ASSN_THRESHOLD) {
-                    //cout << "track deposit fraction too low (" << rec->TrackMaxDepositFrac(itrk) 
+            	//cout << "point i" << endl;
+            	if(rec->TrackMaxDepositFrac(itrk)<ASSN_THRESHOLD) {
+                    //cout << "track deposit fraction too low (" << rec->TrackMaxDepositFrac(itrk)
                     //     << ")...skipping to next track" << endl;
-                    continue;
-                }//should this be considered an association?
+            		continue;
+            	}//should this be considered an association?
 
-	        for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[itrk].size(); ig4p++){
-	        //for(UInt_t ig4p=0; ig4p<tmpindices.size(); ig4p++){
+            	//cout << "point ii" << endl;
+            	for(UInt_t ig4p=0; ig4p<fTrackToG4Particles[itrk].size(); ig4p++){
+            		//for(UInt_t ig4p=0; ig4p<tmpindices.size(); ig4p++){
 
-	            if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) != fG4ParticleToTracks.end()) {
+            		if(fG4ParticleToTracks.find(fTrackToG4Particles[itrk][ig4p]) != fG4ParticleToTracks.end()) {
 
-	        	//fTrackToG4Particles[itrk][ig4p] = tmpindices[ig4p];
-	        	//if(fG4ParticleToTracks.find(tmpindices[ig4p]) != fG4ParticleToTracks.end() &&  //){
-	        	//if(g4->TrackID(tmpindices[ig4p]) == matchid ) {
+            			//fTrackToG4Particles[itrk][ig4p] = tmpindices[ig4p];
+            			//if(fG4ParticleToTracks.find(tmpindices[ig4p]) != fG4ParticleToTracks.end() &&  //){
+            			//if(g4->TrackID(tmpindices[ig4p]) == matchid ) {
                         if(g4->TrackID(fTrackToG4Particles[itrk][ig4p]) == matchid ) {
-	                    fTrackToG4Particle[itrk] = ig4p;
-	                    fG4ParticleToTracks[ig4p].push_back(itrk);
-	                    break;
-	                } //if match id matches g4particle ID
-	            }//if G4Particle index is in map
-	        }//for all matched particles to this track
+                        	//cout << "found match id" << endl;
+                        	fTrackToG4Particle[itrk] = ig4p;
+	                    	fG4ParticleToTracks[ig4p].push_back(itrk);
+	                    	break;
+                        } //if match id matches g4particle ID
+	            	}//if G4Particle index is in map
+            	}//for all matched particles to this track
 
+            	//cout << "point iii" << endl;
 	       // for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++) {
 	       //     if(fG4ParticleToTracks[ig4p].size() == 0) continue;
 	       //     cout << "G4particle " << ig4p << " matched to " << fG4ParticleToTracks[ig4p].size()
 	       //          << " reco track(s)" << endl;
 	       // }//for all g4Particles
-	    }//for tracks
+            }//for tracks
         }//if recoTree active
     }//if g4Tree active
 
-   // cout << "point 1" << endl;
+    //cout << "point 1" << endl;
 
     if(fTM->IsActiveGenTree()){
 
@@ -358,7 +363,7 @@ void Backtracker::FillMaps() {
             	fGTruthToVertex[ fVertexToGTruth[ivtx] ] = ivtx;
             }//endfor vertices
 
-            //cout << "point 3" << endl;
+           // cout << "point 3" << endl;
 
             //vees
             for(UInt_t ivee=0; ivee<rec->NVee(); ivee++){
@@ -379,7 +384,7 @@ void Backtracker::FillMaps() {
                 fGTruthToVee[ fVeeToGTruth[ivee] ] = ivee;
             }//endfor vees
 
-            //cout << "point 4" << endl; 
+          // cout << "point 4" << endl;
 
             //ECal clusters
             for(UInt_t iclust=0; iclust<rec->NCalCluster(); iclust++){
@@ -397,7 +402,7 @@ void Backtracker::FillMaps() {
             	}
             }//for clusters
 
-            //cout << "point 5" << endl;
+         //   cout << "point 5" << endl;
 
         }//endif recotree
     }//if gentree

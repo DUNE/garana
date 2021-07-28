@@ -15,6 +15,7 @@ const float RecoTree::CalClustMaxDepositFrac(const size_t& icluster) const{
 }
 
 const float RecoTree::TrackMaxDepositFrac(const size_t& itrack) const{
+	//if
 	return TrackMaxDeposit(itrack)/TrackTrueEnergy(itrack);
 }
 
