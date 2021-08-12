@@ -254,7 +254,7 @@ const int    StructuredRecoTree::TrackTrkIdMaxDeposit(const size_t& itrack) cons
 	return fTracks->at(itrack).fTrueEnergy.at(imax).first;*/
 
 	auto it = std::max_element(fTracks->at(itrack).fTrueEnergy.begin(),fTracks->at(itrack).fTrueEnergy.end(),
-			      [](const std::pair<int,float>& lhs,const std::pair<int,float>& rhs) -> bool {return lhs.second > rhs.second; }
+			      [](const std::pair<int,float>& lhs,const std::pair<int,float>& rhs) -> bool {return lhs.second < rhs.second; }
 				  );
 	if(it==fTracks->at(itrack).fTrueEnergy.end()) {
 		cout << "max element not found for itrack = " << itrack << "! (this is just a warning; is it all noise hits?)" << endl;
@@ -268,7 +268,7 @@ const int    StructuredRecoTree::TrackTrkIdMaxDeposit(const size_t& itrack) cons
 const float  StructuredRecoTree::TrackMaxDeposit(const size_t& itrack)     const {
 	//TODO check if we actually want total EDep rather than just from the leading contributor
 	auto it = std::max_element(fTracks->at(itrack).fTrueEnergy.begin(),fTracks->at(itrack).fTrueEnergy.end(),
-				      [](const std::pair<int,float>& lhs,const std::pair<int,float>& rhs) -> bool {return lhs.second > rhs.second; }
+				      [](const std::pair<int,float>& lhs,const std::pair<int,float>& rhs) -> bool {return lhs.second < rhs.second; }
 				  );
 	if(it==fTracks->at(itrack).fTrueEnergy.end()) {
 		cout << "max element not found for itrack = " << itrack << "! (this is just a warning; is it all noise hits?)" << endl;
