@@ -1,6 +1,6 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	garana	v00_00_13
+parent	garana	v00_00_14
 defaultqual	e20
 
 # These optional lines define the installed directories where
@@ -20,30 +20,20 @@ fwdir   product_dir  fw
 bindir  fq_dir       bin
 
 product         version
-art             v3_06_03
-canvas_root_io  v1_07_02
-root            v6_22_06a
-cetbuildtools   v7_17_01        -       only_for_build
+art             v3_09_03
+canvas_root_io  v1_09_04
+root            v6_22_08d
+cetbuildtools   v8_17_03        -       only_for_build
 end_product_list
 
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
-# e15  - with gcc 6.4.0 and -std=c++14
 
 qualifier art       canvas_root_io  root
-e19:debug e19:debug e19:debug    e19:p383b:debug
-e19:prof  e19:prof  e19:prof     e19:p383b:prof 
-e20:debug e20:debug e20:debug    e20:p383b:debug
-e20:prof  e20:prof  e20:prof     e20:p383b:prof
-c7:debug  c7:debug  c7:debug     c7:p383b:debug
-c7:prof   c7:prof   c7:prof      c7:p383b:prof 
+e20:debug e20:debug e20:debug       e20:p392:debug
+e20:prof  e20:prof  e20:prof        e20:p392:prof
+c7:debug  c7:debug  c7:debug        c7:p392:debug
+c7:prof   c7:prof   c7:prof         c7:p392:prof 
 end_qualifier_list
-
-#qualifier root
-#e19:debug e19:p383b:debug
-#e19:prof  e19:p383b:prof
-#c7:debug  c7:p383b:debug
-#c7:prof   c7:p383b:prof
-#end_qualifier_list
 
 # table fragment to set FW_SEARCH_PATH needed
 # to find gdml files:

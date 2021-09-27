@@ -39,11 +39,11 @@ namespace garana {
 	  float const&      Theta() const;
 	  float const&      Phi() const;
 	  const vector<TVector3>* EigenVecs() const;
-      const size_t      NIdes() const;
-      const std::pair<int,float>* GetTrackIdEdep(const size_t& iide) const;
-      const float       TotalTrueEnergy() const;
-      float const&      MaxDeposit() const;
-      int const&        TrackIdMaxDep() const;
+          size_t            NIdes() const;
+          const std::pair<int,float>* GetTrackIdEdep(const size_t& iide) const;
+          float       TotalTrueEnergy() const;
+          float const&      MaxDeposit() const;
+          int const&        TrackIdMaxDep() const;
 
 	#endif
 
