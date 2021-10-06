@@ -1,6 +1,6 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	garana	v00_00_13
+parent	garana	v00_01_00
 defaultqual	e20
 
 # These optional lines define the installed directories where
@@ -23,7 +23,7 @@ product         version
 art             v3_06_03
 canvas_root_io  v1_07_02
 root            v6_22_06a
-cetbuildtools   v7_17_01        -       only_for_build
+cetbuildtools   v8_17_03        -       only_for_build
 end_product_list
 
 # define allowed qualifiers and the corresponding qualifiers for the depdencies.
