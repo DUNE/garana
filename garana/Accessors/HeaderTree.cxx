@@ -72,7 +72,7 @@ std::string const& HeaderTree::Geometry() const {
 	return fGeometry;
 }
 
-TLorentzVector const& HeaderTree::TpcCenter() const {
+TLorentzVector* const& HeaderTree::TpcCenter() const {
 	fTreeIn->GetEntry(0);
 	return fTpcCenter;
 }

@@ -26,7 +26,7 @@ namespace garana{
 	  Int_t const& POT()                  const;
 	  Int_t const& NSpills()              const;
 	  const std::string* const TreeType() const;
-	  TLorentzVector const& TpcCenter()   const;
+	  TLorentzVector* const& TpcCenter()   const;
 	  std::string const& Geometry()       const;
 	  void SetRun(const Int_t run);
 	  void SetSubRun(const Int_t subrun);
@@ -41,7 +41,7 @@ namespace garana{
 	  Int_t          fSubRun = -1;
       Int_t          fPOT = -1;
       Int_t          fNSpills = -1;
-	  TLorentzVector fTpcCenter;
+	  TLorentzVector* fTpcCenter = nullptr;
       std::string    fGeometry;
       std::string    fTreeType;
       std::string*   fTreeTypePtr = &fTreeType;

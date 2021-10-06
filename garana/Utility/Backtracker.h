@@ -21,8 +21,9 @@
 #include <map>
 #include <climits>
 
-using std::vector;
-using std::map;
+//using std::vector;
+//using std::map;
+using namespace std;
 
 namespace garana {
 
@@ -35,22 +36,25 @@ namespace garana {
 
 	  const vector<UInt_t>* GTruthToG4Particles(const UInt_t& itruth) const;
 	  const vector<UInt_t>* GTruthToTracks(const UInt_t& itruth)      const;
-	  UInt_t const         G4ParticleToGTruth(const UInt_t& ig4p)    const;
+	  UInt_t const          G4ParticleToGTruth(const UInt_t& ig4p)     const;
 	  const vector<UInt_t>* G4ParticleToTracks(const UInt_t& ig4p)    const;
-	  UInt_t const         TrackToGTruth(const UInt_t& itrk)         const;
+	  UInt_t const          TrackToGTruth(const UInt_t& itrk)          const;
    	  const vector<UInt_t>* TrackToG4Particles(const UInt_t& itrk)    const;
+      const vector<pair<UInt_t,float>> TrackToG4ParticlesDeposits(const UInt_t& itrk)    const;
+   	  UInt_t const          TrackToG4Particle(const UInt_t& itrk)     const;
+      const pair<UInt_t,float> TrackToG4ParticleDeposit(const UInt_t& itrk)    const;
    	  //const vector<UInt_t>* FSParticleToG4Particles(const UInt_t& ifsp) const;
    	  //UInt_t      G4ParticleToFSParticle(const UInt_t& ig4p) const;
 
-	  UInt_t const         VertexToGTruth(const UInt_t& ivtx)       const;
-	  UInt_t const         GTruthToVertex(const UInt_t& ivtx)       const;
+	  UInt_t const          VertexToGTruth(const UInt_t& ivtx)       const;
+	  UInt_t const          GTruthToVertex(const UInt_t& ivtx)       const;
 	  const vector<UInt_t>* VertexToG4Particles(const UInt_t& ivtx)  const;
 	  const vector<UInt_t>* G4ParticleToVertices(const UInt_t& ig4p) const;
 
-	  UInt_t const         VeeToGTruth(const UInt_t& ivee)      const;
-	  UInt_t const         GTruthToVee(const UInt_t& ivee)      const;
+	  UInt_t const          VeeToGTruth(const UInt_t& ivee)      const;
+	  UInt_t const          GTruthToVee(const UInt_t& ivee)      const;
 	  const vector<UInt_t>* VeeToG4Particles(const UInt_t& ivee) const;
-   	  UInt_t const         G4ParticleToVee(const UInt_t& ig4p)  const;
+   	  UInt_t const          G4ParticleToVee(const UInt_t& ig4p)  const;
 
    	  const vector<UInt_t>*  TrackToVertices(const UInt_t& itrk) const;
    	  const vector<UInt_t>*  VertexToTracks(const UInt_t& ivtx)  const;
@@ -63,9 +67,15 @@ namespace garana {
    	  const vector<UInt_t>*  G4PToCalClusters(const UInt_t& itrk)     const;
    	  const vector<UInt_t>*  CalClusterToG4Ps(const UInt_t& itrk)     const;
 
+   	  float ASSN_THRESHOLD = 0.5; ///< fraction of total associated energy contributed to reco object a particle must constitute to be considered associated
+
     private:
 
    	  const TreeManager* fTM = nullptr;
+      //GenTree*  gen = nullptr;
+      G4Tree*   g4  = nullptr;
+      //DetTree*  det = nullptr;
+      RecoTree* rec = nullptr;
    	  template <class T>
    	  bool CheckRange(const map<UInt_t,T>& m, const UInt_t& i) const;
    	  void Clear();
@@ -75,6 +85,7 @@ namespace garana {
       map< UInt_t, vector<UInt_t> > fGTruthToTracks;      // gen  -> reco
       map< UInt_t, UInt_t >         fTrackToGTruth;       // reco -> gen
       map< UInt_t, vector<UInt_t> > fTrackToG4Particles;  // reco -> g4
+      map< UInt_t, UInt_t >         fTrackToG4Particle;   // reco -> g4
       map< UInt_t, vector<UInt_t> > fG4ParticleToTracks;  // g4   -> reco
       //map< UInt_t, vector<UInt_t> > fFSParticleToG4Particles;
       //map< UInt_t, UInt_t >         fG4ParticleToFSParticle; //TODO are these really necessary?

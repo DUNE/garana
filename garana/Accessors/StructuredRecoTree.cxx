@@ -7,7 +7,7 @@
 
 #include "garana/Accessors/StructuredRecoTree.h"
 
-using std::vector;
+using namespace std;//::vector;
 using namespace garana;
 
 StructuredRecoTree::StructuredRecoTree(TTree* tree) {
@@ -16,12 +16,20 @@ StructuredRecoTree::StructuredRecoTree(TTree* tree) {
 
 bool StructuredRecoTree::SetBranchAddresses() {
 
+	cout << "setting StructuredRecoTree branch addresses" << endl;
+
     fTreeIn->SetBranchAddress("Event",            &fEvent,                   &b_Event                  );
+    cout << "set Event" << endl;
     fTreeIn->SetBranchAddress("Tracks",           &fTracks          ,        &b_Tracks                 );
+    cout << "set Track" << endl;
     fTreeIn->SetBranchAddress("Vees",             &fVees            ,        &b_Vees                   );
+    cout << "set Vees" << endl;
     fTreeIn->SetBranchAddress("Vertices",         &fVertices        ,        &b_Vertices               );
+    cout << "set Vertices" << endl;
     fTreeIn->SetBranchAddress("CalClusters",      &fCalClusters     ,        &b_CalClusters            );
+    cout << "set CalClusters" << endl;
     fTreeIn->SetBranchAddress("TrackG4Indices",   &fTrackG4PIndices ,        &b_TrackG4PIndices        );
+    cout << "set TrackG4Indices" << endl;
     fTreeIn->SetBranchAddress("VertTrackIndices", &fVertTrackIndices,        &b_VertTrackIndices       );
     fTreeIn->SetBranchAddress("VertTrackEnds",    &fVertTrackEnds   ,        &b_VertTrackEnds          );
     fTreeIn->SetBranchAddress("VeeTrackIndices",  &fVeeTrackIndices ,        &b_VeeTrackIndices        );
@@ -43,6 +51,7 @@ bool StructuredRecoTree::SetBranchAddresses() {
         }
     }*/
 
+    cout << "done." << endl;
 
     return true;
 }// end const'or
@@ -216,6 +225,69 @@ const TLorentzVector* StructuredRecoTree::TrackTrueMomEnd(const size_t& itrack) 
 
 	outvec *= 1.0/ptot;
 	return new TLorentzVector(outvec);
+}
+
+const float  StructuredRecoTree::TrackTrueEnergy(const size_t& itrack) const {
+	float etrue = 0.;
+        for(auto const& e : fTracks->at(itrack).fTrueEnergy)
+            etrue += e.second;
+
+	//return FLT_MAX-itrack*0;
+	return etrue;
+}
+
+const size_t StructuredRecoTree::TrackNTrueTrack(const size_t& itrack)     const {
+	return fTracks->at(itrack).fTrueEnergy.size();
+}
+
+const int    StructuredRecoTree::TrackTrkIdMaxDeposit(const size_t& itrack) const {
+	/*int imax=-1;
+	float emax = -1.;
+	for(size_t i=0; i<fTracks->at(itrack).fTrueEnergy.size(); i++) {
+
+		if(fTracks->at(itrack).fTrueEnergy.at(i).second > emax){
+			emax = fTracks->at(itrack).fTrueEnergy.at(i).second;
+			imax = i;
+		}
+	}
+
+	return fTracks->at(itrack).fTrueEnergy.at(imax).first;*/
+
+	auto it = std::max_element(fTracks->at(itrack).fTrueEnergy.begin(),fTracks->at(itrack).fTrueEnergy.end(),
+			      [](const std::pair<int,float>& lhs,const std::pair<int,float>& rhs) -> bool {return lhs.second < rhs.second; }
+				  );
+	if(it==fTracks->at(itrack).fTrueEnergy.end()) {
+		cout << "max element not found for itrack = " << itrack << "! (this is just a warning; is it all noise hits?)" << endl;
+		//cout << "fTracks->at(itrack).fTrueEnergy.size() = " << fTracks->at(itrack).fTrueEnergy.size() << endl;
+		return -INT_MAX;
+	}
+	return (*it).first;
+
+}
+
+const float  StructuredRecoTree::TrackMaxDeposit(const size_t& itrack)     const {
+	//TODO check if we actually want total EDep rather than just from the leading contributor
+	auto it = std::max_element(fTracks->at(itrack).fTrueEnergy.begin(),fTracks->at(itrack).fTrueEnergy.end(),
+				      [](const std::pair<int,float>& lhs,const std::pair<int,float>& rhs) -> bool {return lhs.second < rhs.second; }
+				  );
+	if(it==fTracks->at(itrack).fTrueEnergy.end()) {
+		cout << "max element not found for itrack = " << itrack << "! (this is just a warning; is it all noise hits?)" << endl;
+		//cout << "fTracks->at(itrack).fTrueEnergy.size() = " << fTracks->at(itrack).fTrueEnergy.size() << endl;
+		return 0.;
+	}
+	return (*it).second;
+	//return fTracks->at(itrack).fTrueEnergy.at(TrackTrkIdMaxDeposit(itrack)).second;
+}
+
+const pair<int,float>*      StructuredRecoTree::TrackTrueDeposit(const size_t& itrack, size_t& itrue) const {
+
+	return &(fTracks->at(itrack).fTrueEnergy.at(itrue));
+
+}
+
+const vector<pair<int,float>>* StructuredRecoTree::TrackTrueDeposits(const size_t& itrack)            const {
+
+	return &(fTracks->at(itrack).fTrueEnergy);
 }
 
 //============== vertex ======================

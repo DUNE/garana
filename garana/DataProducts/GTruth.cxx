@@ -19,7 +19,8 @@ using namespace garana;
 
   //---------------------------------------------------------------
   GTruth::GTruth()
-    : fVertex(0, 0, 0, 0)
+    : fVertexRegion(-1)
+    , fVertex(0, 0, 0, 0)
     , fweight(0)
     , fprobability(0)
     , fXsec(0)

@@ -14,6 +14,11 @@ const float RecoTree::CalClustMaxDepositFrac(const size_t& icluster) const{
 	return CalClustMaxDeposit(icluster)/CalClustTrueEnergy(icluster);
 }
 
+const float RecoTree::TrackMaxDepositFrac(const size_t& itrack) const{
+	//if
+	return TrackMaxDeposit(itrack)/TrackTrueEnergy(itrack);
+}
+
 void RecoTree::GetTrackG4PIndices       (const size_t& itrk,    vector<UInt_t>& ig4ps  ) const {
 	//std::cout << "filling given track to g4p vec with " << fTrackG4PIndices->at(itrk).size() << " entries" << std::endl;
 	ig4ps = fTrackG4PIndices->at(itrk);
