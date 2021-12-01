@@ -1,0 +1,408 @@
+R__ADD_LIBRARY_PATH(/dune/app/users/birwin/garana_local_build/localProducts_garana_v00_00_13_e20_prof/garana/v00_00_13/slf7.x86_64.e20.prof/lib)
+R__LOAD_LIBRARY(libGaranaAccessors.so)
+R__LOAD_LIBRARY(libGaranaUtility.so)
+R__ADD_INCLUDE_PATH(/dune/app/users/birwin/garana_local_build/localProducts_garana_v00_00_13_e20_prof/garana/v00_00_13/include)
+
+/* Macro: FS Proton Skew vs. True Momentum
+ * Purpose 1: Study the skew in the resolution distribution for different bins of true momenta
+ * Purpose 2:*/
+
+#include "garana/Accessors/TreeManager.h"
+#include "garana/Utility/Backtracker.h"
+#include <TH1F.h>
+#include <iostream>
+#include <math.h>
+#include <TStyle.h>
+#include "functions.h"
+
+using namespace garana;
+
+void Skew()
+{
+	string infile =  "/dune/data/users/chilgenb/for_burke/structuredtree_bigish.root";
+
+	TreeManager* treeman = new TreeManager(infile);
+	Backtracker* bt = new Backtracker(treeman);
+	GenTree* gen = treeman->GetGenTree();
+	G4Tree*  g4  = treeman->GetG4Tree();
+	RecoTree* reco = treeman->GetRecoTree();
+
+
+	double sbins[28] = {.3,.4,.5,.6,.7,.8,.9,1.,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3.};
+	TH1D* fskew = new TH1D("fskew","Fractional Resolution Skew vs True Momentum",27,sbins);
+	TH1D* askew = new TH1D("askew","Absolute Difference Skew vs True Momentum",27,sbins);
+	
+
+//	for(UInt_t ip = 0; ip<27; ip++)
+//	{
+		TH1F* ftemp_hist1 = new TH1F("ftemp_hist1","Get fskew per true_p bin",100,1.5,1.);
+		TH1F* atemp_hist1 = new TH1F("atemp_hist1","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist2 = new TH1F("ftemp_hist2","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist2 = new TH1F("atemp_hist2","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist3 = new TH1F("ftemp_hist3","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist3 = new TH1F("atemp_hist3","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist4 = new TH1F("ftemp_hist4","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist4 = new TH1F("atemp_hist4","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist5 = new TH1F("ftemp_hist5","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist5 = new TH1F("atemp_hist5","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist6 = new TH1F("ftemp_hist6","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist6 = new TH1F("atemp_hist6","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist7 = new TH1F("ftemp_hist7","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist7 = new TH1F("atemp_hist7","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist8 = new TH1F("ftemp_hist8","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist8 = new TH1F("atemp_hist8","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist9 = new TH1F("ftemp_hist9","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist9 = new TH1F("atemp_hist9","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist10 = new TH1F("ftemp_hist10","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist10 = new TH1F("atemp_hist10","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist11 = new TH1F("ftemp_hist11","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist11 = new TH1F("atemp_hist11","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist12 = new TH1F("ftemp_hist12","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist12 = new TH1F("atemp_hist12","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist13 = new TH1F("ftemp_hist13","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist13 = new TH1F("atemp_hist13","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist14 = new TH1F("ftemp_hist14","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist14 = new TH1F("atemp_hist14","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist15 = new TH1F("ftemp_hist15","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist15 = new TH1F("atemp_hist15","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist16 = new TH1F("ftemp_hist16","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist16 = new TH1F("atemp_hist16","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist17 = new TH1F("ftemp_hist17","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist17 = new TH1F("atemp_hist17","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist18 = new TH1F("ftemp_hist18","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist18 = new TH1F("atemp_hist18","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist19 = new TH1F("ftemp_hist19","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist19 = new TH1F("atemp_hist19","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist20 = new TH1F("ftemp_hist20","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist20 = new TH1F("atemp_hist20","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist21 = new TH1F("ftemp_hist21","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist21 = new TH1F("atemp_hist21","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist22 = new TH1F("ftemp_hist22","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist22 = new TH1F("atemp_hist22","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist23 = new TH1F("ftemp_hist23","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist23 = new TH1F("atemp_hist23","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist24 = new TH1F("ftemp_hist24","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist24 = new TH1F("atemp_hist24","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist25 = new TH1F("ftemp_hist25","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist25 = new TH1F("atemp_hist25","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist26 = new TH1F("ftemp_hist26","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist26 = new TH1F("atemp_hist26","Get askew per true_p bin",30,-3.,3.);
+                TH1F* ftemp_hist27 = new TH1F("ftemp_hist27","Get fskew per true_p bin",100,1.5,1.);
+                TH1F* atemp_hist27 = new TH1F("atemp_hist27","Get askew per true_p bin",30,-3.,3.);
+
+		for(UInt_t ientry=0; ientry<48000; ientry++)//treeman->NEntries(); ientry++)              //Loop through all events
+                {
+                	treeman->GetEntry(ientry);
+			bt->FillMaps();
+
+                	for(UInt_t ig4p=0; ig4p<g4->NSim(); ig4p++)                     //Loop through true particles
+                        {
+				int association = 0;
+				pair<int,float> Responsible_track;
+				//FS Proton Check, FV Cut, and True Momentum Bin Cut
+                        	if(g4->IsPrimary(ig4p) && g4->PDG(ig4p) == 2212)// && g4->SimMomEnter(ig4p,0)->P()>sbins[ip] && g4->SimMomEnter(ig4p,0)->P()<sbins[ip+1])
+				{
+				        if(-220.<gen->NuVertex(bt->G4ParticleToGTruth(ig4p))->X()<220. && sqrt(pow(gen->NuVertex(bt->G4ParticleToGTruth(ig4p))->Y(),2)+pow(gen->NuVertex(bt->G4ParticleToGTruth(ig4p))->Z(),2))<230.)
+                                	{
+					for(UInt_t itrk=0; itrk<reco->NTrack(); itrk++) //Loop through reconstructed tracks
+                                        {
+						auto PrimeParticle = bt->TrackToG4ParticleDeposit(itrk);
+                                                if(ig4p==PrimeParticle.first)
+                                                {
+                        	                        association += 1;
+                        				//Find the track that the proton gave the most energy to
+							if(PrimeParticle.second>Responsible_track.second)
+                                                                {
+                                                                        Responsible_track = make_pair(itrk,PrimeParticle.second);
+                                                                }
+                                                        }
+                                                }
+                                        }
+				}
+                                if(association != 0)
+                                {
+					double true_p = g4->SimMomEnter(ig4p,0)->P();
+                                        double reco_p = reco->TrackMomBeg(Responsible_track.first)->Mag();
+					double aprespoint = true_p-reco_p;
+                                        double fprespoint = (true_p-reco_p)/true_p;
+					if(true_p>sbins[0] && true_p<sbins[1])
+					{
+						ftemp_hist1->Fill(fprespoint);
+						atemp_hist1->Fill(aprespoint);
+					}
+                                        if(true_p>sbins[1] && true_p<sbins[2])
+                                        {
+                                                ftemp_hist2->Fill(fprespoint);
+                                                atemp_hist2->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[2] && true_p<sbins[3])
+                                        {
+                                                ftemp_hist3->Fill(fprespoint);
+                                                atemp_hist3->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[3] && true_p<sbins[4])
+                                        {
+                                                ftemp_hist4->Fill(fprespoint);
+                                                atemp_hist4->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[4] && true_p<sbins[5])
+                                        {
+                                                ftemp_hist5->Fill(fprespoint);
+                                                atemp_hist5->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[5] && true_p<sbins[6])
+                                        {
+                                                ftemp_hist6->Fill(fprespoint);
+                                                atemp_hist6->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[6] && true_p<sbins[7])
+                                        {
+                                                ftemp_hist7->Fill(fprespoint);
+                                                atemp_hist7->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[7] && true_p<sbins[8])
+                                        {
+                                                ftemp_hist8->Fill(fprespoint);
+                                                atemp_hist8->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[8] && true_p<sbins[9])
+                                        {
+                                                ftemp_hist9->Fill(fprespoint);
+                                                atemp_hist9->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[9] && true_p<sbins[10])
+                                        {
+                                                ftemp_hist10->Fill(fprespoint);
+                                                atemp_hist10->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[10] && true_p<sbins[11])
+                                        {
+                                                ftemp_hist11->Fill(fprespoint);
+                                                atemp_hist11->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[11] && true_p<sbins[12])
+                                        {
+                                                ftemp_hist12->Fill(fprespoint);
+                                                atemp_hist12->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[12] && true_p<sbins[13])
+                                        {
+                                                ftemp_hist13->Fill(fprespoint);
+                                                atemp_hist13->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[13] && true_p<sbins[14])
+                                        {
+                                                ftemp_hist14->Fill(fprespoint);
+                                                atemp_hist14->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[14] && true_p<sbins[15])
+                                        {
+                                                ftemp_hist15->Fill(fprespoint);
+                                                atemp_hist15->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[15] && true_p<sbins[16])
+                                        {
+                                                ftemp_hist16->Fill(fprespoint);
+                                                atemp_hist16->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[16] && true_p<sbins[17])
+                                        {
+                                                ftemp_hist17->Fill(fprespoint);
+                                                atemp_hist17->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[17] && true_p<sbins[18])
+                                        {
+                                                ftemp_hist18->Fill(fprespoint);
+                                                atemp_hist18->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[18] && true_p<sbins[19])
+                                        {
+                                                ftemp_hist19->Fill(fprespoint);
+                                                atemp_hist19->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[19] && true_p<sbins[20])
+                                        {
+                                                ftemp_hist20->Fill(fprespoint);
+                                                atemp_hist20->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[20] && true_p<sbins[21])
+                                        {
+                                                ftemp_hist21->Fill(fprespoint);
+                                                atemp_hist21->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[21] && true_p<sbins[22])
+                                        {
+                                                ftemp_hist22->Fill(fprespoint);
+                                                atemp_hist22->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[22] && true_p<sbins[23])
+                                        {
+                                                ftemp_hist23->Fill(fprespoint);
+                                                atemp_hist23->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[23] && true_p<sbins[24])
+                                        {
+                                                ftemp_hist24->Fill(fprespoint);
+                                                atemp_hist24->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[24] && true_p<sbins[25])
+                                        {
+                                                ftemp_hist25->Fill(fprespoint);
+                                                atemp_hist25->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[25] && true_p<sbins[26])
+                                        {
+                                                ftemp_hist26->Fill(fprespoint);
+                                                atemp_hist26->Fill(aprespoint);
+                                        }
+                                        if(true_p>sbins[26] && true_p<sbins[27])
+                                        {
+                                                ftemp_hist27->Fill(fprespoint);
+                                                atemp_hist27->Fill(aprespoint);
+                                        }
+
+				}
+			}//Particle Loop
+		}//Event Loop
+		
+                fskew->SetBinContent(0,ftemp_hist1->GetSkewness(1));
+                askew->SetBinContent(0,atemp_hist1->GetSkewness(1));
+                fskew->SetBinContent(1,ftemp_hist2->GetSkewness(1));
+                askew->SetBinContent(1,atemp_hist2->GetSkewness(1));
+                fskew->SetBinContent(2,ftemp_hist3->GetSkewness(1));
+                askew->SetBinContent(2,atemp_hist3->GetSkewness(1));
+                fskew->SetBinContent(3,ftemp_hist4->GetSkewness(1));
+                askew->SetBinContent(3,atemp_hist4->GetSkewness(1));
+                fskew->SetBinContent(4,ftemp_hist5->GetSkewness(1));
+                askew->SetBinContent(4,atemp_hist5->GetSkewness(1));
+                fskew->SetBinContent(5,ftemp_hist6->GetSkewness(1));
+                askew->SetBinContent(5,atemp_hist6->GetSkewness(1));
+                fskew->SetBinContent(6,ftemp_hist7->GetSkewness(1));
+                askew->SetBinContent(6,atemp_hist7->GetSkewness(1));
+                fskew->SetBinContent(7,ftemp_hist8->GetSkewness(1));
+                askew->SetBinContent(7,atemp_hist8->GetSkewness(1));
+                fskew->SetBinContent(8,ftemp_hist9->GetSkewness(1));
+                askew->SetBinContent(8,atemp_hist9->GetSkewness(1));
+                fskew->SetBinContent(9,ftemp_hist10->GetSkewness(1));
+                askew->SetBinContent(9,atemp_hist10->GetSkewness(1));
+                fskew->SetBinContent(10,ftemp_hist11->GetSkewness(1));
+                askew->SetBinContent(10,atemp_hist11->GetSkewness(1));
+                fskew->SetBinContent(11,ftemp_hist12->GetSkewness(1));
+                askew->SetBinContent(11,atemp_hist12->GetSkewness(1));
+                fskew->SetBinContent(12,ftemp_hist13->GetSkewness(1));
+                askew->SetBinContent(12,atemp_hist13->GetSkewness(1));
+                fskew->SetBinContent(13,ftemp_hist14->GetSkewness(1));
+                askew->SetBinContent(13,atemp_hist14->GetSkewness(1));
+                fskew->SetBinContent(14,ftemp_hist15->GetSkewness(1));
+                askew->SetBinContent(14,atemp_hist15->GetSkewness(1));
+                fskew->SetBinContent(15,ftemp_hist16->GetSkewness(1));
+                askew->SetBinContent(15,atemp_hist16->GetSkewness(1));
+                fskew->SetBinContent(16,ftemp_hist17->GetSkewness(1));
+                askew->SetBinContent(16,atemp_hist17->GetSkewness(1));
+                fskew->SetBinContent(17,ftemp_hist18->GetSkewness(1));
+                askew->SetBinContent(17,atemp_hist18->GetSkewness(1));
+                fskew->SetBinContent(18,ftemp_hist19->GetSkewness(1));
+                askew->SetBinContent(18,atemp_hist19->GetSkewness(1));
+                fskew->SetBinContent(19,ftemp_hist20->GetSkewness(1));
+                askew->SetBinContent(19,atemp_hist20->GetSkewness(1));
+                fskew->SetBinContent(20,ftemp_hist21->GetSkewness(1));
+                askew->SetBinContent(20,atemp_hist21->GetSkewness(1));
+                fskew->SetBinContent(21,ftemp_hist22->GetSkewness(1));
+                askew->SetBinContent(21,atemp_hist22->GetSkewness(1));
+                fskew->SetBinContent(22,ftemp_hist23->GetSkewness(1));
+                askew->SetBinContent(22,atemp_hist23->GetSkewness(1));
+                fskew->SetBinContent(23,ftemp_hist24->GetSkewness(1));
+                askew->SetBinContent(23,atemp_hist24->GetSkewness(1));
+                fskew->SetBinContent(24,ftemp_hist25->GetSkewness(1));
+                askew->SetBinContent(24,atemp_hist25->GetSkewness(1));
+                fskew->SetBinContent(25,ftemp_hist26->GetSkewness(1));
+                askew->SetBinContent(25,atemp_hist26->GetSkewness(1));
+                fskew->SetBinContent(26,ftemp_hist27->GetSkewness(1));
+                askew->SetBinContent(26,atemp_hist27->GetSkewness(1));
+
+
+                delete ftemp_hist1;
+                delete atemp_hist1;
+                delete ftemp_hist2;
+                delete atemp_hist2;
+                delete ftemp_hist3;
+                delete atemp_hist3;
+                delete ftemp_hist4;
+                delete atemp_hist4;
+                delete ftemp_hist5;
+                delete atemp_hist5;
+                delete ftemp_hist6;
+                delete atemp_hist6;
+                delete ftemp_hist7;
+                delete atemp_hist7;
+                delete ftemp_hist8;
+                delete atemp_hist8;
+                delete ftemp_hist9;
+                delete atemp_hist9;
+                delete ftemp_hist10;
+                delete atemp_hist10;
+                delete ftemp_hist11;
+                delete atemp_hist11;
+                delete ftemp_hist12;
+                delete atemp_hist12;
+                delete ftemp_hist13;
+                delete atemp_hist13;
+                delete ftemp_hist14;
+                delete atemp_hist14;
+                delete ftemp_hist15;
+                delete atemp_hist15;
+                delete ftemp_hist16;
+                delete atemp_hist16;
+                delete ftemp_hist17;
+                delete atemp_hist17;
+                delete ftemp_hist18;
+                delete atemp_hist18;
+                delete ftemp_hist19;
+                delete atemp_hist19;
+                delete ftemp_hist20;
+                delete atemp_hist20;
+                delete ftemp_hist21;
+                delete atemp_hist21;
+                delete ftemp_hist22;
+                delete atemp_hist22;
+                delete ftemp_hist23;
+                delete atemp_hist23;
+                delete ftemp_hist24;
+                delete atemp_hist24;
+                delete ftemp_hist25;
+                delete atemp_hist25;
+                delete ftemp_hist26;
+                delete atemp_hist26;
+                delete ftemp_hist27;
+                delete atemp_hist27;
+
+
+//	}//sbins loop
+
+	gStyle->SetOptStat(0);
+
+	TCanvas* c1 = new TCanvas("c1","Skewness vs True Momentum",2000,1000);
+	c1->Divide(2,1);
+	c1->cd(1);
+	fskew->SetTitle("Fractional Resolution Skewness vs True Momentum");
+	fskew->GetXaxis()->SetTitle("True #vec{p} (GeV/c)");
+	fskew->GetYaxis()->SetTitle("Skewness");
+	fskew->SetMarkerStyle(kFullDotMedium);
+	fskew->SetMarkerColor(kRed);
+	fskew->Draw("hist");
+	c1->cd(2);
+	askew->SetTitle("Absolute Difference Resolution Skewness vs True Momentum");
+        askew->GetXaxis()->SetTitle("True #vec{p} (GeV/c)");
+        askew->GetYaxis()->SetTitle("Skewness");
+        askew->SetMarkerStyle(kFullDotMedium);
+        askew->SetMarkerColor(kBlue);
+        askew->Draw("hist");
+
+
+
+
+
+
+
+
+}
