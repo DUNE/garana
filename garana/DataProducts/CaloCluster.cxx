@@ -83,7 +83,7 @@ int const& CaloCluster::Region() const {
 	 return &fEigenVecs;
  }
 
- const size_t CaloCluster::NIdes() const {
+ size_t CaloCluster::NIdes() const {
 	 return fTrueEnergy.size();
  }
 
@@ -91,7 +91,7 @@ int const& CaloCluster::Region() const {
 	 return &fTrueEnergy.at(iide);
  }
 
- const float CaloCluster::TotalTrueEnergy() const {
+ float CaloCluster::TotalTrueEnergy() const {
 	 float edep = 0.;
 	 for(auto const& trkdep : fTrueEnergy)
 		 edep += trkdep.second;

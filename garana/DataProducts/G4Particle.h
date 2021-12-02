@@ -60,9 +60,9 @@ namespace garana {
       const TLorentzVector* PositionExit(const size_t& iregion)     const { return &fR.at(iregion).second ; }
       const TLorentzVector* MomentumEnter(const size_t& iregion)    const { return &fP.at(iregion).first ; }
       const TLorentzVector* MomentumExit(const size_t& iregion)     const { return &fP.at(iregion).second ; }
-      const int             Region(const size_t& iregion)           const { return fRegions.at(iregion); }
-      const size_t          NPointsPerRegion(const size_t& iregion) const { return fNptsPerRegion.at(iregion); }
-      const size_t          NRegions()                              const { return fRegions.size(); }
+      int                   Region(const size_t& iregion)           const { return fRegions.at(iregion); }
+      size_t                NPointsPerRegion(const size_t& iregion) const { return fNptsPerRegion.at(iregion); }
+      size_t                NRegions()                              const { return fRegions.size(); }
 
 	  #endif
 
