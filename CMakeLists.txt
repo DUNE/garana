@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.14...3.19)
 
-project(garana VERSION 00.00.12
+project(garana VERSION 00.01.00
                DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
                LANGUAGES CXX
 )
@@ -36,12 +36,10 @@ IF( BUILD_W_CET )
                            EXTRA_CXX_FLAGS -D_GLIBCXX_USE_NANOSLEEP ${ARTDFLAG} -Wno-variadic-macros -fPIC)
     cet_report_compiler_flags()
 
-    find_ups_product( art v1_09_00          )
+    find_ups_product( art           )
     find_ups_product( canvas        )
-    find_ups_product( cetbuildtools v3_10_00 )
+    find_ups_product( cetbuildtools v8_17_03 )
     find_ups_root()
-
-    message(STATUS "ROOTSYS is ${ROOTSYS}")
 
     # macros
     include(ArtMake)
@@ -149,7 +147,7 @@ ELSE()
     list(APPEND CMAKE_PREFIX_PATH "$ENV{ROOTSYS}") # "$ENV{PYTHONPATH}")
     #find_package(python 2.7 CONFIG REQUIRED)
     #find_package(python 3.9 CONFIG REQUIRED)
-    find_package(ROOT 6.22 CONFIG REQUIRED)
+    find_package(ROOT 6.24 CONFIG REQUIRED)
     if(ROOT_FOUND)
       message(STATUS "FOUND ROOT :)")
     else()
