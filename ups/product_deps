@@ -1,7 +1,7 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent	garana	v00_02_00
-defaultqual	e20
+parent	garana	v00_03_00
+defaultqual	e26
 
 # These optional lines define the installed directories where
 # headers, libraries, and executables will be found
@@ -33,6 +33,10 @@ e20:debug e20:debug e20:debug       e20:p3913:debug
 e20:prof  e20:prof  e20:prof        e20:p3913:prof
 c7:debug  c7:debug  c7:debug        c7:p3913:debug
 c7:prof   c7:prof   c7:prof         c7:p3913:prof 
+e26:debug e26:debug e26:debug       e26:p3913:debug
+e26:prof  e26:prof  e26:prof        e26:p3913:prof
+c14:debug  c14:debug  c14:debug        c14:p3913:debug
+c14:prof   c14:prof   c14:prof         c14:p3913:prof 
 end_qualifier_list
 
 # table fragment to set FW_SEARCH_PATH needed

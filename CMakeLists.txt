@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.14...3.19)
 
-project(garana VERSION 00.02.00
+project(garana VERSION 00.03.00
                DESCRIPTION "tools for garsoft analysis ( DUNE ND-GAr )"
                LANGUAGES CXX
 )
